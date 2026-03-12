@@ -10,19 +10,18 @@ APP_NAME="Elvish"
 ../../../utils/install_helpers/_set_helpers.sh ../../
 . ../../_helpers_.sh
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
 # Gauti programos paskutinės versijos failo pavadinimą iš repozitorijos
-# Vėliausią versiją galima rasti "https://dl.elv.sh/
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/elves/elvish/releases/latest" | xargs basename )"
 CURRENT="v$(elvish --version | cut -c -6)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "elvish" "${HOME}/.opt/elvish"; then

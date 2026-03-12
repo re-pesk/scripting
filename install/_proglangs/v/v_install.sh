@@ -12,12 +12,11 @@ APP_NAME="V"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl realpath unzip xargs xq; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/vlang/v/releases/latest
 # Gauti įdiegtos programos versijos numerį
 TAG="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/vlang/v/releases/latest" | xargs basename)"
 COMMIT="$(curl -sSL "https://github.com/vlang/v/releases/tag/${TAG}" | xq -q "div:has(span:contains('${TAG}')) ~ div > a > code")"
@@ -26,7 +25,7 @@ awk -F"[' ]" '/version: / {print $3}') ${COMMIT}"
 CURRENT="$(v -v 2> /dev/null | awk '{print $2, $NF}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "v" "${HOME}/.opt/v"; then
@@ -63,7 +62,7 @@ unzip "v_${TAG}_linux.zip" -d "${HOME}/.opt" > /dev/null 2>&1
 # Sukurti simbolinę nuorodą į vykdomąjį failą.
 ln -fs "${HOME}/.opt/v/v" -t "${HOME}/.local/bin"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! v -v > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}" 1>&2
   exit 1

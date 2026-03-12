@@ -17,7 +17,7 @@ install_euphoria_4.1() {
   CURRENT="$(eui --version &> /dev/null && eui --version  | head -n 1 | awk '{print $3}' | sed 's/v//')"
 
   # Atnaujinti pranešimų masyvą
-  update_lang_messages
+  . ../../_helpers_.sh
 
   # Pasirinkti, ar įdiegti kitą versiją
   if ! ask_to_install "eui" "${HOME}/.opt/euphoria"; then
@@ -49,7 +49,7 @@ install_euphoria_4.1() {
     [[ ":${PATH}:" != *":${HOME}/.opt/euphoria/bin:"* ]] &&
       export PATH="${HOME}/.opt/euphoria/bin${PATH:+:${PATH}}"
 
-  # Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+  # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
   if ! euc --version &> /dev/null || ! eui --version &> /dev/null ; then
     errorMessage "${LANG_MESSAGES[not_working]}"
     return 1

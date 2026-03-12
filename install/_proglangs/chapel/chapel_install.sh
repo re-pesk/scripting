@@ -12,19 +12,18 @@ APP_NAME="Chapel"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/chapel-lang/chapel/releases/latest
 # Gauti paskutinės programos versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(basename -- "$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/chapel-lang/chapel/releases/latest")")"
 CURRENT="$(chpl --version 2>/dev/null | head -n 1 | awk '{print $NF}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "chpl" "/usr/share/chapel"; then

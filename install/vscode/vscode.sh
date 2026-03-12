@@ -1,5 +1,7 @@
 #! /usr/bin/env -S bash
 
+DEBUG=
+
 # shellcheck disable=SC2034
 APP_NAME="VSCode"
 
@@ -10,22 +12,63 @@ APP_NAME="VSCode"
 
 echo ""
 
-if ! install_missing_packages apt-transport-https gpg wget; then
+# Įdiegti trūkstamus paketus
+install_missing_packages apt-transport-https curl
+
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
+if ! chech_command curl gpg wget; then
   exit 1
 fi
 
-# Pagal https://code.visualstudio.com/docs/setup/linux
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
-| sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+# Gauti programos paskutinės versijos numerį
+# Gauti įdiegtos programos versijos numerį
+LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/microsoft/vscode/releases/latest" | xargs basename)"
+CURRENT="$(code --version 2> /dev/null | head -n 1)"
 
-sudo tee /etc/apt/sources.list.d/vivaldi.sources <<SOURCES
+# Atnaujinti pranešimų masyvą
+. ../_helpers_.sh
+
+# Pasirinkti, ar įdiegti naujausią versiją
+if ! ask_to_install "code" "/usr/share/code/bin/code"; then
+  exit 1
+fi
+
+# Jeigu nėra gpg rakto ir programa nėra įdiegta, įdiegti gpg raktą ir sukurti resursą
+[ -f /usr/share/keyrings/microsoft.gpg ] && [ -n "${CURRENT}" ] || {
+  # Pagal https://code.visualstudio.com/docs/setup/linux
+  wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+  sudo tee /etc/apt/sources.list.d/vscode.sources <<SOURCES
 Types: deb
 URIs: https://packages.microsoft.com/repos/code
 Suites: stable
 Components: main
-Architectures: amd64,arm64,armhf
+Architectures: amd64
 Signed-By: /usr/share/keyrings/microsoft.gpg
 SOURCES
+}
 
+# Atnaujinti paketų sąrašą po resurso pridėjimo
 sudo apt update
+
+# Jeigu nėra įdiegtas, įdiegiamas VSCode
+(( $(apt list --installed 2> /dev/null | grep -c '^code/') > 0 )) || {
+  sudo apt install code
+}
+
+# Atnaujinamas VSCode
+sudo apt upgrade
+
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+if ! code --version > /dev/null 2>&1; then
+  errorMessage "${LANG_MESSAGES[not_working]}"
+  exit 1
+fi
+
+CURRENT="$(code --version 2> /dev/null | head -n 1)"
+[[ "${CURRENT}" == "${LATEST}" ]] || {
+  errorMessage "${LANG_MESSAGES[not_updated]}"
+  exit 1
+}
+
 sudo apt install sudo apt install code

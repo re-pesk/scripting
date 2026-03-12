@@ -12,7 +12,7 @@ APP_NAME="PHP"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
@@ -29,7 +29,7 @@ LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/php/php
 CURRENT="$(php -v 2> /dev/null | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "php" "$(which php | xargs realpath)"; then

@@ -12,19 +12,18 @@ APP_NAME="Odin"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti puslapyje https://github.com/odin-lang/Odin/releases/latest
 # Gauti vėliausios programos versijos numerį.
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/odin-lang/Odin/releases/latest" | xargs basename)"
 CURRENT="$(odin version 2> /dev/null | cut -c 14-24)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "odin" "${HOME}/.opt/odin"; then

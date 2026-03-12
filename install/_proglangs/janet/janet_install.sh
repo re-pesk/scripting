@@ -12,19 +12,18 @@ APP_NAME="Janet"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
 
 # Gauti programos paskutinės versijos numerį
-# Vėliausią versiją galima rasti https://github.com/janet-lang/janet/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/janet-lang/janet/releases/latest" | xargs basename)"
 CURRENT="v$(janet --version 2> /dev/null | awk -F'-' '{print $1}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "janet" "${HOME}/.opt/janet"; then
@@ -62,7 +61,7 @@ tar --file="janet-${LATEST}-linux-x64.tar.gz" \
 ln -sf "${HOME}/.opt/janet/bin/janet" "${HOME}/.local/bin/"
 ln -sf "${HOME}/.opt/janet/man/man1/janet.1" "${HOME}/.local/man/man1/"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! janet --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

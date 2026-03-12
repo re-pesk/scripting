@@ -18,12 +18,11 @@ declare -A LOCAL_MESSAGES=(
   'lt_LT.UTF-8.not_supported' $'Šis skriptas negali būti naudojamas {PLATFORM} platformoje! Naudokite autoriaus pateikiamą skriptą!'
 )
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl unzip xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/denoland/deno/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$( \
@@ -33,7 +32,7 @@ LATEST="$( \
 CURRENT="$(bun --version 2> /dev/null)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "bun" "${HOME}/.opt/bun"; then
@@ -101,7 +100,7 @@ PATH_COMMAND=$'export BUN_INSTALL="${HOME}/.opt/bun"
   export PATH="${BUN_INSTALL}/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if  ! bun --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

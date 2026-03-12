@@ -12,7 +12,7 @@ APP_NAME="Dart"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command gpg tee wget; then
   exit 1
 fi

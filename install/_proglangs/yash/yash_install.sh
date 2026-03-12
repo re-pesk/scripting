@@ -12,19 +12,18 @@ APP_NAME="Yash"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl make xargs xq; then
   exit 1
 fi
 
 # Gauti programos paskutinės versijos numerį
-# Vėliausią versiją galima rasti https://github.com/magicant/yash/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/magicant/yash/releases/latest" | xargs basename)"
 CURRENT="$(yash --version 2> /dev/null | head -n 1 | awk '{print $NF}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "yash" "${HOME}/.opt/yash"; then
@@ -75,7 +74,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/yash/bin" ]] &&
     export PATH="${HOME}/.opt/yash/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! yash --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

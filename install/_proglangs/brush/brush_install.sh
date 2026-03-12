@@ -12,12 +12,11 @@ APP_NAME="Brush"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/reubeno/brush/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/reubeno/brush/releases/latest" | \
@@ -25,7 +24,7 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/reubeno/
 CURRENT="$(brush --version 2> /dev/null | awk '{print "v"$2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "brush" "${HOME}/.opt/brush"; then
@@ -65,7 +64,7 @@ fi
 
 ln -fs "${HOME}/.opt/brush/brush" -t "${HOME}/.local/bin/"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! brush --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

@@ -12,20 +12,19 @@ APP_NAME="Lua"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl make xargs xq; then
   exit 1
 fi
 
 # Gauti programos paskutinės versijos numerį
-# Vėliausią versiją galima rasti https://github.com/lua/lua/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/lua/lua/releases/latest" | \
   xargs basename | sed 's/^v//')"
 CURRENT="$(lua -v 2> /dev/null | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "lua" "${HOME}/.opt/lua"; then
@@ -69,7 +68,7 @@ eval "${PATH_COMMAND}"
 
 echo ""
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! lua -v > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

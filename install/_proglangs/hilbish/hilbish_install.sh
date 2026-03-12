@@ -12,18 +12,17 @@ APP_NAME="Hilbish"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/Rosettea/Hilbish/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" https://github.com/Rosettea/Hilbish/releases/latest | xargs basename)"
 CURRENT="$(hilbish --version 2> /dev/null | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "hilbish" "${HOME}/.opt/hilbish"; then
@@ -62,7 +61,7 @@ ln -si "${HOME}/.opt/hilbish/hilbish" "${HOME}/.local/bin/"
 cp -iT "${HOME}/.opt/hilbish/.hilbishrc.lua" "${HOME}/.config/hilbish/init.lua"
 printf "hilbish.opts.tips = false\n" >> "${HOME}/.config/hilbish/init.lua"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! hilbish --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

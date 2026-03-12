@@ -17,7 +17,6 @@ if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/ngs-lang/ngs/releases/latest
 # Gauti naujausią versiją iš repozitorijos
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(
@@ -27,7 +26,7 @@ LATEST="$(
 CURRENT="v$(ngs --version)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "ngs" "${HOME}/.opt/ngs"; then
@@ -37,7 +36,7 @@ fi
 # Įdiegti naujausią versiją
 curl https://ngs-lang.org/install.sh | bash
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! ngs --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

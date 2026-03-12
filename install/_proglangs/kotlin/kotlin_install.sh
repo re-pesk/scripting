@@ -12,7 +12,7 @@ APP_NAME="Kotlin"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymąipto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
@@ -24,14 +24,13 @@ fi
 }
 
 # Gauti programos paskutinės versijos numerį
-# Vėliausią versiją galima rasti https://github.com/JetBrains/kotlin/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/JetBrains/kotlin/releases/latest" \
   | xargs basename | sed 's/v//')"
 CURRENT="$(kotlinc-native -version 2> /dev/null | awk '{print $NF}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "kotlin" "${HOME}/.opt/kotlin-native"; then
@@ -70,7 +69,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/kotlin-native/bin" ]] && \
     export PATH="${HOME}/.opt/kotlin-native/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! kotlinc-native -version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

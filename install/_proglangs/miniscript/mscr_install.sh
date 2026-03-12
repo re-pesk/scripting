@@ -12,7 +12,7 @@ APP_NAME="Miniscript"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
@@ -24,7 +24,7 @@ LATEST="$(curl -sSL https://github.com/JoeStrout/miniscript/tags | \
 CURRENT="$(miniscript -? 2> /dev/null | tail -n +2 | head -n 1 | awk '{print $5}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "miniscript" "${HOME}/.opt/miniscript"; then
@@ -39,7 +39,7 @@ curl -sSLo - https://miniscript.org/files/miniscript-linux.tar.gz | \
 # Sukurti simbolinę nuorodą į vykdomąjį failą
 ln -sf "${HOME}/.opt/miniscript/miniscript" -t "${HOME}/.local/bin/"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! miniscript -? &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

@@ -20,7 +20,7 @@ declare -A EUPH_MESSAGES=(
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
