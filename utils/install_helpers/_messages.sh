@@ -72,7 +72,7 @@ declare -A MESSAGES=(
   'lt_LT.UTF-8.prompt' $'Norėdami tęsti, spauskite \'y\', norėdami išeiti, spauskite \'n\' arba <Įvesti>'
   'lt_LT.UTF-8.record_exists' '{APP_NAME} įrašas faile {FILE_NAME} jau yra!'
 
-  # Messages for install_*.sh
+  # Messages for *_install.sh
   'en.UTF-8.already' 'Application {APP_NAME} already installed!'
   'en.UTF-8.failed' 'Installation of {APP_NAME} failed!'
   'en.UTF-8.failed_latest' 'Installation of {APP_NAME} {LATEST} failed!'
@@ -117,25 +117,9 @@ while IFS= read -rd '' key && IFS= read -rd '' value; do
   LANG_MESSAGES["${key#"${LANG}."}"]="${value//'{APP_NAME}'/"${APP_NAME}"}"
 done < <(printf '%s\0%s\0' "${MESSAGES[@]@k}")
 
-update_lang_messages() {
-  # shellcheck disable=SC2178
-  if [ -z "${LANG_MESSAGES[*]}" ]; then
-    errorMessage "${MESSAGES[${LANG}.empty_lang_messages]}"
-    exit 1
-  fi
-  local -n lang_messages="LANG_MESSAGES"
-  if [ -z "${LATEST}" ]; then
-  # shellcheck disable=SC1094
-    errorMessage "${MESSAGES[${LANG}.empty_latest]}"
-    exit 1
-  fi
-  if [ -z "${CURRENT}" ]; then
-    # shellcheck disable=SC1094
-    warningMessage "${MESSAGES[${LANG}.empty_current]}"
-  fi
+if [[ -n "${LATEST}" ]]; then
   while IFS= read -rd '' key && IFS= read -rd '' value; do
     # shellcheck disable=SC2034
-    lang_messages["${key#"${LANG}."}"]="$(sed -e "s|{LATEST}|${LATEST}|g;s|{CURRENT}|${CURRENT:+ ${CURRENT}}|g" \
-      <<< "${value}")"
-  done < <(printf '%s\0%s\0' "${lang_messages[@]@k}")
-}
+    LANG_MESSAGES["${key}"]="$(sed -e "s|{LATEST}|${LATEST}|g;s|{CURRENT}|${CURRENT:+ ${CURRENT}}|g" <<<"${value}")"
+  done < <(printf '%s\0%s\0' "${LANG_MESSAGES[@]@k}")
+fi

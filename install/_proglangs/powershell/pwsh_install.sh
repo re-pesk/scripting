@@ -12,7 +12,7 @@ APP_NAME="PowerShell"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
@@ -43,7 +43,7 @@ sudo apt-get update
 # Įdiegti PowerShell
 dpkg -s powershell &> /dev/null || sudo apt-get install -y powershell
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! pwsh -Version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
@@ -54,6 +54,6 @@ fi
 LATEST="$(pwsh -Version | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 successMessage "${LANG_MESSAGES[installed_latest]}"

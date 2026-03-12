@@ -12,12 +12,11 @@ APP_NAME="Go"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://go.dev/dl/
 # Gauti vėliausios programos versijos numerį.
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sSL https://go.dev/dl/ \
@@ -26,7 +25,7 @@ LATEST="$(curl -sSL https://go.dev/dl/ \
 CURRENT="$(go version 2> /dev/null | awk '{print $3}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "go" "${HOME}/.opt/go"; then
@@ -70,7 +69,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/go/bin" ]] &&
   export PATH="${HOME}/go/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! go version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

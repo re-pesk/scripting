@@ -12,19 +12,20 @@ APP_NAME="Zig"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl jq xargs; then
   exit 1
 fi
 
 # Vėliausią versijos numerį galima rasti https://ziglang.org/download/
+# Gauti vėliausios programos versijos numerį.
 # Gauti įdiegtos programos versijos numerį.
 LATEST="$(curl -Lso - https://ziglang.org/download/index.json |\
   jq -r 'keys - ["master"] | sort_by(split(".") | map(tonumber)) | last')"
 CURRENT="$(zig version 2> /dev/null)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "zig" "${HOME}/.opt/zig"; then
@@ -66,7 +67,7 @@ ln -fs "${HOME}/.opt/zig/zig" "${HOME}/.local/bin"
 
 echo ""
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! zig --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

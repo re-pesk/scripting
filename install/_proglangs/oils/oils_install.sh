@@ -12,19 +12,18 @@ APP_NAME="Oils"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/nushell/nushell/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sSLo - https://raw.githubusercontent.com/oils-for-unix/oils/refs/heads/master/oils-version.txt | head -n 1)"
 CURRENT="$(osh --version | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "osh" "${HOME}/.opt/oils"; then
@@ -60,7 +59,7 @@ rm -rf "${HOME}/.opt/oils"
 ln -sfT "${HOME}/.opt/oils/bin/oils-for-unix" "${HOME}/.local/bin/osh"
 ln -sfT "${HOME}/.opt/oils/bin/oils-for-unix" "${HOME}/.local/bin/ysh"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! osh --version &> /dev/null || ! ysh --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

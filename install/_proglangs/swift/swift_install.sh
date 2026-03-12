@@ -12,12 +12,13 @@ APP_NAME="Swiftly"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://www.swift.org/install/linux/
+LATEST
+CURRENT="$(swiftly --version 2> /dev/null)"
 
 # Sukurti laikiną aplanką.
 # Sukurti funkciją, ištrinančią jį iš disko.
@@ -48,10 +49,3 @@ if ! swiftly --version > /dev/null 2>&1; then
   exit 1
 fi
 successMessage "${LANG_MESSAGES[installed]}"
-
-if ! swift --version > /dev/null 2>&1; then
-  printf "Error! Swift is not working as expected!\n\n"
-  errorMessage "${MESSAGES[${LANG}.not_working]//'{APP_NAME}'/"Swift"}"
-  exit 1
-fi
-successMessage "${MESSAGES[${LANG}.installed]//'{APP_NAME}'/"Swift"}"

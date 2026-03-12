@@ -12,19 +12,18 @@ APP_NAME="Nushell"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
 
 # Gauti programos paskutinės versijos numerį
-# Vėliausią versiją galima rasti https://github.com/nushell/nushell/releases/latest
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nushell/nushell/releases/latest" | xargs basename)"
 CURRENT="$(nu -v 2> /dev/null)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "nu" "${HOME}/.opt/nu"; then
@@ -69,7 +68,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/nu" ]] \
 eval "${PATH_COMMAND}"
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! nu -v > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

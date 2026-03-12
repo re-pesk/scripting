@@ -12,12 +12,11 @@ APP_NAME="Ballerina"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl unzip xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/ballerina-platform/ballerina-distribution/releases/latest
 # Gauti paskutinės programos versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(
@@ -27,7 +26,7 @@ LATEST="$(
 CURRENT="$(bal --version 2>/dev/null | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "bal" "${HOME}/.opt/ballerina"; then
@@ -70,7 +69,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/ballerina/bin" ]] && \
     export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! bal --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

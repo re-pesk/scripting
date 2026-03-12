@@ -12,7 +12,7 @@ APP_NAME="Bython"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command python3 xargs xq; then
   exit 1
 fi
@@ -38,7 +38,7 @@ LATEST="bython"
 CURRENT="$(bython --help 2> /dev/null | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "bython" "${HOME}/.pyvenvs/tests/bin"; then

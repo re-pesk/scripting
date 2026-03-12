@@ -12,7 +12,7 @@ APP_NAME="Phix"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs xq; then
   exit 1
 fi
@@ -26,7 +26,7 @@ LATEST="$(curl http://phix.x10.mx/download.php 2> /dev/null | \
 CURRENT="$(p -version 2> /dev/null)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "phix" "${HOME}/.opt/phix"; then
@@ -82,7 +82,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/phix/bin" ]] \
     && export PATH="${HOME}/.opt/phix/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! p -version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

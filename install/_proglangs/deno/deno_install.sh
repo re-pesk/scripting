@@ -12,19 +12,18 @@ APP_NAME="Deno"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/denoland/deno/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/denoland/deno/releases/latest" | xargs basename)"
 CURRENT="$(deno --version 2> /dev/null | head -n 1 | awk '{print "v"$2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "deno" "${HOME}/.opt/deno"; then
@@ -43,7 +42,7 @@ PATH_COMMAND=$'[[ -d "${HOME}/.opt/deno/bin" ]] && \
     export PATH="${HOME}/.opt/deno/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if  ! deno --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

@@ -12,19 +12,18 @@ APP_NAME="Murex"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/Murex-dev/murex/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/lmorg/murex/releases/latest" | xargs basename)"
 CURRENT="$(murex --version | head -n 1 | awk '{print $2}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "murex" "${HOME}/.opt/murex"; then
@@ -43,7 +42,7 @@ chmod +x "${HOME}/.opt/murex/murex"
 # Sukurti simbolinę nuorodą į vykdomąjį failą.
 ln -sf "${HOME}/.opt/murex/murex" -t "${HOME}/.local/bin"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! murex --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

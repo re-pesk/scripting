@@ -12,19 +12,18 @@ APP_NAME="Nvm"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command curl xargs; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti https://github.com/nvm-sh/nvm/releases/latest
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nvm-sh/nvm/releases/latest" | xargs basename)"
 CURRENT="$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "$(shopt -s extdebug; nvm --version &> /dev/null && declare -F nvm | awk '{print $NF}')" "${HOME}/.opt/nvm"; then
@@ -46,7 +45,7 @@ PATH_COMMAND=$'export NVM_DIR="$HOME/.opt/nvm"
 [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if  ! nvm --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
@@ -79,7 +78,7 @@ LATEST="$(nvm version-remote --lts 2> /dev/null)"
 CURRENT="$(node --version 2> /dev/null)"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "node" "${HOME}/.opt/nvm"; then
@@ -91,7 +90,7 @@ nvm install --lts
 nvm use --lts
 nvm install-latest-npm
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! node --version &> /dev/null; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1

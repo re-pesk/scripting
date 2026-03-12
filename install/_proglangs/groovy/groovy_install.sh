@@ -12,7 +12,7 @@ APP_NAME="Groovy"
 
 echo ""
 
-# Jei komandos neįdiegtos, išeiti iš skripto
+# Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! check_command awk curl unzip xargs xq; then
   exit 1
 fi
@@ -22,7 +22,6 @@ if ! java --version > /dev/null 2>&1; then
   exit 1
 fi
 
-# Vėliausią versiją galima rasti "https://groovy.apache.org/download.html#distro"
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$( curl -s https://groovy.apache.org/download.html#distro \
@@ -31,7 +30,7 @@ LATEST="$( curl -s https://groovy.apache.org/download.html#distro \
 CURRENT="$(groovy --version 2> /dev/null | awk '{print $3}')"
 
 # Atnaujinti pranešimų masyvą
-update_lang_messages
+. ../../_helpers_.sh
 
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "groovy" "${HOME}/.opt/groovy"; then
@@ -76,7 +75,7 @@ PATH_COMMAND=$'[ -z "$JAVA_HOME" ] && {
     export PATH="${HOME}/.opt/groovy/bin${PATH:+:${PATH}}"'
 eval "${PATH_COMMAND}"
 
-# Jeigu nepavyko įdiegti, išvesti pranešimą ir nutraukti scenarijaus vykdymą
+# Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! groovy --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
