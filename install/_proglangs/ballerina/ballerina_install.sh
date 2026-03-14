@@ -50,11 +50,15 @@ cd "${TMP_DIR}" || exit 1
 curl -sSLO "${URL}"
 curl -sSLO "${URL}.sha256"
 # shellcheck disable=SC2016
-if ! check_sha256 "ballerina-${LATEST}-swan-lake.zip" "ballerina-${LATEST}-swan-lake.zip.sha256" \
+if ! compare_checksums sha256sum \
+  "ballerina-${LATEST}-swan-lake.zip" \
+  "ballerina-${LATEST}-swan-lake.zip.sha256" \
   "'{print $1}'" "'{print $NF}'"; then
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi
+
+# compare_checksums sha256sum "ballerina-${LATEST}-swan-lake.zip;'{print $1}'" "ballerina-${LATEST}-swan-lake.zip.sha256;'{print $NF}'"
 
 # Išskleisti programos failą į laikiną aplanką. Ištrinti įdiegtą versiją.
 # Perkelti išarchyvuotus failus į diegimo katalogą. Ištrinti laikiną aplanką su turiniu

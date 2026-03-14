@@ -45,7 +45,7 @@ curl -sSL "https://github.com/nushell/nushell/releases/expanded_assets/${LATEST}
   > "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 \
+if ! compare_checksums sha256sum \
   "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" \
   "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"

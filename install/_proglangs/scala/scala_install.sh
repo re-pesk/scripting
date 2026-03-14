@@ -43,7 +43,7 @@ curl -sSLo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" \
 
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! check_sha256 \
+if ! compare_checksums sha256sum \
   "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
   "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"

@@ -46,7 +46,9 @@ curl -sSLO "${URL}.tar.gz"
 curl -sSLO "${URL}.sha256"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! check_sha256 "brush-x86_64-unknown-linux-musl.tar.gz" "brush-x86_64-unknown-linux-musl.sha256"; then
+if ! compare_checksums sha256sum \
+  "brush-x86_64-unknown-linux-musl.tar.gz" \
+  "brush-x86_64-unknown-linux-musl.sha256"; then
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi

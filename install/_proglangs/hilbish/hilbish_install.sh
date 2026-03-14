@@ -41,7 +41,9 @@ curl -sSLO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hi
 curl -sSLO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz.md5"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_md5 "hilbish-${LATEST}-linux-amd64.tar.gz" "hilbish-${LATEST}-linux-amd64.tar.gz.md5"; then
+if ! compare_checksums md5sum \
+  "hilbish-${LATEST}-linux-amd64.tar.gz" \
+  "hilbish-${LATEST}-linux-amd64.tar.gz.md5"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

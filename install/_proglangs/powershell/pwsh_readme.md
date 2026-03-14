@@ -7,15 +7,9 @@
 
 ## Diegimas
 
-```bash
-NAMES=(wget apt-transport-https software-properties-common)
-sudo apt-get update
-readarray -t NOT_PKGNAMES < <( printf "%s\n" "${NAMES[@]}" | grep -Fvxf <(apt-cache pkgnames | sort -u ))
-(( ${#NOT_PKGNAMES[@]} > 0 )) && printf '\n%s: %s\n\n' "Klaidingi paketų pavadinimai" "${NOT_PKGNAMES[*]}" 1>&2
-readarray -t NOT_INSTALLED < <( printf "%s\n" "${NAMES[@]}" "${NOT_PKGNAMES[@]}" | sort | uniq -u | 
-  grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u ))
-(( ${#NOT_INSTALLED[@]} > 0 )) && sudo apt-get install -y "${NOT_INSTALLED[@]}"
+Jeigu nėra įdiegta, įdiegti `wget apt-transport-https software-properties-common`
 
+```bash
 dpkg -s packages-microsoft-prod &> /dev/null || (
   source /etc/os-release
   wget -q "https://packages.microsoft.com/config/${NAME,,}/${VERSION_ID}/packages-microsoft-prod.deb"
@@ -29,8 +23,6 @@ sudo apt-get update
 dpkg -s powershell &> /dev/null || sudo apt-get install -y powershell
 
 pwsh -Version
-
-unset NAMES NOT_PKGNAMES NOT_INSTALLED
 ```
 
 ## Paleistis

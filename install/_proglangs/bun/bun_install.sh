@@ -79,7 +79,11 @@ curl -sSL "https://github.com/oven-sh/bun/releases/expanded_assets/bun-v${LATEST
   > "bun-${TARGET}.sha256"
 
 # Jei failas neatitinka patikros sumos, nutraukti diegimą
-if ! check_sha256 "bun-${TARGET}.zip" "bun-${TARGET}.sha256" "'{print \$1}'" "-F':' '{print \$2}'"; then
+if ! compare_checksums sha256sum \
+  "bun-${TARGET}.zip" \
+  "bun-${TARGET}.sha256" \
+  "'{print \$1}'" \
+  "-F':' '{print \$2}'"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

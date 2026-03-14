@@ -48,7 +48,9 @@ curl -sSL https://go.dev/dl/ \
 | xargs printf "%s  ${LATEST}.linux-amd64.tar.gz\n" > "${LATEST}.linux-amd64.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "${LATEST}.linux-amd64.tar.gz" "${LATEST}.linux-amd64.tar.gz.sha256"; then
+if ! compare_checksums sha256sum \
+  "${LATEST}.linux-amd64.tar.gz" \
+  "${LATEST}.linux-amd64.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi

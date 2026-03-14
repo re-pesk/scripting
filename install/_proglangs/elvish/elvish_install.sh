@@ -39,7 +39,8 @@ trap cleanup EXIT
 cd "${TMP_DIR}" || exit 1
 curl -sSLO "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz"
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256_str "elvish-${LATEST}.tar.gz" \
+if ! compare_checksums_str sha256sum \
+  "elvish-${LATEST}.tar.gz" \
   "$(curl -sSLo - "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz.sha256sum")"; then
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1

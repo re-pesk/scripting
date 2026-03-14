@@ -45,7 +45,8 @@ curl -sL "https://github.com/janet-lang/janet/releases/expanded_assets/${LATEST}
 | awk -F ':' '{print $NF}' > "janet-${LATEST}-linux-x64.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! check_sha256 "janet-${LATEST}-linux-x64.tar.gz" \
+if ! compare_checksums sha256sum \
+  "janet-${LATEST}-linux-x64.tar.gz" \
   "janet-${LATEST}-linux-x64.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1

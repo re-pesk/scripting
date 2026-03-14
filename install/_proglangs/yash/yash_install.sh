@@ -44,7 +44,8 @@ curl -sSL "https://github.com/magicant/yash/releases/expanded_assets/${LATEST}" 
 | awk -F':' '{print $NF}' > "yash-${LATEST}.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "yash-${LATEST}.tar.gz" \
+if ! compare_checksums sha256sum \
+  "yash-${LATEST}.tar.gz" \
   "yash-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1

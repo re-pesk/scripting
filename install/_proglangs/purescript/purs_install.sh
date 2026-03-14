@@ -38,7 +38,9 @@ cd "${TMP_DIR}" || exit 1
 curl -sSLO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.tar.gz"
 curl -sSLO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.sha"
 
-if ! check_sha1 "linux64.tar.gz" "linux64.sha"; then
+if ! compare_checksums sha1sum \
+  "linux64.tar.gz" \
+  "linux64.sha"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

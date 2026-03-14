@@ -25,9 +25,7 @@ if ! check_command curl xargs xq; then
   exit 1
 fi
 
-( readarray -t NOT_INSTALLED < <(packages_to_install build-essential git)
-  (( ${#NOT_INSTALLED[@]} > 0 )) && sudo apt-get install -y "${NOT_INSTALLED[@]}"
-)
+install_missing_packages build-essential git
 
 INIT_DIR="$PWD"
 TMP_DIR="$( mktemp -p . -d -t euphoria_.XXXXXXXX | xargs realpath )"

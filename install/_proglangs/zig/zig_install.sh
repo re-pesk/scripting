@@ -49,7 +49,9 @@ curl -sSLo "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
 
 # Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
 # Jeigu kontrolinės sumos nesutampa, diegimą nutraukti, atsisiųstus failus ištrinti.
-if ! check_sha256_str "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" "${DATA["shasum"]}"; then
+if ! compare_checksums_str sha256sum \
+  "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" \
+  "${DATA["shasum"]}"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

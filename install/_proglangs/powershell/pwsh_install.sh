@@ -18,9 +18,7 @@ if ! check_command curl xargs; then
 fi
 
 # Įdiegti trūkstamus paketus
-( readarray -t NOT_INSTALLED < <(packages_to_install wget apt-transport-https software-properties-common)
-  (( ${#NOT_INSTALLED[@]} > 0 )) && sudo apt-get install -y "${NOT_INSTALLED[@]}"
-)
+install_missing_packages wget apt-transport-https software-properties-common
 
 # Įdiegti pagrindinį Microsoft paketą
 dpkg -s packages-microsoft-prod &> /dev/null || (

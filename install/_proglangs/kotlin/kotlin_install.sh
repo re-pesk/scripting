@@ -50,7 +50,8 @@ curl -sSLO \
   "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz"
 curl -sSLO \
   "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256"
-if ! check_sha256 "${TMP_DIR}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \
+if ! compare_checksums sha256sum \
+  "${TMP_DIR}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \
   "${TMP_DIR}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1

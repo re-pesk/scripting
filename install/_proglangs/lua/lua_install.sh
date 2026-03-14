@@ -42,7 +42,8 @@ curl -sL https://lua.org/ftp/ \
   > "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "${TMP_DIR}/lua-${LATEST}.tar.gz" \
+if ! compare_checksums sha256sum \
+  "${TMP_DIR}/lua-${LATEST}.tar.gz" \
   "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1

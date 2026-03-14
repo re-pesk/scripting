@@ -125,9 +125,12 @@ packages_to_install() (
   readarray -t NAMES < <( printf '%s\n' "$@" | sort -u )
 
   # Get names that are not packages
-  readarray -t NOT_PKGNAMES < <( printf "%s\n" "${NAMES[@]}" | grep -Fvxf <(apt-cache pkgnames | sort -u ))
+  readarray -t NOT_PKGNAMES < <(
+    printf "%s\n" "${NAMES[@]}" \
+      | grep -Fvxf <(apt-cache pkgnames | sort -u )
+  )
 
-  # If there are packages that are not installed, exit the script
+  # If there are names that are not packages, exit the script
   (( ${#NOT_PKGNAMES[@]} > 0 )) && {
     errorMessage "$(
       printf '%s\n\n  %s\n\n' \
@@ -138,8 +141,11 @@ packages_to_install() (
   }
 
   # Get names of the packages that are not installed
-  readarray -t NOT_INSTALLED < <( printf "%s\n" "${NAMES[@]}" "${NOT_PKGNAMES[@]}" | sort | uniq -u |
-    grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u ))
+  readarray -t NOT_INSTALLED < <(
+    printf "%s\n" "${NAMES[@]}" "${NOT_PKGNAMES[@]}" \
+      | sort | uniq -u \
+      | grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u )
+  )
 
   # If there are names that are not packages, exit the script
   (( ${#NOT_INSTALLED[@]} > 0 )) && {
@@ -149,6 +155,14 @@ packages_to_install() (
 
   exit 1
 )
+
+# Installs packages that are not installed
+: <<"USAGE"
+install_missing_packages <PACKAGES_LIST>
+USAGE
+: <<"EXAMPLE"
+install_missing_packages gcc make
+EXAMPLE
 
 install_missing_packages() (
 
@@ -161,11 +175,13 @@ install_missing_packages() (
     exit 1
   };
 
+  # Get packages that are not installed
   readarray -t NOT_INSTALLED < <(packages_to_install "$@")
   (( ${#NOT_INSTALLED[@]} > 0 )) && {
-    sudo apt-get install -y "${NOT_INSTALLED[@]}"
-    errorMessage "${LANG_MESSAGES[missing_packages_are_not_installed]}" "${FUNC_NAME}"
-    exit 1
+    if ! sudo apt-get install -y "${NOT_INSTALLED[@]}"; then
+      errorMessage "${LANG_MESSAGES[missing_packages_are_not_installed]}" "${FUNC_NAME}"
+      exit 1
+    fi
   }
   exit 0
 )
@@ -282,15 +298,15 @@ ask_to_install() (
 # The awk commands ($3 and $4) must be quoted with single quotes inside
 # and use escaped \$ to prevent expansion of variables
 : << "USAGE"
-compare_checksum_strings <CHECKSUM_1> <CHECKSUM_2> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
+compare_checksums_awk <CHECKSUM_1> <CHECKSUM_2> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
 USAGE
 : << "EXAMPLE"
-compare_checksum_strings \
+compare_checksums_awk \
   "0cf2650e53c353b0643ce1c518c99852 hilbish-v2.3.4-linux-amd64.tar.gz" \
   "sha256:0cf2650e53c353b0643ce1c518c99852" "'{print \$1}'" "-F':' '{print \$2}'"
 EXAMPLE
 
-compare_checksum_strings() (
+compare_checksums_awk() (
 
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
   [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
@@ -334,15 +350,15 @@ compare_checksum_strings() (
 # Compare checksum of a file with a string.
 # The awk commands ($4 and $5) must be quoted with single quotes to prevent expansion of variables
 : << "USAGE"
-check_sums_str <CHECKSUM TYPE> <FILE_NAME> <CHECKSUM_STRING> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
+compare_checksums_str <CHECKSUM TYPE> <FILE_NAME> <CHECKSUM_STRING> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
 USAGE
 : << "EXAMPLE"
-check_sums_str sha1 "./file_name.ext" \
+compare_checksums_str sha1 "./file_name.ext" \
   "sha1:acca7d792b95f66af8c62f261775ef1b6fb0e92c" \
   "'{print \$1}'" "-F':' '{print \$2}'"
 EXAMPLE
 
-check_sums_str() (
+compare_checksums_str() (
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
   [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
 
@@ -356,7 +372,7 @@ check_sums_str() (
     exit 1
   }
 
-  if ! compare_checksum_strings "$("${1}" "${2}")" "${3}" "${4}" "${5}"; then
+  if ! compare_checksums_awk "$("${1}" "${2}")" "${3}" "${4}" "${5}"; then
     exit 1
   fi
 )
@@ -364,13 +380,13 @@ check_sums_str() (
 # Compare checksums of a file.
 # The awk commands ($4 and $5) must be quoted with single quotes to prevent expansion of variables
 : << "USAGE"
-check_sums <CHECKSUM_TYPE> <FILE_NAME> <CHECKSUM_FILE_NAME> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
+compare_checksums <CHECKSUM_TYPE> <FILE_NAME> <CHECKSUM_FILE_NAME> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
 USAGE
 : << "EXAMPLE"
-check_sums sha1 "./file_name.ext" "./checksum_file_name.ext" "'{print \$1}'" "'{print \$2}'"
+compare_checksums sha1 "./file_name.ext" "./checksum_file_name.ext" "'{print \$1}'" "'{print \$2}'"
 EXAMPLE
 
-check_sums() (
+compare_checksums() (
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
   [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
 
@@ -378,120 +394,7 @@ check_sums() (
     errorMessage "${LANG_MESSAGES[missing_chksum_fname]}" "${FUNC_NAME}"
     exit 1
   }
-  if ! check_sums_str "${1}" "${2}" "$(cat "${3}")" "${4}" "${5}"; then
-    exit 1
-  fi
-)
-
-# Compare SHA1 checksums of a file.
-# The awk commands ($3 and $4) must be quoted with single quotes to prevent expansion of variables
-: << "USAGE"
-check_sha1_str <FILE_NAME> <CHECKSUM_STRING> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-check_sha1_str "./file_name.ext" \
-  "sha1:acca7d792b95f66af8c62f261775ef1b6fb0e92c" \
-  "'{print \$1}'" "-F':' '{print \$2}'"
-EXAMPLE
-
-check_sha1_str() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums_str sha1sum "${1}" "${2}" "${3}" "${4}"; then
-    exit 1
-  fi
-)
-
-# Compare SHA1 checksums of a file.
-: << "USAGE"
-check_sha1 <FILE_NAME> <CHECKSUM_FILE_NAME> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-check_sha1 "./file_name.ext" "./checksum_file_name.ext" '{print $1}' '{print $1}'
-EXAMPLE
-
-check_sha1() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums sha1sum "${1}" "${2}" "${3}" "${4}"; then
-    exit 1
-  fi
-)
-
-# Compare SHA256 checksums of a file.
-# The awk commands ($3 and $4) must be quoted with single quotes to prevent expansion of variables
-: << "USAGE"
-check_sha256_str <FILE_NAME> <CHECKSUM_STRING> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-check_sha256_str "./file_name.ext" \
-  "a435460ddf3b2b5c1327e5a02f5b0ed69e5196426a5ef7e7b72e9478b68defc6 file_name.ext" \
-  "'{print \$1}'" "'{print \$1}'"
-EXAMPLE
-
-check_sha256_str() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums_str sha256sum "${1}" "${2}" "${3}" "${4}"; then
-    exit 1
-  fi
-)
-
-# Compare SHA256 checksums of a file.
-: << "USAGE"
-check_sha256 <FILE_NAME> <CHECKSUM_FILE_NAME> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-check_sha256 "./file_name.ext" "./checksum_file_name.ext" "'{print \$1}'" "'{print \$1}'"
-check_sha256 "./file_name.ext" "./checksum_file_name.ext" "'{print \$1}'"
-check_sha256 "./file_name.ext" "./checksum_file_name.ext"
-EXAMPLE
-
-check_sha256() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums sha256sum "${1}" "${2}" "${3}" "${4}"; then
-    exit 1
-  fi
-)
-
-# Compare md5 checksums of a file.
-# The awk commands ($3 and $4) must be quoted with single quotes to prevent expansion of variables
-: << "USAGE"
-compare_md5_str <FILE_NAME> <CHECKSUM_STRING> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-compare_md5_str "./file_name.ext" \
-  "md5:a435460ddf3b2b5c1327e5a02f5b0ed69e5196426a5ef7e7b72e9478b68defc6" \
-  "'{print \$1}'" "'{print \$2}'"
-EXAMPLE
-
-compare_md5_str() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums_str md5sum "${1}" "${2}" "${3}" "${4}"; then
-    exit 1
-  fi
-)
-
-# Compare md5 checksums of a file.
-: << "USAGE"
-check_md5 <FILE_NAME> <CHECKSUM_FILE_NAME> ?(<AWK_CODE_1>="'{print \$1}'" ?<AWK_CODE_2>="'{print \$1}'")
-USAGE
-: << "EXAMPLE"
-check_md5 "${./file_name.ext}" "${./checksum_file_name.ext}" "'{print \$1}'" "'{print \$2}'"
-EXAMPLE
-
-check_md5() (
-  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
-  [ -n "${DEBUG}" ] && printf '"%s"\n' "$FUNC_NAME\$# is $#." "$@" 1>&2
-
-  if ! check_sums md5sum "${1}" "${2}" "${3}" "${4}"; then
+  if ! compare_checksums_str "${1}" "${2}" "$(cat "${3}")" "${4}" "${5}"; then
     exit 1
   fi
 )
