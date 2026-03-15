@@ -28,6 +28,20 @@ FC_DEFAULT='\033[39m' # Foreground Color Off
 
 # Prints an info message
 : <<"USAGE"
+debugVariable <VARIABKE_NAME> ?<FUNCTION_NAME>
+USAGE
+: <<"EXAMPLE"
+debugVariable abc
+debugVariable abc "my_function"
+EXAMPLE
+
+debugVariable() {
+  local -n variable="${1}"
+  printf "%s%s: ⟪%s⟫\n\n" "${2}" "${1}" "${variable}" 1>&2
+}
+
+# Prints an info message
+: <<"USAGE"
 infoMessage <MESSAGE> ?<FUNCTION_NAME>
 USAGE
 : <<"EXAMPLE"

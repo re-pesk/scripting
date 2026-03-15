@@ -9,17 +9,19 @@ declare -A MESSAGES=(
   'en.UTF-8.empty_current' 'Warning! Variable CURRENT is empty!'
   'en.UTF-8.empty_lang_messages' 'Error! Variable LANG_MESSAGES is empty!'
   'en.UTF-8.empty_latest' 'Error! Variable LATEST is empty!'
+  'en.UTF-8.messages_updated' 'Messages were updated!'
   'lt_LT.UTF-8.empty_app_name' 'Klaida! Kintamasis APP_NAME tuščias!'
   'lt_LT.UTF-8.empty_current' 'Svarbu! Kintamasis CURRENT tuščias!'
   'lt_LT.UTF-8.empty_lang_messages' 'Klaida! Kintamasis LANG_MESSAGES tuščias!'
   'lt_LT.UTF-8.empty_latest' 'Klaida! Kintamasis LATEST tuščias!'
+  'lt_LT.UTF-8.messages_updated' 'Pranešimų tekstai atnaujinti!'
 
   # Messages for _helpers.sh
   'en.UTF-8.checking_commands' 'Checking required commands'
   'en.UTF-8.checking_packages' 'Checking required packages'
   'en.UTF-8.empty_parameter' 'Error! Parameter {i} is empty!'
   'en.UTF-8.enter' '<Enter>'
-  'en.UTF-8.erroneous_names' $'Error! Some name are not packages! Please check your script!\n\nErroneous names:'
+  'en.UTF-8.erroneous_names' $'Error! Some name are not packages! Please check your script!\n\nErroneous names:\n\n{LIST}'
   'en.UTF-8.file_exists' '{FILE_NAME} already exists!'
   'en.UTF-8.install_new' 'Application {APP_NAME} is not installed. Do you want to install version {LATEST}?'
   'en.UTF-8.installed_not_in_dir' 'Application {APP_NAME}{CURRENT} is installed, but not in {INSTALL_DIR}. Uninstall it first and then run this script again.'
@@ -30,8 +32,8 @@ declare -A MESSAGES=(
   'en.UTF-8.missing_checksum_type' 'Error! Checksum type is not provided!'
   'en.UTF-8.missing_commands' $'Error! Some commands are not available! Please install to continue!\n\nMissing commands:'
   'en.UTF-8.missing_filename' 'Error! File name is not provided!'
-  'en.UTF-8.missing_packages' $'Error! Some packages are not installed! Please install to continue!\n\nMissing packages:'
-  'en.UTF-8.missing_packages_are_not_installed' $'Error! Some missing packages are not installed! Execution terminated!\n\nMissing packages:'
+  'en.UTF-8.missing_packages' $'Error! Some packages are not installed! Please install to continue!\n\nMissing packages:\n\n{LIST}'
+  'en.UTF-8.missing_packages_are_not_installed' $'Error! Some missing packages are not installed! Execution terminated!\n\nMissing packages:\n\n{LIST}'
   'en.UTF-8.mismatch' 'Error! Checksum mismatch!'
   'en.UTF-8.no_app' 'Application {APP_NAME} is not found, but current version is{CURRENT}! Check app code!'
   'en.UTF-8.no_app_name' 'Application name is not provided! Check app code!'
@@ -47,7 +49,7 @@ declare -A MESSAGES=(
   'lt_LT.UTF-8.checking_packages' 'Tikrinami reikalingi paketai'
   'lt_LT.UTF-8.empty_parameter' 'Klaida! Parametras {i} tuščias!'
   'lt_LT.UTF-8.enter' '<Įvesti>'
-  'lt_LT.UTF-8.erroneous_names' $'Klaida! Klaidingi paketų pavadinimai! Patikrinkite savo skriptą!\n\nKlaidingi pavadinimai:'
+  'lt_LT.UTF-8.erroneous_names' $'Klaida! Klaidingi paketų pavadinimai! Patikrinkite savo skriptą!\n\nKlaidingi pavadinimai:\n\n{LIST}'
   'lt_LT.UTF-8.file_exists' 'Failas {FILE_NAME} sistemoje jau yra!'
   'lt_LT.UTF-8.install_new' 'Programa {APP_NAME} neįdiegta. Ar įdiegti versiją {LATEST}?'
   'lt_LT.UTF-8.installed_not_in_dir' 'Programa {APP_NAME}{CURRENT} yra įdiegta, bet ne į {INSTALL_DIR} aplanką. Išdiekite programą ir dar kartą paleiskite šį skriptą.'
@@ -58,8 +60,8 @@ declare -A MESSAGES=(
   'lt_LT.UTF-8.missing_checksum_type' 'Klaida! Nepateiktas kontrolinės sumos tipas!'
   'lt_LT.UTF-8.missing_commands' $'Klaida! Nėra reikalingų komandų! Įdiekite, kad galėtute tęsti!\n\nTrūkstamos komandos:'
   'lt_LT.UTF-8.missing_filename' 'Klaida! Nepateiktas failo pavadinimas!'
-  'lt_LT.UTF-8.missing_packages' $'Klaida! Neįdiegti reikalingi paketai! Įdiekite, kad galėtute tęsti!\n\nTrūkstami paketai:'
-  'lt_LT.UTF-8.missing_packages_are_not_installed' $'Klaida! Trūkstami paketai nebuvo įdiegti! Vykdymas nutraukiamas!\n\nTrūkstami paketai:'
+  'lt_LT.UTF-8.missing_packages' $'Klaida! Neįdiegti reikalingi paketai! Įdiekite, kad galėtute tęsti!\n\nTrūkstami paketai:\n\n{LIST}'
+  'lt_LT.UTF-8.missing_packages_are_not_installed' $'Klaida! Trūkstami paketai nebuvo įdiegti! Vykdymas nutraukiamas!\n\nTrūkstami paketai:\n\n{LIST}'
   'lt_LT.UTF-8.mismatch' 'Klaida! Kontrolinės sumos nesutampa!'
   'lt_LT.UTF-8.no_app' 'Programa {APP_NAME} nerasta, bet esama versija yra{CURRENT}! Patikrinkite programos kodą!'
   'lt_LT.UTF-8.no_app_name' 'Nepateiktas programos pavadinimas! Patikrinkite programos kodą!'
@@ -108,18 +110,27 @@ APP_NAME="${APP_NAME:-}"
 if [ -z "${APP_NAME}" ]; then
   # shellcheck disable=SC1094
   errorMessage "${MESSAGES[${LANG}.empty_app_name]}"
-  exit 1
+  [[ $- == *i* ]] || exit 1
 fi
 
-while IFS= read -rd '' key && IFS= read -rd '' value; do
-  [[ "$key" != "${LANG}"* ]] && continue
-  # shellcheck disable=SC2034
-  LANG_MESSAGES["${key#"${LANG}."}"]="${value//'{APP_NAME}'/"${APP_NAME}"}"
-done < <(printf '%s\0%s\0' "${MESSAGES[@]@k}")
+update_messages() {
 
-if [[ -n "${LATEST}" ]]; then
+  FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
+
   while IFS= read -rd '' key && IFS= read -rd '' value; do
+    [[ "$key" != "${LANG}"* ]] && continue
     # shellcheck disable=SC2034
-    LANG_MESSAGES["${key}"]="$(sed -e "s|{LATEST}|${LATEST}|g;s|{CURRENT}|${CURRENT:+ ${CURRENT}}|g" <<<"${value}")"
-  done < <(printf '%s\0%s\0' "${LANG_MESSAGES[@]@k}")
-fi
+    LANG_MESSAGES["${key#"${LANG}."}"]="${value//'{APP_NAME}'/"${APP_NAME}"}"
+  done < <(printf '%s\0%s\0' "${MESSAGES[@]@k}")
+
+  if [[ -n "${LATEST}" ]]; then
+    while IFS= read -rd '' key && IFS= read -rd '' value; do
+      # shellcheck disable=SC2034
+      LANG_MESSAGES["${key}"]="$(sed -e "s|{LATEST}|${LATEST}|g;s|{CURRENT}|${CURRENT:+ ${CURRENT}}|g" <<<"${value}")"
+    done < <(printf '%s\0%s\0' "${LANG_MESSAGES[@]@k}")
+    [ -n "${DEBUG}" ] && successMessage "${LANG_MESSAGES[messages_updated]}" "${FUNC_NAME}"
+  fi
+
+}
+
+update_messages
