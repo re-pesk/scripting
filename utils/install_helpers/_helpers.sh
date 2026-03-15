@@ -50,17 +50,24 @@ check_command() (
   exit 0
 )
 
-# Check if the packages are installed
+# Check if the packages are available.
+
 : <<"USAGE"
-check_package <PACKAGES_LIST>
+check_package_name ?-q <NAME_LIST>
 USAGE
 : <<"EXAMPLE"
-check_package gcc make
+check_package_name gcc make
+check_package_name -q gcc make
 EXAMPLE
 
-check_package() (
+check_package_name() (
 
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
+
+  if [[ "${1}" == "-q" ]]; then
+    local -r QUIET="-q"
+    shift
+  fi
 
   # If there are no arguments, exit the script
   # shellcheck disable=SC2128
@@ -77,42 +84,33 @@ check_package() (
 
   # If there are names that are not packages, exit the script
   (( ${#NOT_PKGNAMES[@]} > 0 )) && {
-    errorMessage "$(
-      printf '%s\n\n  %s\n\n' \
-      "${LANG_MESSAGES[erroneous_names]}" \
-      "${NOT_PKGNAMES[*]}"
-      )" "${FUNC_NAME}"
-    exit 1
-  }
-
-  # Get names of the packages that are not installed
-  readarray -t NOT_INSTALLED < <( printf "%s\n" "${NAMES[@]}" "${NOT_PKGNAMES[@]}" | sort | uniq -u |
-    grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u ))
-
-  # If there are packages that are not installed, exit the script
-  (( ${#NOT_INSTALLED[@]} > 0 )) && {
-    errorMessage "$(
-      printf '%s\n\n  %s\n\n' \
-      "${LANG_MESSAGES[missing_packages]}" \
-      "${NOT_INSTALLED[*]}"
-      )" "${FUNC_NAME}"
+    errorMessage \
+      "${LANG_MESSAGES[erroneous_names]//'{LIST}'/"${NOT_PKGNAMES[*]}"}" \
+      "${FUNC_NAME}"
+    [[ -z "${QUIET}" ]] && printf '%s\n' "${NOT_PKGNAMES[@]}"
     exit 1
   }
 
   exit 0
 )
 
-# Returns a list of packages that are not installed
+# Check if the packages are installed
 : <<"USAGE"
-packages_to_install <PACKAGES_LIST>
+check_package ?-q <NAME_LIST>
 USAGE
 : <<"EXAMPLE"
-packages_to_install gcc make
+check_package gcc make
+check_package -q gcc make
 EXAMPLE
 
-packages_to_install() (
+check_package() (
 
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
+
+  if [[ "${1}" == "-q" ]]; then
+    local -r QUIET="-q"
+    shift
+  fi
 
   # If there are no arguments, exit the script
   # shellcheck disable=SC2128
@@ -125,46 +123,35 @@ packages_to_install() (
   readarray -t NAMES < <( printf '%s\n' "$@" | sort -u )
 
   # Get names that are not packages
-  readarray -t NOT_PKGNAMES < <(
-    printf "%s\n" "${NAMES[@]}" \
-      | grep -Fvxf <(apt-cache pkgnames | sort -u )
-  )
+  # If there is an error, exit the script
+  # shellcheck disable=SC2207
+  check_package_name -q "${NAMES[@]}" || exit 1
 
-  # If there are names that are not packages, exit the script
-  (( ${#NOT_PKGNAMES[@]} > 0 )) && {
-    errorMessage "$(
-      printf '%s\n\n  %s\n\n' \
-      "${LANG_MESSAGES[erroneous_names]}" \
-      "${NOT_PKGNAMES[*]}"
-      )" "${FUNC_NAME}"
+  # Get names of the packages that are not installed # "${NOT_PKGNAMES[@]}" | sort | uniq -u |
+  readarray -t NOT_INSTALLED < <( printf "%s\n" "${NAMES[@]}" \
+    | grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u ))
+
+  # If there are packages that are not installed, exit the script
+  (( ${#NOT_INSTALLED[@]} > 0 )) && {
+    errorMessage \
+      "${LANG_MESSAGES[missing_packages]//'{LIST}'/"${NOT_INSTALLED[*]}"}" \
+      "${FUNC_NAME}"
+    [[ -z "${QUIET}" ]] && printf '%s\n' "${NOT_INSTALLED[@]}"
     exit 1
   }
 
-  # Get names of the packages that are not installed
-  readarray -t NOT_INSTALLED < <(
-    printf "%s\n" "${NAMES[@]}" "${NOT_PKGNAMES[@]}" \
-      | sort | uniq -u \
-      | grep -Fvxf <( dpkg-query -f '${Package}\n' -W 2> /dev/null | sort -u )
-  )
-
-  # If there are names that are not packages, exit the script
-  (( ${#NOT_INSTALLED[@]} > 0 )) && {
-    printf '%s\n' "${NOT_INSTALLED[@]}"
-    exit 0
-  }
-
-  exit 1
+  exit 0
 )
 
 # Installs packages that are not installed
 : <<"USAGE"
-install_missing_packages <PACKAGES_LIST>
+install_missing_package <NAME_LIST>
 USAGE
 : <<"EXAMPLE"
-install_missing_packages gcc make
+install_missing_package gcc make
 EXAMPLE
 
-install_missing_packages() (
+install_missing_package() (
 
   FUNC_NAME="${DEBUG:+"${FUNCNAME[0]}: "}"
 
@@ -176,10 +163,14 @@ install_missing_packages() (
   };
 
   # Get packages that are not installed
-  readarray -t NOT_INSTALLED < <(packages_to_install "$@")
+  # shellcheck disable=SC2207
+  NOT_INSTALLED=($(check_package "$@")) && exit 0
+
   (( ${#NOT_INSTALLED[@]} > 0 )) && {
     if ! sudo apt-get install -y "${NOT_INSTALLED[@]}"; then
-      errorMessage "${LANG_MESSAGES[missing_packages_are_not_installed]}" "${FUNC_NAME}"
+      errorMessage \
+        "${LANG_MESSAGES[missing_packages_are_not_installed]//'{LIST}'/"${NOT_INSTALLED[*]}"}" \
+        "${FUNC_NAME}"
       exit 1
     fi
   }
@@ -330,8 +321,8 @@ compare_checksums_awk() (
   [[ "${4}" == "" ]] || AWK_2="${4}"
 
   [ -n "${DEBUG}" ] && {
-    echo "AWK_1:$AWK_1" 1>&2
-    echo "AWK_2:$AWK_2" 1>&2
+    debugVariable AWK_1 "${FUNC_NAME}"
+    debugVariable AWK_2 "${FUNC_NAME}"
   }
 
   CHECKSUM_1="$(bash -c "awk ${AWK_1}" <<< "${CHECKSUM_1}")"
