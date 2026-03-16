@@ -31,9 +31,11 @@ if ! ask_to_install "codium" "/usr/share/codium/bin/codium"; then
 fi
 
 # Jeigu nėra gpg rakto ir programa nėra įdiegta, įdiegti gpg raktą ir sukurti resursą
-[ -f /usr/share/keyrings/vscodium-archive-keyring.gpg ] && [ -n "${CURRENT}" ] || {
+[ -f /usr/share/keyrings/vscodium-archive-keyring.gpg ] || \
   wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
     | sudo gpg --dearmor -o /usr/share/keyrings/vscodium-archive-keyring.gpg
+
+[ -f /etc/apt/sources.list.d/vscodium.sources ] || \
   sudo tee /etc/apt/sources.list.d/vscodium.sources <<SOURCES
 Types: deb
 URIs: https://download.vscodium.com/debs
@@ -41,15 +43,12 @@ Suites: vscodium\nComponents: main
 Architectures: amd64
 Signed-by: /usr/share/keyrings/vscodium-archive-keyring.gpg
 SOURCES
-}
 
 # Atnaujinti paketų sąrašą po resurso pridėjimo
 sudo apt update
 
 # Jeigu nėra įdiegtas, įdiegiamas VSCodium
-(( $(apt list --installed 2> /dev/null | grep -c '^codium') > 0 )) || {
-  sudo apt install codium
-}
+dpkg -s codium &> /dev/null || sudo apt install codium
 
 # Atnaujinamas VSCodium
 sudo apt upgrade

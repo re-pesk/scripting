@@ -26,7 +26,7 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
-Dabartinės versijos ieškokite [Lua puslapyje](https://www.lua.org/download.html)
+Paleidžiamas diegimo skriptas `lua_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/lua/lua/releases/latest" | xargs basename | sed 's/^v//')"
@@ -51,9 +51,10 @@ make install INSTALL_TOP="${HOME}/.opt/lua"
 cd $INIT_DIR
 rm -rf lua-${LATEST}*
 
-[[ -d "${HOME}/.opt/lua/bin" ]] \
+printf '%s\n' $'[[ -d "${HOME}/.opt/lua/bin" ]] \
   && [[ ":${PATH}:" != *":${HOME}/.opt/lua/bin:"* ]] \
-  && export PATH="${HOME}/.opt/lua/bin${PATH:+:${PATH}}"
+  && export PATH="${HOME}/.opt/lua/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/lua/env.sh"
+. "${HOME}/.opt/lua/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(lua -v 2> /dev/null | awk '{print $2}')"
@@ -61,7 +62,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset INIT_DIR LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/lua/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/lua/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

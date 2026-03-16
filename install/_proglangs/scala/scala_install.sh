@@ -43,7 +43,7 @@ curl -sSLo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" \
 
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! check_sha256 \
+if ! compare_checksums sha256sum \
   "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
   "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
@@ -58,11 +58,16 @@ tar --file="${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
   --transform='flags=r;s/^(scala3)[^\/]+/\1/x' --show-transformed-names -xzvC "${HOME}/.opt"
 rm -rf "${TMP_DIR}"
 
-# Įtraukti įdiegtos programos kelius, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/scala3/bin" ]] && \
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/scala3/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/scala3/bin:"* ]] && \
-    export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/scala3/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/scala3/env.sh" ]] && . "${HOME}/.opt/scala3/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -83,5 +88,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

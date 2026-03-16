@@ -47,9 +47,11 @@ curl -sSL "https://github.com/vlang/v/releases/expanded_assets/${TAG}" |
   > "v_${TAG}_linux.zip.sha256"
 
 # Patikrinti, ar failas atitinka patikros sumą
-if ! check_sha256 "v_${TAG}_linux.zip" \
+if ! compare_checksums sha256sum \
+  "v_${TAG}_linux.zip" \
   "v_${TAG}_linux.zip.sha256" \
-  "'{print \$1}'" "-F':' '{print \$NF}'"; then
+  "'{print \$1}'" \
+  "-F':' '{print \$NF}'"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

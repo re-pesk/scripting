@@ -7,7 +7,7 @@ jq is a lightweight and flexible command-line JSON processor.
 * Pagrindinis puslapis [<sup>&#x2B67;</sup>](https://jqlang.org/)
 * Pradinis kodas ir leidimai [<sup>&#x2B67;</sup>](https://github.com/jqlang/jq)
 
-## Pasirengimas
+## Parengimas
 
 Įdiegti `curl` į sistemą.
 

@@ -42,7 +42,8 @@ curl -sL https://lua.org/ftp/ \
   > "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "${TMP_DIR}/lua-${LATEST}.tar.gz" \
+if ! compare_checksums sha256sum \
+  "${TMP_DIR}/lua-${LATEST}.tar.gz" \
   "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
@@ -59,11 +60,16 @@ rm -rf "${HOME}/.opt/lua"
 make install INSTALL_TOP="${HOME}/.opt/lua"
 cd "${INIT_DIR}" || exit 1
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/lua/bin" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.opt/lua/bin:"* ]] &&
+  export PATH="${HOME}/.opt/lua/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/lua/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
 # neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/lua/bin" ]] && \
-  [[ ":${PATH}:" != *":${HOME}/.opt/lua/bin:"* ]] && \
-    export PATH="${HOME}/.opt/lua/bin${PATH:+:${PATH}}"'
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/lua/env.sh" ]] && . "${HOME}/.opt/lua/env.sh"'
 eval "${PATH_COMMAND}"
 
 echo ""
@@ -86,5 +92,5 @@ printf '%s\n\n' "Lua ${LATEST} is succesfully installed."
 # kad gali būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

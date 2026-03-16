@@ -26,7 +26,9 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
-Diegimas trunka keliais etapais:
+Paleidžiamas diegimo skriptas `go_install.sh` arba vykdomas rankiniu būdu.
+
+Rankinis diegimas vyksta keliais etapais:
 
 * Jeigu nėra įdiegti, įdiegiami reikalingi paketai
 

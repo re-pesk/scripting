@@ -8,14 +8,14 @@
 
 ```bash
 INIT_DIR="$PWD"
-git clone --recursive https://github.com/IoLanguage/io.git tmp.io
-mkdir -p tmp.io/build
-cd tmp.io/build/
+git clone --recursive https://github.com/IoLanguage/io.git tmp_.io
+mkdir -p tmp_.io/build
+cd tmp_.io/build/
 cmake ..
 make
 sudo make install
 cd "${INIT_DIR}"
-rm -rf tmp.io
+rm -rf tmp_.io
 io --version
 ```
 

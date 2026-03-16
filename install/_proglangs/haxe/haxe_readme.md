@@ -1,9 +1,14 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Haxe [<sup>&#x2B67;</sup>](https://haxe.org/)
+# Haxe
 
-* Paskiausias leidimas: 4.3.6
-* Išleista: 2024-08-07
+* Haxe [<sup>&#x2B67;</sup>](https://haxe.org/)
+  * Paskiausias leidimas: 4.3.7
+  * Išleista: 2025-05-09
+
+* Hashlink [<sup>&#x2B67;</sup>](https://hashlink.haxe.org/)
+  * Paskiausias leidimas: 1.15.0
+  * Išleista: 2025-03-23
 
 ## Parengimas
 
@@ -26,16 +31,35 @@ Jeigu nėra įdiegtos, įdiegiamos [curl](../curl/curl.md) ir [xq](../xq/xq.md)
 
 ## Diegimas
 
-Haxe diegimas:
+Paleidžiamas diegimo skriptas `haxe_install.sh` arba vykdomos komandos terminale.
+
+### Haxe diegimas
 
 ```bash
-sudo add-apt-repository ppa:haxe/releases -y
-sudo apt-get update
-sudo apt-get install haxe -y
-haxe --version
+LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/HaxeFoundation/haxe/releases/latest" | xargs basename)"
+
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
+  "${LATEST}" "$(haxe --version 2> /dev/null)"
+
+rm -rf "${HOME}/.opt/haxe"
+curl -sSLo - "https://github.com/HaxeFoundation/haxe/releases/download/${LATEST}/haxe-${LATEST}-linux64.tar.gz" \
+  | tar --transform "flags=r;s/^(haxe)[^\/]+/\1/x" --show-transformed-names -xzvC "${HOME}/.opt"
+chmod u+w "${HOME}/.opt/haxe/haxe"
+
+printf '%s\n' $'[[ -d "${HOME}/.opt/haxe" ]] && \
+  [[ ":${PATH}:" != *":${HOME}/.opt/haxe:"* ]] && \
+    export PATH="${HOME}/.opt/haxe${PATH:+:${PATH}}"' > "${HOME}/.opt/haxe/env.sh"
+. "${HOME}/.opt/haxe/env.sh"
+
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
+  "${LATEST}" "$(haxe --version 2> /dev/null)"
+
+unset LATEST
 ```
 
-HashLink virtualios mašinos diegimas (baitkodo vykdymui):
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/haxe/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
+
+### HashLink virtualios mašinos diegimas
 
 ```bash
 COMMIT="$(curl -s "https://github.com/HaxeFoundation/hashlink/releases/tag/latest" | xq -q "code:first-of-type")"
@@ -47,26 +71,26 @@ printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
   "${LATEST}" "$(hl --version 2> /dev/null)"
 
 # Atsisiųsti failą iš svetainės
-curl -fsSLO https://github.com/HaxeFoundation/hashlink/releases/download/latest/hashlink-${COMMIT}-linux-amd64.tar.gz
+curl -fsSLO "https://github.com/HaxeFoundation/hashlink/releases/download/latest/hashlink-${COMMIT}-linux-amd64.tar.gz"
 
 # Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
 # Jeigu kontrolinės sumos nesutampa, diegimą nutraukti ir ištrinti atsisiųstus failus.
 printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "hashlink-${COMMIT}-linux-amd64.tar.gz" | awk '{print $1}')" \
-  "$(curl -sL "https://github.com/HaxeFoundation/hashlink/releases/expanded_assets/latest/${LATEST}" \
-| xq -q "li > div:has(a span:contains('hashlink-latest-linux-amd64.tar.gz')) ~ div > div > span > span" \
-| awk -F':' '{print $NF}')"
+  "$(curl -fsSL "https://github.com/HaxeFoundation/hashlink/releases/expanded_assets/latest" \
+      | xq -q "li > div:has(a span:contains('hashlink-latest-linux-amd64.tar.gz')) ~ div > div > span > span" \
+      | awk -F':' '{print $NF}')"
 
 rm -rf "${HOME}/.opt/hashlink"
 tar --file="hashlink-${COMMIT}-linux-amd64.tar.gz" \
   --transform='flags=r;s/^(hashlink)[^\/]+/\1/x' \
-  --show-transformed-names -xzvC ${HOME}/.opt
+  --show-transformed-names -xzvC "${HOME}/.opt"
 rm -f "hashlink-${COMMIT}-linux-amd64.tar.gz"
 
-[[ -d "${HOME}/.opt/hashlink" ]] && {
-  [[ ":${PATH}:" == *":${HOME}/.opt/hashlink:"* ]] ||\
-    export PATH="${HOME}/.opt/hashlink${PATH:+:${PATH}}"
-}
+printf '%s\n' $'[[ -d "${HOME}/.opt/hashlink" ]] && \
+[[ ":${PATH}:" != *":${HOME}/.opt/hashlink:"* ]] && \
+  export PATH="${HOME}/.opt/hashlink${PATH:+:${PATH}}"' > "${HOME}/.opt/hashlink/env.sh"
+. "${HOME}/.opt/hashlink/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
   "${LATEST}" "$(hl --version 2> /dev/null)"
@@ -74,7 +98,7 @@ printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
 unset COMMIT LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/hashlink` būtų įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/hashlink/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 
@@ -84,7 +108,7 @@ haxe --run Pagrindinė_klasė.hx
 
 kur „Pagrindinė_klasė“ yra klasės su statiniu metodu „main“ pavadinimas. Failo, kuriame saugoma klasė, pavadinimas turi sutapti su pagrindinės klasės, o jo plėtinys turi būti „.hx“
 
-### Vykdymo eiluė
+### Vykdymo instrukcija (shebang)
 
 Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises ir failo pradžioje įrašyti eilutę:
 

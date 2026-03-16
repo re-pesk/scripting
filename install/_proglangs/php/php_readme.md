@@ -7,6 +7,8 @@
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `php_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 if (( $(add-apt-repository -L ondrej/php | grep -c "ondrej/php") < 1 )); then
   sudo add-apt-repository ppa:ondrej/php

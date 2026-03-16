@@ -13,7 +13,9 @@ APP_NAME="VSCode"
 echo ""
 
 # Įdiegti trūkstamus paketus
-install_missing_packages apt-transport-https curl
+if ! install_missing_package apt-transport-https curl; then
+  exit 1
+fi
 
 # Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! chech_command curl gpg wget; then
@@ -34,27 +36,25 @@ if ! ask_to_install "code" "/usr/share/code/bin/code"; then
 fi
 
 # Jeigu nėra gpg rakto ir programa nėra įdiegta, įdiegti gpg raktą ir sukurti resursą
-[ -f /usr/share/keyrings/microsoft.gpg ] && [ -n "${CURRENT}" ] || {
-  # Pagal https://code.visualstudio.com/docs/setup/linux
+[ -f /usr/share/keyrings/microsoft-prod.gpg ] || \
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+    | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+
+[ -f /etc/apt/sources.list.d/vscode.sources ] || \
   sudo tee /etc/apt/sources.list.d/vscode.sources <<SOURCES
 Types: deb
 URIs: https://packages.microsoft.com/repos/code
 Suites: stable
 Components: main
 Architectures: amd64
-Signed-By: /usr/share/keyrings/microsoft.gpg
+Signed-By: /usr/share/keyrings/microsoft-prod.gpg
 SOURCES
-}
 
 # Atnaujinti paketų sąrašą po resurso pridėjimo
 sudo apt update
 
 # Jeigu nėra įdiegtas, įdiegiamas VSCode
-(( $(apt list --installed 2> /dev/null | grep -c '^code/') > 0 )) || {
-  sudo apt install code
-}
+dpkg -s code &> /dev/null || sudo apt install code
 
 # Atnaujinamas VSCode
 sudo apt upgrade
@@ -65,10 +65,10 @@ if ! code --version > /dev/null 2>&1; then
   exit 1
 fi
 
+# Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(code --version 2> /dev/null | head -n 1)"
 [[ "${CURRENT}" == "${LATEST}" ]] || {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }
-
-sudo apt install sudo apt install code
+successMessage "${LANG_MESSAGES[installed_latest]}"

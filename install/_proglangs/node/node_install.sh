@@ -38,11 +38,16 @@ mkdir -p "${HOME}/.opt/nvm"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${LATEST}/install.sh" \
   | NVM_DIR="${HOME}/.opt/nvm" PROFILE='/dev/null' bash
 
-# Įtraukti įdiegtos programos kelią ir kitus reikalingus kintamuosius,
-# kad galima būtų dirbti neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'export NVM_DIR="$HOME/.opt/nvm"
-[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"  # This loads nvm
-[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion'
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'export NVM_DIR="$HOME/.opt/nvm"
+[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
+[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"' > "${HOME}/.opt/nvm/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/nvm/env.sh" ]] && . "${HOME}/.opt/nvm/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -63,7 +68,7 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"
 
 # Nustatyti naują programos pavadinimą

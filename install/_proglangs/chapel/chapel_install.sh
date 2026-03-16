@@ -46,7 +46,9 @@ curl -sL "https://github.com/chapel-lang/chapel/releases/expanded_assets/${LATES
 | cut -c 8- > "chapel-${LATEST}-1.ubuntu24.amd64.deb.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "chapel-${LATEST}-1.ubuntu24.amd64.deb" "chapel-${LATEST}-1.ubuntu24.amd64.deb.sha256"; then
+if ! compare_checksums sha256sum \
+  "chapel-${LATEST}-1.ubuntu24.amd64.deb" \
+  "chapel-${LATEST}-1.ubuntu24.amd64.deb.sha256"; then
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi

@@ -26,6 +26,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md), xargs (findutils) ir [
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `go_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 # Gauti programos paskutinės versijos failo pavadinimą iš repozitorijos
 LATEST="$(curl -sSL https://go.dev/dl/ \
@@ -56,11 +58,13 @@ tar -f "${LATEST}.linux-amd64.tar.gz" -xz -C "${HOME}/.opt"
 rm -f "${LATEST}.linux-amd64.tar.gz"
 
 # Įtraukti įdiegtos programos kelius į sistemos kintamąjį
-[[ ":${PATH}:" == *":${HOME}/.opt/go/bin:"* ]] \
-  || export PATH="${HOME}/.opt/go/bin${PATH:+:${PATH}}"
-
-[[ ":${PATH}:" == *":${HOME}/go/bin:"* ]] \
-  || export PATH="${HOME}/go/bin${PATH:+:${PATH}}"
+printf '%s\n' $'[[ -d "${HOME}/.opt/go/bin" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.opt/go/bin:"* ]] &&
+  export PATH="${HOME}/.opt/go/bin${PATH:+:${PATH}}"\n
+[[ -d "${HOME}/go/bin" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/go/bin:"* ]] &&
+  export PATH="${HOME}/go/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/go/env.sh"
+. "${HOME}/.opt/go/env.sh"
 
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija - sulyginti versijas.
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
@@ -70,7 +74,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad keliai `${HOME}/.opt/go/bin` ir `${HOME}/go/bin` būtų automatiškai įtraukiami į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/go/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

@@ -7,7 +7,7 @@
 * Pradinis kodas [<sup>&#x2B67;</sup>](https://github.com/mikefarah/yq)
 * Naudotojo vadovas [<sup>&#x2B67;</sup>](https://mikefarah.gitbook.io/yq/)
 
-## Pasirengimas
+## Parengimas
 
 Įdiegti `curl` į sistemą.
 

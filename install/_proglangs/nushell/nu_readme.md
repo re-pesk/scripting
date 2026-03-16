@@ -26,15 +26,7 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
-Paleidžiamas diegimo skriptas `nu_install.sh`. Pabaigus diegimą, įvykdoma komanda
-
-```bash
-[[ -d "${HOME}/.opt/nu" ]] && \
-  [[ ":${PATH}:" != *":${HOME}/.opt/nu:"* ]] && \
-    export PATH="${HOME}/.opt/nu${PATH:+:${PATH}}"
-```
-
-Arba terminale vykdomos komandos
+Paleidžiamas diegimo skriptas `nu_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nushell/nushell/releases/latest" | xargs basename)"
@@ -55,9 +47,10 @@ tar --file="nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" \
   --transform 'flags=r;s/nu.+gnu/nu/x' --show-transformed-names -xzv -C "${HOME}/.opt"
 rm -f "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz"
 
-[[ -d "${HOME}/.opt/nu" ]] \
-  && [[ ":${PATH}:" != *":${HOME}/.opt/nu:"* ]] \
-    && export PATH="${HOME}/.opt/nu${PATH:+:${PATH}}"
+printf '%s\n' $'[[ -d "${HOME}/.opt/nu" ]] && \
+  [[ ":${PATH}:" != *":${HOME}/.opt/nu:"* ]] && \
+    export PATH="${HOME}/.opt/nu${PATH:+:${PATH}}"' > "${HOME}/.opt/nu/env.sh"
+. "${HOME}/.opt/nu/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(nu -v 2> /dev/null)"
@@ -65,7 +58,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/nu` būtų įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/nu/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

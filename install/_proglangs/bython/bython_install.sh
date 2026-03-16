@@ -18,9 +18,9 @@ if ! check_command python3 xargs xq; then
 fi
 
 # Įdiegti trūkstamus paketus
-( readarray -t NOT_INSTALLED < <(packages_to_install python3-venv)
-  (( ${#NOT_INSTALLED[@]} > 0 )) && sudo apt-get install -y "${NOT_INSTALLED[@]}"
-)
+if ! install_missing_package python3-venv; then
+  exit 1
+fi
 
 if [ -d "${HOME}/.pyvenvs/tests" ]; then
   # shellcheck disable=SC1091

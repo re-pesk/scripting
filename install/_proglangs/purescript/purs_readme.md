@@ -8,22 +8,24 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `purs_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/purescript/purescript/releases/latest" | xargs basename)"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "v$(purs --version 2> /dev/null)"
 
-curl -sSLo tmp.purs.linux64.tar.gz "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.tar.gz"
-curl -sSLo tmp.purs.linux64.sha "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.sha"
+curl -sSLo tmp_.purs.linux64.tar.gz "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.tar.gz"
+curl -sSLo tmp_.purs.linux64.sha "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.sha"
 
 printf 'sha1 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
-  "$(sha1sum "tmp.purs.linux64.tar.gz" | awk '{print $1}')" \
-  "$(cat "tmp.purs.linux64.sha" | awk '{print $1}')"
+  "$(sha1sum "tmp_.purs.linux64.tar.gz" | awk '{print $1}')" \
+  "$(cat "tmp_.purs.linux64.sha" | awk '{print $1}')"
 
 rm -rf "${HOME}/.opt/purescript"
-tar -f "tmp.purs.linux64.tar.gz" -xzvC "${HOME}/.opt"
-rm -f tmp.purs.linux64.*
+tar -f "tmp_.purs.linux64.tar.gz" -xzvC "${HOME}/.opt"
+rm -f tmp_.purs.linux64.*
 
 ln -fs "${HOME}/.opt/purescript/purs" -t "${HOME}/.local/bin/"
 

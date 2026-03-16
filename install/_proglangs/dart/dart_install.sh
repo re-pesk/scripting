@@ -17,7 +17,7 @@ if ! check_command gpg tee wget; then
   exit 1
 fi
 
-if ! check_package apt-transport-https; then
+if ! install_missing_package apt-transport-https; then
   exit 1
 fi
 

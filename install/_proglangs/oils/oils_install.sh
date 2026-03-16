@@ -44,7 +44,9 @@ curl -fssL "https://oils.pub/release/${LATEST}/" \
   > "oils-for-unix-${LATEST}.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
-if ! check_sha256 "oils-for-unix-${LATEST}.tar.gz" "oils-for-unix-${LATEST}.tar.gz.sha256"; then
+if ! compare_checksums sha256sum \
+  "oils-for-unix-${LATEST}.tar.gz" \
+  "oils-for-unix-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi

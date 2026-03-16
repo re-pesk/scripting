@@ -6,6 +6,8 @@
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `dart_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 sudo apt-get update
 

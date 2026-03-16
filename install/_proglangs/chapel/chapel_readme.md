@@ -10,6 +10,8 @@ Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md) ir xargs (findutils).
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `chapel_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 # Gauti paskutinės programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/chapel-lang/chapel/releases/latest" | xargs basename)"

@@ -7,7 +7,7 @@
 
 ## Parengimas
 
-Jeigu nėra sukurtas, sukuriamas ~/.pathrc failas, įterpiamas jo įkėlimo komanda į .bashrc failą
+Jeigu nėra sukurtas, sukuriamas ~/.pathrc failas, įterpiama jo įkėlimo komanda į .bashrc failą.
 
 ```bash
 [ -f "${HOME}/.pathrc" ] || touch "${HOME}/.pathrc"
@@ -22,19 +22,17 @@ fi
 #end include .pathrc' >> ${HOME}/.bashrc
 ```
 
-Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
-
 ## Diegimas
 
-Instaliuojami paketai, kurie nebuvo suinstaliuoti kartu su Ubuntu 24.04
+Paleidžiamas diegimo skriptas `swift_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
-sudo apt install gnupg2 libcurl4-openssl-dev libpython3-dev libstdc++-13-dev
-```
+for name in curl gnupg2 libcurl4-openssl-dev libpython3-dev libstdc++-13-dev; do
+  dpkg -s "${name}" &> /dev/null || sudo apt install -y "${name}"
+done
 
-Visos failų versijos yra <https://www.swift.org/install/linux/> puslapyje.
+# Visos failų versijos yra <https://www.swift.org/install/linux/> puslapyje.
 
-```bash
 # Atsiunčiama, išpakuojama ir paleidžiama swiftly - swift'o diegimo tvarkyklė
 TMP_DIR=$(mktemp -p . -d -t swiftly_.XXXXXXXXXX | xargs realpath)
 curl -o - https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz \

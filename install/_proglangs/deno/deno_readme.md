@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `deno_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/denoland/deno/releases/latest" | xargs basename)"
 
@@ -20,9 +22,10 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 # Diegiant atsisakyti mofifikuoti konfigūracinius failus
 curl -fsSL https://deno.land/install.sh | DENO_INSTALL="$HOME/.opt/deno" sh
 
-[[ -d "${HOME}/.opt/deno/bin" ]] && \
+printf '%s\n' $'[[ -d "${HOME}/.opt/deno/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/deno/bin:"* ]] && \
-    export PATH="${HOME}/.opt/deno/bin${PATH:+:${PATH}}"
+    export PATH="${HOME}/.opt/deno/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/deno/env.sh"
+. "${HOME}/.opt/deno/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(deno --version 2> /dev/null | head -n 1 | awk '{print "v"$2}')"
@@ -30,7 +33,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/deno/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/deno/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

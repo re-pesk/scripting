@@ -79,7 +79,11 @@ curl -sSL "https://github.com/oven-sh/bun/releases/expanded_assets/bun-v${LATEST
   > "bun-${TARGET}.sha256"
 
 # Jei failas neatitinka patikros sumos, nutraukti diegimą
-if ! check_sha256 "bun-${TARGET}.zip" "bun-${TARGET}.sha256" "'{print \$1}'" "-F':' '{print \$2}'"; then
+if ! compare_checksums sha256sum \
+  "bun-${TARGET}.zip" \
+  "bun-${TARGET}.sha256" \
+  "'{print \$1}'" \
+  "-F':' '{print \$2}'"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
 fi
@@ -92,12 +96,17 @@ mkdir -p "$HOME/.opt/bun/bin"
 unzip -jqd "$HOME/.opt/bun/bin" "bun-${TARGET}.zip" 2> /dev/null \
   || errorMessage 'Failed to extract bun'
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'export BUN_INSTALL="${HOME}/.opt/bun"
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'export BUN_INSTALL="${HOME}/.opt/bun"
 [[ -d "${BUN_INSTALL}/bin" ]] && \
   [[ ":${PATH}:" != *":${BUN_INSTALL}/bin:"* ]] && \
-  export PATH="${BUN_INSTALL}/bin${PATH:+:${PATH}}"'
+  export PATH="${BUN_INSTALL}/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/bun/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/bun/env.sh" ]] && . "${HOME}/.opt/bun/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -120,5 +129,5 @@ infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
 IS_BUN_AUTO_UPDATE=true bun completions &>/dev/null
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

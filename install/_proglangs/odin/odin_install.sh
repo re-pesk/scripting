@@ -44,7 +44,8 @@ curl -sSLo - "https://github.com/odin-lang/Odin/releases/expanded_assets/${LATES
   | awk -F':' '{print $NF}' > "odin-linux-amd64-${LATEST}.tar.gz.sha256"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! check_sha256 "odin-linux-amd64-${LATEST}.tar.gz" \
+if ! compare_checksums sha256sum \
+  "odin-linux-amd64-${LATEST}.tar.gz" \
   "odin-linux-amd64-${LATEST}.tar.gz.sha256"; then
   errorMessage "${LANG_MESSAGES[failed]}"
   exit 1
