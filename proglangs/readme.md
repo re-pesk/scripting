@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (62)
+# Skriptinimas skirtingomis programavimo kalbomis (63)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -65,7 +65,7 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) keista sintaksė\
   (–) kilmė iš Microsoft'o
 
-## Intepretuojamos kalbos ir JIT kompiliatoriai (33)
+## Intepretuojamos kalbos ir JIT kompiliatoriai (34)
 
 ### JavaVM (8)
 
@@ -101,7 +101,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] Deno (+)
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
-### Kitos (21)
+### Kitos (22)
 
 * [x] [Dart <sup>&#x2B67;</sup>](dart/sys-upgrade/dart_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis
@@ -161,6 +161,10 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
 * [x] [Ruby <sup>&#x2B67;</sup>](ruby/sys-upgrade/ruby_readme.md) (–)\
   (–) keistoka sintaksė\
   (–) lėtas, išnaudoja tik vieną branduolį
+* [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/sys-upgrade/slang_readme.md) (–)\
+  (+) brandi kalba, naudojama jed redaktoriuje ir kitose aplikacijose\
+  (–) kartais nepatogi sintaksė\
+  (–) neaiški ir neišsami dokumentacija
 * [x] [Tcl <sup>&#x2B67;</sup>](tcl/sys-upgrade/tcl_readme.md) (±)\
   (+) sena, žinoma kalba\
   (–) kartais keista sintaksė
