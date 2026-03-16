@@ -6,6 +6,7 @@
 
 * [curl <sup>&#x2B67;</sup>](./curl/curl.md)
 * [hyperfine <sup>&#x2B67;</sup>](./hyperfine/hyperfine.md)
+* [yt-dlp <sup>&#x2B67;</sup>](./yt-dlp/yt-dlp.md)
 * [yq <sup>&#x2B67;</sup>](./yq/yq.md)
 * [jq <sup>&#x2B67;</sup>](./jq/jq.md)
 * [vivaldi <sup>&#x2B67;</sup>](./vivaldi/vivaldi.md)
