@@ -60,6 +60,7 @@ Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 * [x] [Ruby <sup>&#x2B67;</sup>](ruby/ruby_readme.md)
 * [x] [Rust <sup>&#x2B67;</sup>](rust/rust_readme.md)
 * [x] [Scala (JVM) <sup>&#x2B67;</sup>](scala/scala_readme.md)
+* [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/s-lang_readme.md)
 * [x] [Swift <sup>&#x2B67;</sup>](swift/swift_readme.md)
 * [x] [Tcl <sup>&#x2B67;</sup>](tcl/tcl_readme.md)
 * [x] [V <sup>&#x2B67;</sup>](v/v_readme.md)
