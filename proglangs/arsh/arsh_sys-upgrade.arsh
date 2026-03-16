@@ -1,0 +1,57 @@
+#!/usr/bin/env -S arsh
+
+# Klaidų ir sėkmės pranešimų medis - asociatyvusis masyvas
+let messages : Map<String, Map<String,String>>
+
+$messages.putAll([
+  "en.UTF-8": [
+    "err": "Error! Script execution was terminated!",
+    "succ": "Successfully finished!"
+  ],
+   "lt_LT.UTF-8": [
+    "err": "Klaida! Scenarijaus vykdymas sustabdytas!",
+    "succ": "Komanda sėkmingai įvykdyta!"
+   ]
+])
+
+# Išsaugomi pranešimai, atitinkantys aplinkos kalbą
+getenv LANG
+let errMessage = $messages[$REPLY]["err"]
+let succMessage = $messages[$REPLY]["succ"]
+
+# Išorinių komandų iškvietimo funkcija
+function runCmd(cmdArgs : String) {
+
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  let command = "sudo $cmdArgs"
+
+  # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
+  # $/./ - regeksas, atitinkantis bet kurį eilutės ženklą
+  # replace - funkcija, pakeičianti atitinkamus ženklus '-' simboliu
+  let separator = $/./.replace( $command, '-' )
+
+  # Išvedama komandos eilutė, apsupta skirtuko eilučių
+  printf '%s\n%s\n%s\n\n' $separator $command $separator
+
+  # Įvykdoma komanda. Jeigu vykdant komandą įvyko klaida,
+  # išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas,
+  # grąžinant klaidos kodą
+  if !(call ${$command.split(' ')}) {
+    let exitCode = $?
+    printf '\n\x1b[31m%s\x1b[39m\n\n' ${$errMessage}
+    exit $exitCode
+  }
+
+  # Kitu atveju išvedamas sėkmės pranešimas
+  printf '\n\x1b[31m%s\x1b[39m\n\n' ${$succMessage}
+
+}
+
+echo ""
+
+# Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
+$runCmd("apt update")
+$runCmd("apt-get upgrade -y")
+$runCmd("apt-get autoremove -y")
+$runCmd("snap refresh")
+
