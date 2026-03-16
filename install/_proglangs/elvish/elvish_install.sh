@@ -63,7 +63,7 @@ if ! elvish --version > /dev/null 2>&1; then
 fi
 # Patikrinti, ar kompiuteryje įdiegta Elvish versija yra vėliausia
 CURRENT="v$(elvish --version | cut -c -6)"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

@@ -117,10 +117,10 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(bun --version 2> /dev/null)"
-if ! [[ "${CURRENT}" == "${LATEST}" ]]; then
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
-fi
+}
 successMessage "${LANG_MESSAGES[installed_latest]}"
 
 # Išvesti į terminalą komandą, kurią reikia įvykdyti,

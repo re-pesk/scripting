@@ -58,10 +58,10 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
-if ! [[ "${CURRENT}" == "${LATEST}" ]]; then
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
-fi
+}
 successMessage "${LANG_MESSAGES[installed_latest]}"
 
 # Išvesti į terminalą komandą, kurią reikia įvykdyti,
@@ -103,8 +103,8 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(node --version 2> /dev/null)"
-if ! [[ "${CURRENT}" == "${LATEST}" ]]; then
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
-fi
+}
 successMessage "${LANG_MESSAGES[installed_latest]}"

@@ -82,7 +82,7 @@ install_euphoria_4.2() {
   # Patikrinti, ar įdiegta versija yra naujausia.
   # Išvesti atitinkamą pranešimą
   CURRENT="$(euc --version &> /dev/null && euc --version | head -n 1 | awk '{print $5}' | sed 's/v//')"
-  [[ "${CURRENT}" == "${LATEST}" ]] || {
+  [[ "${CURRENT}" < "${LATEST}" ]] && {
     errorMessage "${LANG_MESSAGES[not_latest]}"
     return 1
   }

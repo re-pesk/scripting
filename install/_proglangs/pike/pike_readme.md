@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
 
 # Pike [<sup>&#x2B67;</sup>](https://pike.lysator.liu.se/)
 

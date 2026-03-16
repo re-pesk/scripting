@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
 
 # C [<sup>&#x2B67;</sup>](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html)
 

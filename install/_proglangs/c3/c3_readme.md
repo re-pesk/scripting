@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
 
 # C3 [<sup>&#x2B67;</sup>](https://c3-lang.org/)
 

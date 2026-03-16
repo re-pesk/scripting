@@ -57,7 +57,7 @@ install_euphoria_4.1() {
 
   # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
   CURRENT="$(eui --version &> /dev/null && eui --version  | head -n 1 | awk '{print $3}' | sed 's/v//')"
-  [[ "${CURRENT}" == "${LATEST}" ]] || {
+  [[ "${CURRENT}" < "${LATEST}" ]] && {
     errorMessage "${LANG_MESSAGES[not_latest]}"
     return 1
   }

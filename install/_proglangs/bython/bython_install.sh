@@ -58,7 +58,7 @@ printf '%s\n' $'#!/usr/bin/env -S bash\n\npython -m bython-prushton "$@"' > "${H
 
 # Patikrinti, ar įdiegta versija veikia. Išvesti atitinkamą pranešimą
 CURRENT="$(bython --help 2> /dev/null | head -n 1 | awk '{print $2}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
 }

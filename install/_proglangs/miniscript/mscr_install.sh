@@ -47,7 +47,7 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(miniscript -? 2> /dev/null | tail -n +2 | head -n 1 | awk '{print $5}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

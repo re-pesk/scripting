@@ -55,10 +55,10 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(deno --version 2> /dev/null | head -n 1 | awk '{print "v"$2}')"
-if ! [[ "${CURRENT}" == "${LATEST}" ]]; then
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
-fi
+}
 successMessage "${LANG_MESSAGES[installed_latest]}"
 
 # Išvesti į terminalą komandą, kurią reikia įvykdyti,

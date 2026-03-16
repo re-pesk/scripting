@@ -47,7 +47,7 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(abs --version 2> /dev/null)"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

@@ -69,7 +69,7 @@ fi
 
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 CURRENT="$(osh --version | head -n 1 | awk '{print $2}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

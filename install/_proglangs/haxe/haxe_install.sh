@@ -66,7 +66,7 @@ install_haxe() (
 
   # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
   CURRENT="$(haxe --version 2> /dev/null)"
-  [[ "${CURRENT}" == "${LATEST}" ]] || {
+  [[ "${CURRENT}" < "${LATEST}" ]] && {
     errorMessage "${LANG_MESSAGES[not_updated]}"
     exit 1
   }
@@ -157,7 +157,7 @@ install_hashlink() (
 
   # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
   CURRENT="$(hl --version 2> /dev/null)"
-  [[ ! "${CURRENT}" < "${LATEST}" ]] || {
+  [[ "${CURRENT}" < "${LATEST}" ]] && {
     errorMessage "${LANG_MESSAGES[not_updated]}"
     exit 1
   }

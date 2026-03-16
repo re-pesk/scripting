@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")l_readme.md "Atgal")
+[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")l_readme.md "Atgal")
 
 # Pluto [<sup>&#x2B67;</sup>](https://pluto-lang.org/)
 

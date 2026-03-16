@@ -83,7 +83,7 @@ fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(kotlinc-native -version 2> /dev/null | awk '{print $NF}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   printf '%s\n\n' "Kotlin v${CURRENT} is not up to date!"
   exit 1
 }

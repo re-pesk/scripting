@@ -71,7 +71,7 @@ fi
 
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 CURRENT="$(hilbish --version 2> /dev/null | head -n 1 | awk '{print $2}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

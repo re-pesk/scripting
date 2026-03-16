@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
 
 # GNU Guile [<sup>&#x2B67;</sup>](https://www.gnu.org/software/guile/)
 
@@ -30,7 +30,7 @@ guile --no-auto-compile mano-modulis.scm
 ### Vykdymo instrukcija (shebang)
 
 ```bash
-#!/usr/bin/env -S guile --no-auto-compile -s 
+#!/usr/bin/env -S guile --no-auto-compile -s
 !#
 ```
 

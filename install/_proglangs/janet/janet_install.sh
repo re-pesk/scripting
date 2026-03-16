@@ -71,7 +71,7 @@ fi
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 # Išvesti pranešimą apie reultatą.
 CURRENT="v$(janet --version 2> /dev/null | awk -F '-' '{print $1}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }

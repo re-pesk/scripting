@@ -68,7 +68,7 @@ if ! chpl --version > /dev/null 2>&1; then
 fi
 # Patikrinti, ar kompiuteryje įdiegta Chapel versija yra vėliausia
 CURRENT="$(chpl --version 2>/dev/null | head -n 1 | awk '{print $NF}')"
-[[ "${CURRENT}" == "${LATEST}" ]] || {
+[[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }
