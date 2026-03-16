@@ -23,17 +23,17 @@ TARGET="linux-x64"
 [ -f /etc/alpine-release ] && TARGET="$TARGET-musl"
 [[ $(cat /proc/cpuinfo | grep avx2) = '' ]] && TARGET="$TARGET-baseline"
 
-curl -fsSLo "tmp.bun-${TARGET}.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-${TARGET}.zip"
+curl -fsSLo "tmp_.bun-${TARGET}.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-${TARGET}.zip"
 
 printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
-  "$(sha256sum "tmp.bun-${TARGET}.zip" | awk '{print $1}')" \
+  "$(sha256sum "tmp_.bun-${TARGET}.zip" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/oven-sh/bun/releases/expanded_assets/bun-v${LATEST}" \
     | xq -q "li > div:has(a[href$='/bun-${TARGET}.zip']) ~ div > div > span > span:contains('sha256:')" \
     | awk -F':' '{print $NF}')"
 
 rm -rf "$HOME/.opt/bun"
 mkdir -p "$HOME/.opt/bun/bin"
-unzip -jqd "$HOME/.opt/bun/bin" "tmp.bun-${TARGET}.zip" 2> /dev/null \
+unzip -jqd "$HOME/.opt/bun/bin" "tmp_.bun-${TARGET}.zip" 2> /dev/null \
   || errorMessage 'Failed to extract bun'
 
 printf '%s\n' $'export BUN_INSTALL="${HOME}/.opt/bun"

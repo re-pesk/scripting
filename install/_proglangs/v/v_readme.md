@@ -27,17 +27,17 @@ awk -F"[' ]" '/version: / {print $3}') ${COMMIT}"
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(v -v 2> /dev/null)"
 
-curl -sSLo "tmp.v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
+curl -sSLo "tmp_.v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
 curl -sSL "https://github.com/vlang/v/releases/expanded_assets/${TAG}" |
   xq -q "li > div:has(a span:contains('v_linux.zip')) ~ div > div > span > span" |
-  awk -F':' '{print $NF}' > "tmp.v_${TAG}_linux.zip.sha256"
+  awk -F':' '{print $NF}' > "tmp_.v_${TAG}_linux.zip.sha256"
 
 printf '\nsha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
-  "$(sha256sum "tmp.v_${TAG}_linux.zip" | awk '{print $1}')" \
-  "$(cat "tmp.v_${TAG}_linux.zip.sha256")"
+  "$(sha256sum "tmp_.v_${TAG}_linux.zip" | awk '{print $1}')" \
+  "$(cat "tmp_.v_${TAG}_linux.zip.sha256")"
 
 rm -rf "${HOME}/.opt/v"
-unzip "tmp.v_${TAG}_linux.zip" -d "${HOME}/.opt"
+unzip "tmp_.v_${TAG}_linux.zip" -d "${HOME}/.opt"
 
 ln -fs "${HOME}/.opt/v/v" -t "${HOME}/.local/bin"
 
