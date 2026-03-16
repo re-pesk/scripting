@@ -55,11 +55,16 @@ install_euphoria_4.2() {
 
   echo ""
 
-  # Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
-  # neprisijungus prie vartotojo paskyros iš naujo.
-  PATH_COMMAND=$'[[ -d "${HOME}/.opt/euphoria/bin" ]] &&
+  # Sukurti aplinkos kintamųjų įkėlimo skriptą,
+  # įkeliantį programos aplinkos kintamuosius
+  # ir papildantį PATH kintamąjį
+  printf '%s\n' $'[[ -d "${HOME}/.opt/euphoria/bin" ]] &&
   [[ ":${PATH}:" != *":${HOME}/.opt/euphoria/bin:"* ]] &&
-    export PATH="${HOME}/.opt/euphoria/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/euphoria/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/euphoria/env.sh"
+
+  # Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+  # neprisijungus prie vartotojo paskyros iš naujo.
+  PATH_COMMAND=$'[[ -s "${HOME}/.opt/euphoria/env.sh" ]] && . "${HOME}/.opt/euphoria/env.sh"'
   eval "${PATH_COMMAND}"
 
   # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -87,7 +92,7 @@ install_euphoria_4.2() {
   # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
   infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-  # Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+  # Įrašyti skripto įkėlimo komandą į konfigūracinį failą
   create_file_if_not_exists "${HOME}/.pathrc" '# shellcheck shell=bash'
   insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"
 }

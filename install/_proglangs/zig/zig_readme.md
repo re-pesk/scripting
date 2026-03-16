@@ -26,6 +26,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../utils/curl.md)
 
 ## Diegimas Linuxe (Ubuntu 24.04)
 
+Paleidžiamas diegimo skriptas `zig_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 # Vėliausią versijos numerį galima rasti https://ziglang.org/download/
 # Gauti įdiegtos programos versijos numerį.
@@ -50,17 +52,20 @@ curl -sSLo "zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
 
 # Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
 # Jeigu kontrolinės sumos nesutampa, diegimą nutraukti, atsisiųstus failus ištrinti.
-sha256sum "zig-x86_64-linux-${LATEST}.tar.xz" | awk '{print "\n"$1}'; \
-printf '%s\n\n' "${DATA["shasum"]}"
+printf 'SHA256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+  "$(sha256sum "zig-x86_64-linux-${LATEST}.tar.xz" | awk '{print "\n"$1}')" \
+  "${DATA["shasum"]}"
 
-[ -d "${HOME}/.opt/zig" ] && rm -rf "${HOME}/.opt/zig"
+rm -rf "${HOME}/.opt/zig"
 tar --file="zig-x86_64-linux-${LATEST}.tar.xz" \
   --transform='flags=r;s/^zig[^\/]+/zig/x' \
   --show-transformed-names -xJC "${HOME}/.opt"
 rm -f "zig-x86_64-linux-${LATEST}.tar.xz"
 
-# Sukurti nuorodą į vykdomąjį failą.
-ln -fs "${HOME}/.opt/zig/zig" "${HOME}/.local/bin"
+printf '%s\n' $'[[ -d "${HOME}/.opt/zig" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.opt/zig:"* ]] &&
+  export PATH="${HOME}/.opt/zig${PATH:+:${PATH}}"' > "${HOME}/.opt/zig/env.sh"
+. "${HOME}/.opt/zig/env.sh"
 
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
@@ -69,11 +74,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset DATA URL LATEST
 ```
 
-Arba galite įdiegti automatiniu būdu, paleisdami skriptą `zig_instal.sh`.
-
-```bash
-bash zig_instal.sh
-```
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/zig/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

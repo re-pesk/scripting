@@ -33,11 +33,10 @@ make install
 cd ..
 rm -rf yash-${LATEST}*
 
-ln -sf "${HOME}/.opt/yash/bin/yash" "${HOME}/.local/bin"
-
-[[ -d "${HOME}/.opt/yash/bin" ]] \
+printf '%s\n' $'[[ -d "${HOME}/.opt/yash/bin" ]] \
   && [[ ":${PATH}:" != *":${HOME}/.opt/yash/bin:"* ]] \
-  && export PATH="${HOME}/.opt/yash/bin${PATH:+:${PATH}}"
+  && export PATH="${HOME}/.opt/yash/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/yash/env.sh"
+. "${HOME}/.opt/yash/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(yash --version 2> /dev/null | head -n 1 | awk '{print $NF}')"
@@ -45,7 +44,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/yash/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/yash/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

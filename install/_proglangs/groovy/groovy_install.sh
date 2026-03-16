@@ -66,15 +66,20 @@ unzip -q "groovy-sdk-${LATEST}.zip"
 rm -rf "${HOME}/.opt/groovy"
 mv -T "groovy-${LATEST}" "${HOME}/.opt/groovy"
 
-# Įtraukti įdiegtos programos kelią ir kitus kintamuosius,
-# kad galima būtų ją kviesti, neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[ -z "$JAVA_HOME" ] && {
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[ -z "$JAVA_HOME" ] && {
   JAVA_HOME="$(which java | xargs readlink -f | xargs dirname | xargs dirname)"
-	export JAVA_HOME
+  export JAVA_HOME
 }\n
 [[ -d "${HOME}/.opt/groovy/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/groovy/bin:"* ]] && \
-    export PATH="${HOME}/.opt/groovy/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/groovy/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/groovy/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# kad galima būtų ją kviesti, neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/groovy/env.sh" ]] && . "${HOME}/.opt/groovy/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -95,5 +100,5 @@ printf '%s\n\n' "Groovy v${LATEST} is succesfully installed."
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

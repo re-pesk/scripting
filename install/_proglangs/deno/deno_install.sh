@@ -35,11 +35,16 @@ fi
 rm -rf "${HOME}/.opt/deno"
 curl -sSLo - "https://deno.land/x/install/install.sh" | DENO_INSTALL="${HOME}/.opt/deno" sh
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/deno/bin" ]] && \
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/deno/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/deno/bin:"* ]] && \
-    export PATH="${HOME}/.opt/deno/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/deno/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/deno/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/deno/env.sh" ]] && . "${HOME}/.opt/deno/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -60,5 +65,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `ngs_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 if ! command -v curl &> /dev/null; then
   printf '\n%s\n\n' "Curl neįdiegta! Įdiekite prieš tęsdami!"

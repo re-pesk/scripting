@@ -38,6 +38,7 @@ trap cleanup EXIT
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.
 cd "${TMP_DIR}" || exit 1
 curl -sSLO "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz"
+
 # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
 if ! compare_checksums_str sha256sum \
   "elvish-${LATEST}.tar.gz" \

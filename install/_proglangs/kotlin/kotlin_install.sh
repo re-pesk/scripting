@@ -63,11 +63,16 @@ rm -rf "${HOME}/.opt/kotlin-native"
 tar --file="kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \
   --transform 'flags=r;s/^(kotlin-native)[^\/]+/\1/x' --show-transformed-names -xzvC "${HOME}/.opt"
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/kotlin-native/bin" ]] && \
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/kotlin-native/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/kotlin-native/bin:"* ]] && \
-    export PATH="${HOME}/.opt/kotlin-native/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/kotlin-native/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/kotlin-native/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/kotlin-native/env.sh" ]] && . "${HOME}/.opt/kotlin-native/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -88,5 +93,5 @@ printf '%s\n\n' "Kotlin v${LATEST} is succesfully installed."
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

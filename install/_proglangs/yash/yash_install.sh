@@ -67,12 +67,17 @@ make
 rm -rf "${HOME}/.opt/yash"
 make install
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/yash/bin" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.opt/yash/bin:"* ]] &&
+    export PATH="${HOME}/.opt/yash/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/yash/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
 # neprisijungus prie vartotojo paskyros iš naujo.
 # shellcheck disable=SC2016
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/yash/bin" ]] &&
-  [[ ":${PATH}:" != *":${HOME}/.opt/yash/bin:"* ]] &&
-    export PATH="${HOME}/.opt/yash/bin${PATH:+:${PATH}}"'
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/yash/env.sh" ]] && . "${HOME}/.opt/yash/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -93,5 +98,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

@@ -28,15 +28,7 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
-Paleidžiamas diegimo skriptas `scala_install.sh`. Pabaigus diegimą, įvykdoma komanda
-
-```bash
-[[ -d "${HOME}/.opt/scala3/bin" ]] \
-&& [[ ":${PATH}:" != *":${HOME}/.opt/scala3/bin:"* ]] \
-&& export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"
-```
-
-Arba įvykdomos komandos terminale
+Paleidžiamas diegimo skriptas `scala_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/scala/scala3/releases/latest" | xargs basename)"
@@ -50,15 +42,16 @@ curl -sSLO "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-$
 sha256sum "scala3-${LATEST}-x86_64-pc-linux.tar.gz" | awk '{print $1}'
 cat "scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" | awk '{print $1}'
 
-[[ -d "${HOME}/.opt/scala3" ]] && rm -rf "${HOME}/.opt/scala3"
+rm -rf "${HOME}/.opt/scala3"
 tar --file="scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
   --transform='flags=r;s/^(scala3)[^\/]+/\1/x' \
   --show-transformed-names -xzvC "${HOME}/.opt"
 rm -f scala3-${LATEST}-x86_64-pc-linux.tar.gz*
 
-[[ -d "${HOME}/.opt/scala3/bin" ]] \
-  && [[ ":${PATH}:" != *":${HOME}/.opt/scala3/bin:"* ]] \
-  && export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"
+printf '%s\n' $'[[ -d "${HOME}/.opt/scala3/bin" ]] && \
+  [[ ":${PATH}:" != *":${HOME}/.opt/scala3/bin:"* ]] && \
+    export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/scala3/env.sh"
+. "${HOME}/.opt/scala3/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
   "${LATEST}" "$(scala version 2> /dev/null | tail -n +2 | awk '{print $NF}')"
@@ -66,7 +59,7 @@ printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
 unset LATEST
 ```
 
-Baigus diegti, pakeičiami konfigūraciniai failai, kad katalogas `${HOME}/.opt/scala3/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/scala3/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

@@ -8,6 +8,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `purs_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/purescript/purescript/releases/latest" | xargs basename)"
 

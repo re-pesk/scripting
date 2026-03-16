@@ -12,6 +12,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `oils_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sSLo - https://raw.githubusercontent.com/oils-for-unix/oils/refs/heads/master/oils-version.txt | head -n 1)"
 

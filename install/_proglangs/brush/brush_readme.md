@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md) ir xarg
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `brush_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(
   curl -sLo /dev/null -w "%{url_effective}" "https://github.com/reubeno/brush/releases/latest" | \

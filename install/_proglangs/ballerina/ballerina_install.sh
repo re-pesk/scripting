@@ -66,11 +66,16 @@ unzip -q "ballerina-${LATEST}-swan-lake.zip"
 rm -rf "${HOME}/.opt/ballerina"
 mv -T "ballerina-${LATEST}-swan-lake" "${HOME}/.opt/ballerina"
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/ballerina/bin" ]] && \
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/ballerina/bin" ]] && \
   [[ ":${PATH}:" != *":${HOME}/.opt/ballerina/bin:"* ]] && \
-    export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"'
+    export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/ballerina/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/ballerina/env.sh" ]] && . "${HOME}/.opt/ballerina/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -91,5 +96,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

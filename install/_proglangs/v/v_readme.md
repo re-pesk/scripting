@@ -11,15 +11,17 @@ Jeigu nėra įdiegtos, įdiegiamos [curl](../curl/curl.md), realpath (coreutils)
 
 ```bash
   # Išvedamos neįdiegtus komandos
-  printf "%s\n" curl realpath unzip xargs xq | sort -u | grep -Fvxf <(compgen -c | sort -u) 
+  printf "%s\n" curl realpath unzip xargs xq | sort -u | grep -Fvxf <(compgen -c | sort -u)
 ```
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `v_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 TAG="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/vlang/v/releases/latest" | xargs basename)"
 COMMIT="$(curl -sSL "https://github.com/vlang/v/releases/tag/${TAG}" | xq -q "div:has(span:contains('${TAG}')) ~ div > a > code")"
-LATEST="V $(curl -sSL "https://raw.githubusercontent.com/vlang/v/refs/heads/master/v.mod" | 
+LATEST="V $(curl -sSL "https://raw.githubusercontent.com/vlang/v/refs/heads/master/v.mod" |
 awk -F"[' ]" '/version: / {print $3}') ${COMMIT}"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \

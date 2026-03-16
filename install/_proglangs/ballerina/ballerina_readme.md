@@ -25,15 +25,7 @@ Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md), unzip ir xargs (finduti
 
 ## Diegimas
 
-Paleidžiamas diegimo skriptas `balerina_install.sh`. Pabaigus diegimą, įvykdoma komanda
-
-```bash
-[[ -d "${HOME}/.opt/ballerina/bin" ]] \
-  && [[ ":${PATH}:" != *":${HOME}/.opt/ballerina/bin:"* ]] \
-    && export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"
-```
-
-Arba įvykdomos komandos terminale
+Paleidžiamas diegimo skriptas `balerina_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
 LATEST="$(
@@ -58,9 +50,10 @@ rm -rf "${HOME}/.opt/ballerina"
 mv -T "./ballerina-${LATEST}-swan-lake" "${HOME}/.opt/ballerina"
 rm -f ballerina-${LATEST}-swan-lake.zip*
 
-[ -d "${HOME}/.opt/ballerina" ] \
+printf '%s\n' $'[[ -d "${HOME}/.opt/ballerina/bin" ]] && \
   && [[ ":${PATH}:" != *":${HOME}/.opt/ballerina/bin:"* ]] \
-    && export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"
+    && export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/ballerina/env.sh"
+. "${HOME}/.opt/ballerina/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
   "${LATEST}" "$(bal --version 2>/dev/null | head -n 1 | awk '{print $2}')"
@@ -68,7 +61,7 @@ printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/ballerina/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/ballerina/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

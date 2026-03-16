@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `hilbish_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" https://github.com/Rosettea/Hilbish/releases/latest | xargs basename)"
 

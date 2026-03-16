@@ -13,7 +13,9 @@ APP_NAME="VSCode"
 echo ""
 
 # Įdiegti trūkstamus paketus
-install_missing_packages apt-transport-https curl
+if ! install_missing_package apt-transport-https curl; then
+  exit 1
+fi
 
 # Jei nėra reikalingų komandų, nutraukti skripto vykdymą
 if ! chech_command curl gpg wget; then

@@ -59,14 +59,17 @@ rm -rf "${HOME}/.opt/nu"
 tar --file="${TMP_DIR}/nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" \
   --transform 'flags=r;s/nu.+gnu/nu/x' --show-transformed-names -xzvC "${HOME}/.opt"
 
-# Įtraukti įdiegtos programos kelią, kad galima būtų ją kviesti,
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/nu" ]] && \
+  [[ ":${PATH}:" != *":${HOME}/.opt/nu:"* ]] && \
+    export PATH="${HOME}/.opt/nu${PATH:+:${PATH}}"' > "${HOME}/.opt/nu/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
 # neprisijungus prie vartotojo paskyros iš naujo.
-# Išvesti šią komandą į terminalą.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/nu" ]] \
-  && [[ ":${PATH}:" != *":${HOME}/.opt/nu:"* ]] \
-    && export PATH="${HOME}/.opt/nu${PATH:+:${PATH}}"'
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/nu/env.sh" ]] && . "${HOME}/.opt/nu/env.sh"'
 eval "${PATH_COMMAND}"
-infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! nu -v > /dev/null 2>&1; then
@@ -87,5 +90,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # shellcheck disable=SC2016
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

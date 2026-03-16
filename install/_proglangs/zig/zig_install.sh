@@ -64,16 +64,24 @@ tar --file="${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" \
   --transform='flags=r;s/^zig[^\/]+/zig/x' \
   --show-transformed-names -xJC "${HOME}/.opt"
 
-# Sukurti nuorodą į vykdomąjį failą.
-ln -fs "${HOME}/.opt/zig/zig" "${HOME}/.local/bin"
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/zig" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.opt/zig:"* ]] &&
+  export PATH="${HOME}/.opt/zig${PATH:+:${PATH}}"' > "${HOME}/.opt/zig/env.sh"
 
-echo ""
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/zig/env.sh" ]] && . "${HOME}/.opt/zig/env.sh"'
+eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! zig --version > /dev/null 2>&1; then
   errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
 fi
+
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
 CURRENT="$(zig version 2> /dev/null)"
 [[ "${CURRENT}" == "${LATEST}" ]] || {
@@ -81,3 +89,10 @@ CURRENT="$(zig version 2> /dev/null)"
   exit 1
 }
 successMessage "${LANG_MESSAGES[installed_latest]}"
+
+# Išvesti į terminalą komandą, kurią reikia įvykdyti,
+# kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
+infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
+
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
+insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

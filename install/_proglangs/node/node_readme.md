@@ -22,9 +22,10 @@ mkdir -p "${HOME}/.opt/nvm"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${LATEST}/install.sh" \
   | NVM_DIR="${HOME}/.opt/nvm" PROFILE='/dev/null' bash
 
-export NVM_DIR="$HOME/.opt/nvm"
+printf '%s\n' $'export NVM_DIR="$HOME/.opt/nvm"
 [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
-[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
+[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"' > "${HOME}/.opt/nvm/env.sh"
+. "${HOME}/.opt/nvm/env.sh"
 
 printf 'nvm versijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
@@ -44,7 +45,7 @@ printf 'Node versijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad nvm diegimo kelias būtų įkeltiams į `NVM_DIR` kintamąjį, ir būtų įvykdomas failų `${NVM_DIR}/nvm.sh` ir `${NVM_DIR}/bash_completion` turinys.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/nvm/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

@@ -18,7 +18,9 @@ if ! check_command python3 xargs xq; then
 fi
 
 # Įdiegti trūkstamus paketus
-install_missing_packages python3-venv
+if ! install_missing_package python3-venv; then
+  exit 1
+fi
 
 if [ -d "${HOME}/.pyvenvs/tests" ]; then
   # shellcheck disable=SC1091

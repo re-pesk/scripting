@@ -7,9 +7,13 @@
 
 ## Diegimas
 
-Jeigu nėra įdiegta, įdiegti `wget apt-transport-https software-properties-common`
+Paleidžiamas diegimo skriptas `pwsh_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
+for name in wget apt-transport-https software-properties-common; do
+  dpkg -s "${name}" &> /dev/null || sudo apt-get install -y "${name}"
+done
+
 dpkg -s packages-microsoft-prod &> /dev/null || (
   source /etc/os-release
   wget -q "https://packages.microsoft.com/config/${NAME,,}/${VERSION_ID}/packages-microsoft-prod.deb"

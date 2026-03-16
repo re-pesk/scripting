@@ -10,7 +10,7 @@ APP_NAME="Vivaldi"
 
 echo ""
 
-if ! install_missing_packages gpg wget; then
+if ! install_missing_package gpg wget; then
   exit 1
 fi
 

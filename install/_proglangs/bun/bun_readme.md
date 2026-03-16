@@ -4,6 +4,8 @@
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `bun_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$( \
   curl -sLo /dev/null -w "%{url_effective}" "https://github.com/oven-sh/bun/releases/latest" | \
@@ -34,10 +36,11 @@ mkdir -p "$HOME/.opt/bun/bin"
 unzip -jqd "$HOME/.opt/bun/bin" "tmp.bun-${TARGET}.zip" 2> /dev/null \
   || errorMessage 'Failed to extract bun'
 
-export BUN_INSTALL="${HOME}/.opt/bun"
+printf '%s\n' $'export BUN_INSTALL="${HOME}/.opt/bun"
 [[ -d "${BUN_INSTALL}/bin" ]] && \
   [[ ":${PATH}:" != *":${BUN_INSTALL}/bin:"* ]] && \
-  export PATH="${BUN_INSTALL}/bin${PATH:+:${PATH}}"
+  export PATH="${BUN_INSTALL}/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/bun/env.sh"
+. "${HOME}/.opt/bun/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(bun --version 2> /dev/null)"
@@ -45,9 +48,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST TARGET
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/bun/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
-
-Baigę diegti, pakeiskite konfigūracinius failus, kad bun diegimo katalogas būtų įkeliamas į `BUN_INSTALL` kintamąjį, o kelias `${BUN_INSTALL}/bin` būtų įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/bun/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

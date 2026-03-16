@@ -8,6 +8,8 @@ Jeigu nėra įdiegta, įdiegiamas python3 ir python3-venv paketai.
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `bython_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 [ -d "${HOME}/.pyvenvs/tests" ] && source "${HOME}/.pyvenvs/tests/bin/activate"
 

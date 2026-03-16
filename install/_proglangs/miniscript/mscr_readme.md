@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md), xargs (findutils) ir [
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `mscr_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 LATEST="$(curl -sSL https://github.com/JoeStrout/miniscript/tags | \
   xq -q "div[id^=header]:contains('Tags') ~ div a[href*='miniscript/releases']")"

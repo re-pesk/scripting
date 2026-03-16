@@ -26,16 +26,12 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
-### Kotlin'o
+Paleidžiamas diegimo skriptas `kotlin_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
 sudo snap install --classic kotlin
 kotlin -version
-```
 
-### Kotlin Native
-
-```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/JetBrains/kotlin/releases/latest" \
   | xargs basename | sed 's/v//')"
 
@@ -54,9 +50,10 @@ tar --file="kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \
   --transform 'flags=r;s/^(kotlin-native)[^\/]+/\1/x' --show-transformed-names -xzvC "${HOME}/.opt"
 rm -f kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz*
 
-[[ -d "${HOME}/.opt/kotlin-native/bin" ]] \
+printf '%s\n' $'[[ -d "${HOME}/.opt/kotlin-native/bin" ]] \
   && [[ ":${PATH}:" != *":${HOME}/.opt/kotlin-native/bin:"* ]] \
-  && export PATH="${HOME}/.opt/kotlin-native/bin${PATH:+:${PATH}}"
+  && export PATH="${HOME}/.opt/kotlin-native/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/kotlin-native/env.sh"
+. "${HOME}/.opt/kotlin-native/env.sh"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(kotlinc-native -version 2> /dev/null | awk '{print $NF}')"
@@ -64,7 +61,7 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 unset LATEST
 ```
 
-Baigę diegti, pakeiskite konfigūracinius failus, kad kelias `${HOME}/.opt/ballerina/bin` būtų automatiškai įtraukiamas į sistemos `PATH` kintamąjį.
+Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/kotlin-native/env.sh` sistemos apvalkale būtų vykdomas automatiškai.
 
 ## Paleistis
 

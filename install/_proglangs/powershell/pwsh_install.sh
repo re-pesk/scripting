@@ -18,7 +18,9 @@ if ! check_command curl xargs; then
 fi
 
 # Įdiegti trūkstamus paketus
-install_missing_packages wget apt-transport-https software-properties-common
+if ! install_missing_package wget apt-transport-https software-properties-common; then
+  exit 1
+fi
 
 # Įdiegti pagrindinį Microsoft paketą
 dpkg -s packages-microsoft-prod &> /dev/null || (

@@ -11,6 +11,8 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 
 ## Diegimas
 
+Paleidžiamas diegimo skriptas `odin_install.sh` arba terminale įvykdomos komandos:
+
 ```bash
 dpkg -s clang &>/dev/null || sudo apt install clang
 

@@ -25,7 +25,9 @@ if ! check_command curl xargs xq; then
   exit 1
 fi
 
-install_missing_packages build-essential git
+if ! install_missing_package build-essential git; then
+  exit 1
+fi
 
 INIT_DIR="$PWD"
 TMP_DIR="$( mktemp -p . -d -t euphoria_.XXXXXXXX | xargs realpath )"

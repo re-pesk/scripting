@@ -61,14 +61,19 @@ fi
 rm -rf "${HOME}/.opt/go"
 tar -f "${LATEST}.linux-amd64.tar.gz" -xzC "${HOME}/.opt"
 
-# Įtraukti įdiegtos programos kelius, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/go/bin" ]] &&
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/go/bin" ]] &&
   [[ ":${PATH}:" != *":${HOME}/.opt/go/bin:"* ]] &&
   export PATH="${HOME}/.opt/go/bin${PATH:+:${PATH}}"\n
 [[ -d "${HOME}/go/bin" ]] &&
   [[ ":${PATH}:" != *":${HOME}/go/bin:"* ]] &&
-  export PATH="${HOME}/go/bin${PATH:+:${PATH}}"'
+  export PATH="${HOME}/go/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/go/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/go/env.sh" ]] && . "${HOME}/.opt/go/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -89,6 +94,6 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programą, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 # shellcheck disable=SC2016
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"

@@ -75,11 +75,16 @@ mv -T "${HOME}/.opt/phix/phix/demo" "${HOME}/.opt/phix/bin/demo"
 cd "${HOME}/.opt/phix/bin" || exit 1
 find "${HOME}/.opt/phix" -type f -executable -exec ln -s {} \;
 
-# Įtraukti įdiegtos programos kelius, kad galima būtų ją kviesti,
-# neprisijungus prie vartotojo paskyros iš naujo.
-PATH_COMMAND=$'[[ -d "${HOME}/.opt/phix/bin" ]] \
+# Sukurti aplinkos kintamųjų įkėlimo skriptą,
+# įkeliantį programos aplinkos kintamuosius
+# ir papildantį PATH kintamąjį
+printf '%s\n' $'[[ -d "${HOME}/.opt/phix/bin" ]] \
   && [[ ":${PATH}:" != *":${HOME}/.opt/phix/bin:"* ]] \
-    && export PATH="${HOME}/.opt/phix/bin${PATH:+:${PATH}}"'
+    && export PATH="${HOME}/.opt/phix/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/phix/env.sh"
+
+# Įvykdyti sukurtą skriptą, kad programą būtų galima kviesti,
+# neprisijungus prie vartotojo paskyros iš naujo.
+PATH_COMMAND=$'[[ -s "${HOME}/.opt/phix/env.sh" ]] && . "${HOME}/.opt/phix/env.sh"'
 eval "${PATH_COMMAND}"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
@@ -103,5 +108,5 @@ successMessage "${LANG_MESSAGES[installed_latest]}"
 # kad galima būtų kviesti programa, neprisijungus prie vartotojo paskyros iš naujo.
 infoMessage "${LANG_MESSAGES[wo_relogin]//'{PATH_COMMAND}'/"${PATH_COMMAND}"}"
 
-# Įrašyti programos kelio įtraukimo komandą į konfigūracinį failą
+# Įrašyti skripto įkėlimo komandą į konfigūracinį failą
 insert_path "${HOME}/.pathrc" "${PATH_COMMAND}"
