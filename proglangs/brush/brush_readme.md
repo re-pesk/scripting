@@ -6,7 +6,7 @@ Suderinamas su bash'u. Sukurtas su Rust'u.
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/brush/brush_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/brush/brush_readme.md "Diegimas")
 
 ## Paleistis
 

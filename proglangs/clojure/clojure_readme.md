@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/clojure/clojure_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/clojure/clojure_readme.md "Diegimas")
 
 ## Paleistis
 

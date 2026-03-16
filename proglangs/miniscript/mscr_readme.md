@@ -6,7 +6,7 @@ Miniscript'as - tai paprasta progrmavimo kalba su aiškia sintakse, skirta įtep
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/mscr/mscr_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/mscr/mscr_readme.md "Diegimas")
 
 ## Paleistis
 

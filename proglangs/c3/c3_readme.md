@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/c3/c3_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/c3/c3_readme.md "Diegimas")
 
 ## Paleistis
 

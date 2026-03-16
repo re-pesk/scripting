@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/c++/c++_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/c++/c++_readme.md "Diegimas")
 
 ## Paleistis
 

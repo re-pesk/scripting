@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/elvish/elvish_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/elvish/elvish_readme.md "Diegimas")
 
 ## Paleistis
 

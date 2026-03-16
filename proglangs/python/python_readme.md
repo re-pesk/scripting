@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/py/py_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/py/py_readme.md "Diegimas")
 
 ## Paleistis
 

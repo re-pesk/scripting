@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/chapel/chapel_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/chapel/chapel_readme.md "Diegimas")
 
 ## Kompiliavimas ir paleistis
 

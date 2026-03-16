@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/janet/janet_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/janet/janet_readme.md "Diegimas")
 
 ## Paleistis
 

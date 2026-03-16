@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/haskell/haskell_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/haskell/haskell_readme.md "Diegimas")
 
 ## Paleistis
 

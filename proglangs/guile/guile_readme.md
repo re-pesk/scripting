@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/guile/guile_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/guile/guile_readme.md "Diegimas")
 
 ## Paleistis
 

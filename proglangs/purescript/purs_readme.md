@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/purs/purs_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/purs/purs_readme.md "Diegimas")
 
 ## Paleistis ir kompiliavimas
 

@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/pwsh/pwsh_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/pwsh/pwsh_readme.md "Diegimas")
 
 ## Paleistis
 

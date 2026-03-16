@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/java/java_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/java/java_readme.md "Diegimas")
 
 ## Paleistis
 

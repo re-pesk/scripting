@@ -5,6 +5,10 @@
 * Paskiausias leidimas: pre2.3.4-20
 * Išleista: 2025-09-15
 
+## Diegimas
+
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/s-lang/s-lang_readme.md "Diegimas")
+
 ## Paleistis
 
 ```bash

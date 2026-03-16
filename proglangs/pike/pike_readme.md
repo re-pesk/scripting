@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti <sup>&#x2B67;</sup>](../../install/pike/pike_readme.md)
+[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/pike/pike_readme.md "Diegimas")
 
 ## Paleistis
 
