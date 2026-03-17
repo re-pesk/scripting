@@ -1,0 +1,69 @@
+#!/usr/bin/env -S aria
+
+import Map from aria.structures.map;
+import Color, ColorScheme from aria.system.coloring;
+
+# Klaidų ir sėkmės pranešimų medis
+val messages = Map.new() {
+  ["en.UTF-8"] = Map.new() {
+    ["err"] = "Error! Script execution was terminated!",
+    .succ = "Successfully finished!",
+  },
+  ["lt_LT.UTF-8"] = Map.new() {
+    ["err"] = "Klaida! Scenarijaus vykdymas sustabdytas!",
+    ["succ"] = "Komanda sėkmingai įvykdyta!",
+  },
+};
+
+# Aplinkos kalbos nuostata
+val LANG = getenv("LANG").unwrap_Some();
+
+# Pranešimai pagal aplinkos kalbos nuostatą
+val errorMessage = messages[LANG]['err'];
+val successMessage = messages[LANG]['succ'];
+
+# Išorinių komandų iškvietimo funkcija
+func runCmd (cmdArg) {
+
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  val command = "sudo {0}".format(cmdArg);
+
+  # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
+  # "-".repeat() - kartoja '-' simbolį
+  # command.len() - paimamas komandinės eilutės ilgis
+  val separator = "-" * command.len();
+
+  # Išvedama komandos eilutė, apsupta skirtuko eilučių
+  println("{0}\n{1}\n{2}\n".format(separator, command, separator));
+
+  #  Įvykdoma komanda, procesas išsaugomas į kintamąjį
+  # const child_proc = spawnSync(
+  #   ["sudo", ...cmdArg.split(' ')], {
+  #   stdio: ['inherit', 'inherit', 'inherit'],
+  #   shell: true
+  # })
+
+  # Išsaugomas įvykdytos komandos išėjimo kodas.
+  val exitCode = system(command);
+
+  # Išvesti komandos standartinę ir klaidos išvestis.
+  println(exitCode.stdout);
+  println(exitCode.stderr);
+
+  # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
+  if (exitCode != 0) {
+    println("{0}\n".red().format(errorMessage));
+    exit(exitCode);
+  }
+
+  # Kitu atveju išvedamas sėkmės pranešimas
+  println("{0}\n".green().format(successMessage));
+}
+
+println("");
+
+# Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
+runCmd("apt-get update");
+runCmd("apt-get upgrade -y");
+runCmd("apt-get autoremove -y");
+runCmd("snap refresh");
