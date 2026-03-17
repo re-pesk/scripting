@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (64)
+# Skriptinimas skirtingomis programavimo kalbomis (65)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -71,14 +71,14 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) keista sintaksė\
   (–) kilmė iš Microsoft'o
 
-## Intepretuojamos kalbos ir JIT kompiliatoriai (34)
+## Intepretuojamos kalbos ir JIT kompiliatoriai (35)
 
 ### JavaVM (8)
 
-Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
+Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK. (–)
 
 * [x] [Clojure <sup>&#x2B67;</sup>](clojure/clojure_readme.md) (–)\
-  (&ensp;) Lispo sintaksė
+  (?) Lispo sintaksė
 * [x] [Ballerina <sup>&#x2B67;</sup>](ballerina/ballerina_readme.md) (–)\
   (–) ribotos išorinių komandų iškvietimo funkcijos\
   (–) sudėtingas klaidų apdrojimas\
@@ -86,7 +86,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (–) mažai informacijos internete
 * [X] [Groovy <sup>&#x2B67;</sup>](groovy/groovy_readme.md) (–)
 * [x] [Java <sup>&#x2B67;</sup>](java/java_readme.md) (–)
-* [x] [Kotlin <sup>&#x2B67;</sup>](kotlin/kotlin_readme.md) (–)
+* [Kotlin <sup>&#x2B67;</sup>](kotlin/kotlin_readme.md) (–)
   3 kodo variantai:
   * [x] intepretuojamas,
   * [x] JVM,
@@ -107,8 +107,12 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] Deno (+)
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
-### Kitos (22)
+### Kitos (23)
 
+* [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md) (–)\
+  (–) nepatogus darbas su išorinėmis komandomis: negalima išvesti pranešimų vykdymo metu\
+  (+) žada ištaisyti tai ateityje
+  (+) dažni leidimai
 * [x] [Dart <sup>&#x2B67;</sup>](dart/dart_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis
 * [x] [Euphoria <sup>&#x2B67;</sup>](euphoria/euph_readme.md) (–)\
@@ -117,21 +121,21 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] [Phix <sup>&#x2B67;</sup>](phix/phix_readme.md) - stipriai modifikuota Euforijos versija (–)\
     (–) nepavyko paleisti visų pavyzdžių
 * [x] [Guile <sup>&#x2B67;</sup>](guile/guile_readme.md) (–)\
-  (&ensp;) Lispo sintaksė\
+  (?) Lispo sintaksė\
   (–) sudėtinga susigaudyti dokumentacijoje\
   (–) mažai informacijos intenete
 * [x] [Haxe <sup>&#x2B67;</sup>](haxe/haxe_readme.md) (–)\
-  (–) pagrindinės klasė nepatogiai susieta su kodo failo pavadinimu\
+  (–) pagrindinė klasė nepatogiai susieta su kodo failo pavadinimu\
   (–) reikalauja pagrindinės klasės
 * [x] [Io <sup>&#x2B67;</sup>](io/io_readme.md) (±)\
   (+) maža, paprasta kalba\
-  (&ensp;) Smaltalk'o sintaksė\
+  (?) Smaltalk'o sintaksė\
   (–) nebevystoma
 * [x] [Janet <sup>&#x2B67;</sup>](janet/janet_readme.md) (?)\
-  (&ensp;) Lispo sintaksė\
+  (?) Lispo sintaksė\
   (+) pozicionuojama kaip skriptinė kalba
 * [x] [Julia <sup>&#x2B67;</sup>](julia/julia_readme.md) (±)\
-  (&ensp;) Pythono pakaitalas moksliniams skaičiavimams
+  (?) Pythono pakaitalas moksliniams skaičiavimams
 * [x] [Lua <sup>&#x2B67;</sup>](lua/lua_readme.md) (+)\
   (+) paprasta kalba
   * [x] [Hilbish <sup>&#x2B67;</sup>](hilbish/hilbish_readme.md) Apvalkalas (shell) Lua kalbos pagrindu (+)
@@ -166,7 +170,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
     (+) skliaustais įrėminti blokai
 * [x] [Ruby <sup>&#x2B67;</sup>](ruby/ruby_readme.md) (–)\
   (–) keistoka sintaksė\
-  (–) lėtas, išnaudoja tik vieną branduolį
+  (–) lėtas, išnaudoja tik vieną procesoriaus branduolį
 * [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/slang_readme.md) (–)\
   (+) brandi kalba, naudojama jed redaktoriuje ir kitose aplikacijose\
   (–) kartais nepatogi sintaksė\
@@ -187,7 +191,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (+) sukurta kaip C kalbos pakaitalas
 * [ ] [Carbon <sup>&#x2B67;</sup>](carbon/carbon_readme.md) (–)\
   (+) kuriama kaip C kalbos pakaitalas\
-  (–) nepakankamai iįvystyta, nepavyko sukompiliuoti dokumentacijos pavyzdžio
+  (–) nepakankamai išvystyta, nepavyko sukompiliuoti dokumentacijos pavyzdžio
 * [x] [Chapel <sup>&#x2B67;</sup>](chapel/chapel_readme.md) (?)\
   (+) kalba su C sintakse\
   (+) paralelinė\
@@ -206,7 +210,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (+) paprastesnė už Zig, verta pasimokyti
 * [ ] [Purescript <sup>&#x2B67;</sup>](purescript/purs_readme.md) (–)\
   (–) transpileris, generuojantis JS kodą\
-  (–) netinka scenarijų kalbos vaidmeniui
+  (–) netinka aplinkos scenarijų kalbos vaidmeniui
 * [x] [Rust <sup>&#x2B67;</sup>](rust/rust_readme.md) (–)\
   (–) reikalauja projekto failo\
   (–) neaiškūs klaidų pranešimai
@@ -215,6 +219,6 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (–) dokumentacija orientuota į MacOS
 * [x] [V <sup>&#x2B67;</sup>](v/v_readme.md) (–)\
   (–) mažai žinoma\
-  (–) daug kritikos dėl neprofesionalių sprendimų
+  (–) daug kritikos dėl neva neprofesionalių sprendimų
 * [x] [Zig <sup>&#x2B67;</sup>](zig/zig_readme.md) (–)\
   (–) pernelyg sudėtinga paprastoms užduotims
