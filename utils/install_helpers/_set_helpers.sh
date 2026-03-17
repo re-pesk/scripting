@@ -8,6 +8,6 @@ UTILS_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd )"
 
 # Sukurti simbolines nuorodas į pagalbinius failus
 [[ "${UTILS_DIR}/_helpers.sh" == "$(realpath "${TARGET_DIR}/_helpers_.sh" 2> /dev/null)" ]] || \
-  cp -sfi "${UTILS_DIR}/_helpers.sh" "${TARGET_DIR}/_helpers_.sh"
+  ln -frs "${UTILS_DIR}/_helpers.sh" "${TARGET_DIR}/_helpers_.sh"
 [[ "${UTILS_DIR}/_messages.sh" == "$(realpath "${TARGET_DIR}/_messages_.sh" 2> /dev/null)" ]] || \
-  cp -sfi "${UTILS_DIR}/_messages.sh" "${TARGET_DIR}/_messages_.sh"
+  ln -frs "${UTILS_DIR}/_messages.sh" "${TARGET_DIR}/_messages_.sh"
