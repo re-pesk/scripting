@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # NGS [<sup>&#x2B67;</sup>](https://nojs.murex.rocks/)
 
@@ -18,6 +18,8 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/lmorg/mu
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(murex --version | head -n 1 | awk '{print $2}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 rm -r "${HOME}/.opt/murex"
 mkdir -p "${HOME}/.opt/murex"
@@ -43,3 +45,7 @@ murex kodo-failas.murex
 ```bash
 #!/usr/bin/env murex
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/murex/murex_readme.md "skriptai")

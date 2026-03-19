@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Java [<sup>&#x2B67;</sup>](https://www.java.com/en/download/help/index.html)
 
@@ -22,3 +22,7 @@ java --source 21 --enable-preview java_sys-upgrade.java
 ```bash
 ///usr/bin/env java --source 21 --enable-preview "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/java/java_readme.md "skriptai")

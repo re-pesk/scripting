@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Nushell [<sup>&#x2B67;</sup>](https://www.nushell.sh/)
 
@@ -34,13 +34,17 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nushell/
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(nu -v 2> /dev/null)"
 
-curl -sSLO "https://github.com/nushell/nushell/releases/download/${LATEST}/nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -LO "https://github.com/nushell/nushell/releases/download/${LATEST}/nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/nushell/nushell/releases/expanded_assets/${LATEST}" |\
   xq -q "li > div:has(a span:contains('nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz')) ~ div > div > span > span" |\
   awk -F ':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/nu"
 tar --file="nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" \
@@ -71,3 +75,7 @@ nu kodo-failas.nu
 ```bash
 #! /usr/bin/env -S nu
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/nushell/nu_readme.md "skriptai")

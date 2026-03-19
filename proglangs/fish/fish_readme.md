@@ -17,3 +17,7 @@ fish fish_sys-upgrade.fish
 ```bash
 #! /usr/bin/env -S fish
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./fish_sys-upgrade.fish "sys-upgrade")

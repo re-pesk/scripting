@@ -17,3 +17,7 @@ curlypy curlypy_sys-upgrade.cpy
 ```bash
 #!/usr/bin/env -S curlypy
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./curlypy_sys-upgrade.cpy "sys-upgrade")

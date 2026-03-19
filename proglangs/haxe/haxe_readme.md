@@ -31,3 +31,7 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 haxe -hl haxe_sys-upgrade.hl -main Haxe_sys_upgrade.hx
 hl haxe_sys-upgrade.hl
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./haxe_sys-upgrade.hx "sys-upgrade")

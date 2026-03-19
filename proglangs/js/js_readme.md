@@ -71,3 +71,9 @@ Apie Node diegimą [žiūrėti <sup>&#x2B67;</sup>](../../node/install/node_read
   deno compile --allow-run --allow-env --output deno_sys-upgrade.bin deno_sys-upgrade.mjs
   ./deno_sys-upgrade.bin
   ```
+
+## Skriptai
+
+* [bun_sys-upgrade <sup>&#x2B67;</sup>](./bun_sys-upgrade.mjs "sys-upgrade")
+* [deno_sys-upgrade <sup>&#x2B67;</sup>](./deno_sys-upgrade.mjs "sys-upgrade")
+* [node_sys-upgrade <sup>&#x2B67;</sup>](./node_sys-upgrade.mjs "sys-upgrade")

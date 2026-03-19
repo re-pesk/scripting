@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Deno [<sup>&#x2B67;</sup>](https://deno.com/)
 
@@ -15,7 +15,7 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nvm-sh/nvm/releases/latest" | xargs basename)"
 
 printf '\nnvm versijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
+  "${LATEST}" "$(nvm --version 2> /dev/null | awk '{print "v"$0}')"
 
 rm -rf "${HOME}/.opt/nvm"
 mkdir -p "${HOME}/.opt/nvm"
@@ -28,7 +28,7 @@ printf '%s\n' $'export NVM_DIR="$HOME/.opt/nvm"
 . "${HOME}/.opt/nvm/env.sh"
 
 printf 'nvm versijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
+  "${LATEST}" "$(nvm --version 2> /dev/null | awk '{print "v"$0}')"
 
 LATEST="$(nvm version-remote --lts 2> /dev/null)"
 
@@ -64,3 +64,7 @@ arba
 ```bash
 ///usr/bin/env -S node "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [Javascript <sup>&#x2B67;</sup>](../../../proglangs/js/js_readme.md "skriptai")

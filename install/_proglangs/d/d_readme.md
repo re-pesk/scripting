@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # D [<sup>&#x2B67;</sup>](https://dlang.org/)
 
@@ -14,22 +14,19 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 ```bash
 LATEST="$(curl -s https://downloads.dlang.org/releases/LATEST)"
 
-# Patikrinti, ar kompiuteryje įdiegta kuri nors programos versija. Sulyginti versijas
 printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(dmd --version 2>/dev/null | head -n 1 | awk '{print $NF}')"
 
-# Atsisiųsti failą iš tinklalapio
-curl -sSLO "https://downloads.dlang.org/releases/${LATEST%%.*}/${LATEST}/dmd_${LATEST}-0_amd64.deb"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-# Įdiegti programą. Ištrinti laikiną aplanką.
+curl -LO "https://downloads.dlang.org/releases/${LATEST%%.*}/${LATEST}/dmd_${LATEST}-0_amd64.deb"
+
 sudo apt install "./dmd_${LATEST}-0_amd64.deb"
 rm -rf "./dmd_${LATEST}-0_amd64.deb"
 
-# Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija. Sulyginti versijas
 printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(dmd --version 2>/dev/null | head -n 1 | awk '{print $NF}')"
 
-# Patikrinti kitų programų veikimą
 rdmd --version
 dub --version
 
@@ -59,3 +56,7 @@ arba
 ```bash
 rdmd --build-only -release -of=vykdomasis_failas.bin kodo_failas.d
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/d/d_readme.md "skriptai")

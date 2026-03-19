@@ -17,3 +17,7 @@ ruby ruby_sys-upgrade.rb
 ```bash
 #!/usr/bin/env -S ruby
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./ruby_sys-upgrade.rb "sys-upgrade")

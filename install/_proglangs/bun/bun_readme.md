@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Bun [<sup>&#x2B67;</sup>](https://bun.sh/)
 
@@ -15,9 +15,8 @@ LATEST="$( \
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(bun --version 2> /dev/null)"
 
-# Įvykdyti uname -ms
-# Jeigu išvestas "Linux x86_64", palikit kaip yra.
-# Jeigu išvestas "Linux aarch64" arba "Linux arm64", pakeisti "linux-x64" į "linux-aarch64".
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 uname -ms
 TARGET="linux-x64"
 [ -f /etc/alpine-release ] && TARGET="$TARGET-musl"
@@ -25,11 +24,13 @@ TARGET="linux-x64"
 
 curl -fsSLo "tmp_.bun-${TARGET}.zip" "https://github.com/oven-sh/bun/releases/latest/download/bun-${TARGET}.zip"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "tmp_.bun-${TARGET}.zip" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/oven-sh/bun/releases/expanded_assets/bun-v${LATEST}" \
     | xq -q "li > div:has(a[href$='/bun-${TARGET}.zip']) ~ div > div > span > span:contains('sha256:')" \
     | awk -F':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "$HOME/.opt/bun"
 mkdir -p "$HOME/.opt/bun/bin"
@@ -66,3 +67,10 @@ arba
 
 ```bash
 ///usr/bin/env -S bun run "$0" "$@"; exit $?
+```
+
+## Skriptai
+
+* [Javascript <sup>&#x2B67;</sup>](../../../proglangs/js/js_readme.md "skriptai")
+
+* [TypeScript <sup>&#x2B67;</sup>](../../../proglangs/ts/ts_readme.md "skriptai")

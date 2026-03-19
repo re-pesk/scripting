@@ -37,10 +37,10 @@ trap cleanup EXIT
 
 # Atsisųsti į laikiną aplanką programos failą ir patikros sumą.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz"
-curl -sSLO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz.md5"
+curl -LO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz"
+curl -LO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz.md5"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums md5sum \
   "hilbish-${LATEST}-linux-amd64.tar.gz" \
   "hilbish-${LATEST}-linux-amd64.tar.gz.md5"; then

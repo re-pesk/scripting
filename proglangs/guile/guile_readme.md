@@ -20,6 +20,15 @@ guile --no-auto-compile guile_sys-upgrade.scm
 
 ### Vykdymo instrukcija (shebang)
 
+Su automatiniu kompiliavimu
+
+```bash
+#!/usr/bin/env -S guile --auto-compile -s
+!#
+```
+
+Be automatinio kompiliavimo
+
 ```bash
 #!/usr/bin/env -S guile --no-auto-compile -s
 !#
@@ -27,27 +36,11 @@ guile --no-auto-compile guile_sys-upgrade.scm
 
 ## Kompiliavimas (į baitkodą)
 
-Įtepti į guile_sys-upgrade.scm failą eilutes:
-
-```scheme
-(define-module (guile_sys-upgrade)
-  #:export (main))
-
-(define (main)
-  <ankstesnis kodas>
-)
-
-(main)
-```
-
-Kompiliuoti failą
-
 ```bash
-guild compile --output=guile_sys-upgrade.go guile_sys-upgrade.scm
+guile -L . -c '(compile-file "guile_sys-upgrade.scm"  #:output-file "guile_sys-upgrade.go")'
+guile -C . -c '(load-compiled "guile_sys-upgrade.go")'
 ```
 
-Paleisti sukompiliuotą failą:
+## Skriptai
 
-```bash
-guile -C "$PWD" -c "(use-modules (guile_sys-upgrade))"
-```
+* [sys-upgrade <sup>&#x2B67;</sup>](./guile_sys-upgrade.scm "sys-upgrade")

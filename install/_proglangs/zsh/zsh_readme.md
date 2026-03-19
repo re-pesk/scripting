@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Zsh [<sup>&#x2B67;</sup>](https://www.zsh.org/)
 
@@ -19,3 +19,7 @@ zsh kodo-failas.sh
 ```bash
 #! /usr/bin/env -S zsh
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/zsh/zsh_readme.md "skriptai")

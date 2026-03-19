@@ -40,12 +40,12 @@ trap cleanup EXIT
 # Atsisųsti failo patikros sumą iš programos tinklalapio ir išsaugoti į kintamąjį.
 # Sulyginti failo patikros sumą su tinklalapio patikros suma.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/chapel-lang/chapel/releases/download/${LATEST}/chapel-${LATEST}-1.ubuntu24.amd64.deb"
+curl -LO "https://github.com/chapel-lang/chapel/releases/download/${LATEST}/chapel-${LATEST}-1.ubuntu24.amd64.deb"
 curl -sL "https://github.com/chapel-lang/chapel/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('chapel-${LATEST}-1.ubuntu24.amd64.deb')) ~ div > div > span > span" \
 | cut -c 8- > "chapel-${LATEST}-1.ubuntu24.amd64.deb.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "chapel-${LATEST}-1.ubuntu24.amd64.deb" \
   "chapel-${LATEST}-1.ubuntu24.amd64.deb.sha256"; then

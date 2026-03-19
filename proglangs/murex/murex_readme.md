@@ -17,3 +17,7 @@ murex murex_sys-upgrade.murex
 ```bash
 #!/usr/bin/env murex
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./murex_sys-upgrade.murex "sys-upgrade")

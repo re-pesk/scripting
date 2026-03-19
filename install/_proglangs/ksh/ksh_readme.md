@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Ksh93 [<sup>&#x2B67;</sup>](http://www.kornshell.com/) [(man.1)](https://linux.die.net/man/1/ksh93)
 
@@ -23,3 +23,7 @@ ksh kodo-failas.sh
 ```bash
 #!/usr/bin/env ksh
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ksh/ksh_readme.md "skriptai")

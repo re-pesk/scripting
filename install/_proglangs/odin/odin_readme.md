@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Odin [<sup>&#x2B67;</sup>](https://odin-lang.org/)
 
@@ -21,13 +21,17 @@ LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/odin-la
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(odin version 2> /dev/null | awk -F'[ -]' '{print $3"-"$4"-"$5}')"
 
-curl -sSLO "https://github.com/odin-lang/Odin/releases/download/${LATEST}/odin-linux-amd64-${LATEST}.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -LO "https://github.com/odin-lang/Odin/releases/download/${LATEST}/odin-linux-amd64-${LATEST}.tar.gz"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "odin-linux-amd64-${LATEST}.tar.gz" | awk '{print $1}')" \
   "$(curl -sSLo - "https://github.com/odin-lang/Odin/releases/expanded_assets/${LATEST}" \
   | xq -q "li > div:has(a span:contains('odin-linux-amd64-${LATEST}.tar.gz')) ~ div > div > span > span" \
   | awk -F':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/odin"
 tar --file "odin-linux-amd64-${LATEST}.tar.gz" \
@@ -77,3 +81,7 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 odin build kodo-failas.odin -file -out:vykdomasis-failas.bin
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/odin/odin_readme.md "skriptai")

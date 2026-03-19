@@ -17,3 +17,7 @@ yash yash_sys-upgrade.sh
 ```bash
 #!/usr/bin/env yash
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./yash_sys-upgrade.sh "sys-upgrade")

@@ -24,3 +24,7 @@ go run go_sys-upgrade.go
 go build -o go_sys-upgrade.bin go_sys-upgrade.go
 ./go_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./go_sys-upgrade.go "sys-upgrade")

@@ -30,3 +30,7 @@ arba
 rustc -o rust_sys-upgrade.bin rust_sys-upgrade.rs
 ./rust_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./rust_sys-upgrade.rs "sys-upgrade")

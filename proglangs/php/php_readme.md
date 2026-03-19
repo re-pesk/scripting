@@ -35,3 +35,7 @@ arba
 ///usr/bin/env php "$0" -- "$@"; exit "$?"
 <?php
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./php_sys-upgrade.php "sys-upgrade")

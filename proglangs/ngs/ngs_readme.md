@@ -17,3 +17,7 @@ ngs ngs_sys-upgrade.ngs
 ```bash
 #!/usr/bin/env -S ngs
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./ngs_sys-upgrade.ngs "sys-upgrade")

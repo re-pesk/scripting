@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Julia [<sup>&#x2B67;</sup>](https://julialang.org/)
 
@@ -42,3 +42,7 @@ julia kodo-failas.jl
 julia +nightly juliac.jl --output-exe julia_sys-upgrade.bin --trim julia_sys-upgrade.jl --experimental
 ```
 -->
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/julia/julia_readme.md "skriptai")

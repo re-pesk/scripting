@@ -19,3 +19,7 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 ```bash
 #!/usr/bin/env perl
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./per_sys-upgrade.pl "sys-upgrade")

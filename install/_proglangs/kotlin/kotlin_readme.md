@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Kotlin [<sup>&#x2B67;</sup>](https://kotlinlang.org/)
 
@@ -38,12 +38,16 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/JetBrain
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(kotlinc-native -version 2> /dev/null | awk '{print $NF}')"
 
-curl -sSLO "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz"
-curl -sSLO "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -LO "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz"
+curl -LO "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" | awk '{print $1}')" \
   "$(cat "kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256")"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/kotlin-native"
 tar --file="kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \
@@ -100,3 +104,7 @@ kotlin Kodo_failasKt
 kotlinc-native -o vykdomasis-failas.bin.kexe kodo-failas.bin.kt
 ./vykdomasis-failas.bin.kexe
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/kotlin/kotlin_readme.md "skriptai")

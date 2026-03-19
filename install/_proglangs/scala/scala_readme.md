@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Scala [<sup>&#x2B67;</sup>](https://scala-lang.org/)
 
@@ -33,11 +33,13 @@ Paleidžiamas diegimo skriptas `scala_install.sh` arba terminale įvykdomos koma
 ```bash
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/scala/scala3/releases/latest" | xargs basename)"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(scala version 2> /dev/null | tail -n +2 | awk '{print $NF}')"
 
-curl -sSLO "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz"
-curl -sSLO "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
+curl -LO "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz"
+curl -LO "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256"
 
 sha256sum "scala3-${LATEST}-x86_64-pc-linux.tar.gz" | awk '{print $1}'
 cat "scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" | awk '{print $1}'
@@ -53,7 +55,7 @@ printf '%s\n' $'[[ -d "${HOME}/.opt/scala3/bin" ]] && \
     export PATH="${HOME}/.opt/scala3/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/scala3/env.sh"
 . "${HOME}/.opt/scala3/env.sh"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(scala version 2> /dev/null | tail -n +2 | awk '{print $NF}')"
 
 unset LATEST
@@ -78,3 +80,7 @@ arba
 ```bash
 ///usr/bin/env -S scala shebang "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/scala/scala_readme.md "skriptai")

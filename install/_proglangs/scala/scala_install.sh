@@ -36,9 +36,9 @@ TMP_DIR="$( mktemp -p . -d -t scala_.XXXXXXXX | xargs realpath )"
 trap cleanup EXIT
 
 # Atsisųsti į laikiną aplanką programos ir patikros sumos failus.
-curl -sSLo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
+curl -Lo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz" \
   "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz"
-curl -sSLo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" \
+curl -Lo "${TMP_DIR}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256" \
   "https://github.com/scala/scala3/releases/download/${LATEST}/scala3-${LATEST}-x86_64-pc-linux.tar.gz.sha256"
 
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.

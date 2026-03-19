@@ -23,3 +23,7 @@ arba
 ```bash
 ///usr/bin/env io "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./io_sys-upgrade.io "sys-upgrade")

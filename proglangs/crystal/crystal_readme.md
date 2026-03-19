@@ -24,3 +24,7 @@ crystal crystal_sys-upgrade.cr
 crystal build --release --progress --static -o crystal_sys-upgrade.bin crystal_sys-upgrade.cr
 ./crystal_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./crystal_sys-upgrade.cr "sys-upgrade")

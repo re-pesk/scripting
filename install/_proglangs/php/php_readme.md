@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # PHP [<sup>&#x2B67;</sup>](https://www.php.net/)
 
@@ -20,6 +20,8 @@ LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/php/php
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(php -v 2> /dev/null | head -n 1 | awk '{print $2}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 MINOR="${LATEST%.*}"
 
@@ -64,3 +66,7 @@ arba
 ///usr/bin/env php "$0" -- "$@"; exit "$?"
 <?php
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/php/php_readme.md "skriptai")

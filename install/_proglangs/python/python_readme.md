@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Python [<sup>&#x2B67;</sup>](https://www.python.org/)
 
@@ -22,3 +22,7 @@ arba
 ```bash
 #!/usr/bin/env -S python3
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/python/python_readme.md "skriptai")

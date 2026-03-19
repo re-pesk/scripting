@@ -18,3 +18,7 @@ chpl --output=chapel_sys-upgrade.bin chapel_sys-upgrade.chpl
 ```bash
 ///usr/bin/env -S rm -f "./${0%.*}.bin"; chpl --output="${0%.*}.bin" "$0"; [[ $? == 0 ]] && "./${0%.*}.bin" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./chapel_sys-upgrade.chpl "sys-upgrade")

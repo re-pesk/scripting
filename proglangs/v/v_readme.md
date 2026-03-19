@@ -30,3 +30,7 @@ arba
 v -o v_sys-upgrade.bin v_sys-upgrade.v
 ./v_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./v_sys-upgrade.v "sys-upgrade")

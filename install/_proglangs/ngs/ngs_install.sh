@@ -23,7 +23,7 @@ LATEST="$(
   curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/ngs-lang/ngs/releases/latest" | \
   xargs basename
 )"
-CURRENT="v$(ngs --version)"
+CURRENT="$(ngs --version 2> /dev/null | awk '{print "v"$0}')"
 
 # Atnaujinti pranešimų masyvą
 . ../../_helpers_.sh
@@ -43,7 +43,7 @@ if ! ngs --version > /dev/null 2>&1; then
 fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
-CURRENT="v$(ngs --version)"
+CURRENT="$(ngs --version 2> /dev/null | awk '{print "v"$0}')"
 [[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1

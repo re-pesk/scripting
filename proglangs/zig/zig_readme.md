@@ -23,3 +23,7 @@ zig run --name zig_sys-upgrade.bin zig_sys-upgrade.zig
 ```bash
 zig build-exe -O ReleaseSmall -static --name zig_sys-upgrade.bin zig_sys-upgrade.zig && rm zig_sys-upgrade.bin.o
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./zig_sys-upgrade.zig "sys-upgrade")

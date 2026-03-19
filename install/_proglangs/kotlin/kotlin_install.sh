@@ -46,9 +46,9 @@ trap cleanup EXIT
 # Atsisiųsti į laikiną katalogą programos ir patikros sumos failus.
 # Sutikrinti failo patikros sumą su tinklalapio patikros suma, jei patikros sumos nesutampa, nutraukti diegimą.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO \
+curl -LO \
   "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz"
-curl -sSLO \
+curl -LO \
   "https://github.com/JetBrains/kotlin/releases/download/v${LATEST}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz.sha256"
 if ! compare_checksums sha256sum \
   "${TMP_DIR}/kotlin-native-prebuilt-linux-x86_64-${LATEST}.tar.gz" \

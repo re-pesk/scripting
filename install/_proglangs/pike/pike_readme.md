@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Pike [<sup>&#x2B67;</sup>](https://pike.lysator.liu.se/)
 
@@ -30,3 +30,7 @@ arba
 ```bash
 ///usr/bin/env -S pike "$0" "$@"; exit "$?"
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/pike/pike_readme.md "skriptai")

@@ -17,3 +17,7 @@ abs abs_sys-upgrade.abs
 ```bash
 #!/usr/bin/env abs
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./abs_sys-upgrade.abs "sys-upgrade")

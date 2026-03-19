@@ -69,3 +69,7 @@ Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 * [x] [V <sup>&#x2B67;</sup>](v/v_readme.md)
 * [x] [Zig <sup>&#x2B67;</sup>](zig/zig_readme.md)
 * [x] [Zsh <sup>&#x2B67;</sup>](zsh/zsh_readme.md)
+
+## Skriptinimas
+
+* [Programavimo kalbų skriptai <sup>&#x2B67;</sup>](../../../proglangs/readme.md "proglangs")

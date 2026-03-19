@@ -17,3 +17,7 @@ dash dash_sys-upgrade.sh
 ```bash
 #! /usr/bin/env -S dash
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./dash_sys-upgrade.sh "sys-upgrade")

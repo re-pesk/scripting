@@ -17,3 +17,7 @@ elvish elvish_sys-upgrade.elv
 ```bash
 #!/usr/bin/env elvish
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./elvish_sys-upgrade.elv "sys-upgrade")

@@ -17,3 +17,7 @@ janet janet_sys-upgrade.janet
 ```bash
 #!/usr/bin/env janet
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./janet_sys-upgrade.janet "sys-upgrade")

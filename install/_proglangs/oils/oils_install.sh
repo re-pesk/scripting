@@ -43,7 +43,7 @@ curl -fssL "https://oils.pub/release/${LATEST}/" \
   | xq -q "div.file-table tr:has(td.filename > a:contains('oils-for-unix-${LATEST}.tar.gz')) + tr > td.checksum" \
   > "oils-for-unix-${LATEST}.tar.gz.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "oils-for-unix-${LATEST}.tar.gz" \
   "oils-for-unix-${LATEST}.tar.gz.sha256"; then

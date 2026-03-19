@@ -17,3 +17,7 @@ java --source 21 --enable-preview java_sys-upgrade.java
 ```bash
 ///usr/bin/env java --source 21 --enable-preview "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./java_sys-upgrade.java "sys-upgrade")

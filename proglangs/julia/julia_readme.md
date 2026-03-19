@@ -24,3 +24,7 @@ julia julia_sys-upgrade.jl
 julia +nightly juliac.jl --output-exe julia_sys-upgrade.bin --trim julia_sys-upgrade.jl --experimental
 ```
 -->
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./julia_sys-upgrade.jl "sys-upgrade")

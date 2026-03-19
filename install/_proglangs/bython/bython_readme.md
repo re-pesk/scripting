@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Bython [<sup>&#x2B67;</sup>](https://github.com/prushton2/bython)
 
@@ -39,3 +39,7 @@ bython kodo-failas.cpy
 ```bash
 #!/usr/bin/env -S bython
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/bython/bython_readme.md "skriptai")

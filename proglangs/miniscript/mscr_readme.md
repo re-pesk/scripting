@@ -25,3 +25,7 @@ arba
 ```bash
 ///usr/bin/env -S miniscript "$0" "$@"; exit "$?"
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./mscr_sys-upgrade.ms "sys-upgrade")

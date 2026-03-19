@@ -26,3 +26,7 @@ arba
 ```bash
 #!/usr/bin/env -S slsh
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./s-lang_sys-upgrade.sl "sys-upgrade")

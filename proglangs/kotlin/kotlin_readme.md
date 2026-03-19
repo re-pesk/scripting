@@ -43,3 +43,9 @@ kotlin Kotlin_sys_upgradeKt
 kotlinc-native -o kotlin_sys-upgrade.bin kotlin_sys-upgrade.bin.kt
 ./kotlin_sys-upgrade.bin.kexe
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./kotlin_sys-upgrade.kts "sys-upgrade")
+* [sys-upgrade <sup>&#x2B67;</sup>](./kotlin_sys-upgrade.kt "sys-upgrade")
+* [sys-upgrade <sup>&#x2B67;</sup>](./kotlin_sys-upgrade.bin.kt "sys-upgrade")

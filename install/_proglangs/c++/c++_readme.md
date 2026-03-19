@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # C++ [<sup>&#x2B67;</sup>](https://cplusplus.com/doc/tutorial/)
 
@@ -23,3 +23,7 @@ g++ instaliuojamas su Ubuntu 24.04 operacine sistema
 g++ -static -Wno-sizeof-array-argument -std=c++2b -o vykdomasis-failas.bin kodo-failas.cpp
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/c++/c++_readme.md "skriptai")

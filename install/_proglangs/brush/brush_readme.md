@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Brush [<sup>&#x2B67;</sup>](https://brush.sh/)
 
@@ -22,12 +22,16 @@ LATEST="$(
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(brush --version 2> /dev/null | awk '{print $2}')"
 
-URL="https://github.com/reubeno/brush/releases/download/brush-shell-${LATEST}/brush-x86_64-unknown-linux-musl"
-curl -sSLo "tmp_brush-x86_64-unknown-linux-musl.tar.gz" "${URL}.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+URL="https://github.com/reubeno/brush/releases/download/brush-shell-${LATEST}/brush-x86_64-unknown-linux-musl"
+curl -Lo "tmp_brush-x86_64-unknown-linux-musl.tar.gz" "${URL}.tar.gz"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "tmp_brush-x86_64-unknown-linux-musl.tar.gz")" \
   "$(curl -sSL "${URL}.sha256")"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/brush"
 tar --file "tmp_brush-x86_64-unknown-linux-musl.tar.gz" \
@@ -53,3 +57,7 @@ brush kodo-failas.sh
 ```bash
 #!/usr/bin/env -S brush
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/brush/brush_readme.md "skriptai")

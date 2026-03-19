@@ -21,13 +21,17 @@ LATEST="$(
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$( curl --version | head -n 1 | awk '{print $2}' )"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 wget -q "https://github.com/stunnel/static-curl/releases/download/${LATEST}/curl-linux-x86_64-musl-${LATEST}.tar.xz"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "curl-linux-x86_64-musl-${LATEST}.tar.xz")" \
   "$( wget -O- "https://github.com/stunnel/static-curl/releases/expanded_assets/${LATEST}" 2> /dev/null | \
     grep -oP '(?<=<clipboard-copy id="clipboard-button-sha256:).+curl-linux-x86_64-musl-'"${LATEST}"'.tar.xz"' | \
     grep -oP '^[^"]+' )  https://github.com/stunnel/static-curl/releases/expanded_assets/${LATEST}"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/curl"
 tar --file "curl-linux-x86_64-musl-${LATEST}.tar.xz" --transform 'flags=r;s/^(.+)$/curl\/\1/x' --show-transformed-names -xJvC "${HOME}/.opt"

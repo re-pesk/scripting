@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Dart [<sup>&#x2B67;</sup>](https://dart.dev/)
 
@@ -59,3 +59,7 @@ arba
 dart compile exe -o vykdomasis-failas.bin kodo-failas.dart
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/dart/dart_readme.md "skriptai")

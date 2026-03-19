@@ -42,8 +42,8 @@ trap cleanup EXIT
 # Atsisiųsti į laikiną aplanką programos failą ir patikros sumą.
 cd "${TMP_DIR}" || exit 1
 URL="https://github.com/reubeno/brush/releases/download/brush-shell-${LATEST}/brush-x86_64-unknown-linux-musl"
-curl -sSLO "${URL}.tar.gz"
-curl -sSLO "${URL}.sha256"
+curl -LO "${URL}.tar.gz"
+curl -LO "${URL}.sha256"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \

@@ -25,14 +25,18 @@ LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/mikefar
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$( yq --version  | awk '{print $NF}' )"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 curl -fsSLO "https://github.com/mikefarah/yq/releases/download/${LATEST}/yq_linux_amd64.tar.gz"
 rm -rf "${HOME}/.opt/yq"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "yq_linux_amd64.tar.gz")" \
   "$(curl -sSL "https://github.com/mikefarah/yq/releases/expanded_assets/${LATEST}" \
     | xq -q "li > div:has(a span:contains('yq_linux_amd64.tar.gz')) ~ div > div > span > span" \
     | awk -F':' '{print $NF}')  https://github.com/mikefarah/yq/releases/expanded_assets/${LATEST}"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 tar --file "yq_linux_amd64.tar.gz" --transform 'flags=r;s/^(.+)/yq\/\1/x' -xzC "${HOME}/.opt"
 rm -rf "yq_linux_amd64.tar.gz"

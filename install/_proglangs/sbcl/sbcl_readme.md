@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # SBCL [<sup>&#x2B67;</sup>](https://www.sbcl.org/)
 
@@ -36,6 +36,8 @@ LATEST="$(
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(sbcl --version | awk '{print $NF}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 curl -sSLo - "http://prdownloads.sourceforge.net/sbcl/sbcl-${LATEST}-x86-64-linux-binary.tar.bz2" \
   | tar --transform "flags=r;s/^[^\/]+/tmp_.sbcl-${LATEST}/x" --show-transformed-names -xjv
@@ -86,4 +88,4 @@ sbcl --load kodo-faila.lisp --eval "(sb-ext:save-lisp-and-die \"vykdomasis-faila
 
 ## Skriptai
 
-[SBCL skriptai <sup>&#x2B67;</sup>](../../../proglangs/sbcl/sbcl_readme.md "Skriptai")
+[Skriptai <sup>&#x2B67;</sup>](../../../proglangs/sbcl/sbcl_readme.md "Skriptai")

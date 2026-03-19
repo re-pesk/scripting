@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Carbon [<sup>&#x2B67;</sup>](https://docs.carbon-lang.dev/)
 
@@ -11,16 +11,13 @@ Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md)
 ## Diegimas
 
 ```bash
-# Gauti paskutinės programos versijos numerį
 LATEST="$(date -d yesterday +0.0.0-0.nightly.%Y.%m.%d)"
 
-# Patikrinti, ar kompiuteryje įdiegta kuri nors programos versija. Sulyginti versijas
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(carbon version 2>/dev/null | awk -F': |\+' '{print $2}')"
 
-# Ištrinti įdiegtą versiją.
-# Išskleisti iš repozitorijos atsisiųstą archyvą į diegimo katalogą.
-# Sukurti simbolinę nuorodą į vykdomajį failą.
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 rm -rf ${HOME}/.opt/carbon
 
 # Pasirinkti archyvą iš https://github.com/carbon-language/carbon-lang/releases
@@ -29,11 +26,9 @@ curl -fsSLo - "https://github.com/carbon-language/carbon-lang/releases/download/
 ln -fs ${HOME}/.opt/carbon/lib/carbon/carbon-busybox ${HOME}/.local/bin/carbon
 (( $(apt list --installed 2>/dev/null | grep -c -P '^libgcc-11-dev') > 0 )) || sudo apt install libgcc-11-dev
 
-# Patikrinti, ar kompiuteryje įdiegta Carbon versija yra vėliausia
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(carbon version 2>/dev/null | awk -F': |\+' '{print $2}')"
 
-# Ištrinti kintamuosius
 unset LATEST
 ```
 
@@ -50,3 +45,7 @@ carbon compile --output=objektinis-failas.o kodo-failas.carbon
 carbon link --output=vykdomasis-failas.bin objektinis-failas.o
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/carbon/carbon_readme.md "skriptai")

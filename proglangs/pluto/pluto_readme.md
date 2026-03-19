@@ -26,3 +26,7 @@ Kompiliavimas į baitkodą ir vykdymas:
 plutoc -o pluto_sys-upgrade.bin pluto_sys-upgrade.pluto
 pluto pluto_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./pluto_sys-upgrade.pluto "sys-upgrade")

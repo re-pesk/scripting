@@ -45,10 +45,10 @@ TMP_DIR="$( mktemp -p . -d -t zig_.XXXXXXXX | xargs realpath )"
 trap cleanup EXIT
 
 
-curl -sSLo "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
+curl -Lo "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
 
 # Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
-# Jeigu kontrolinės sumos nesutampa, diegimą nutraukti, atsisiųstus failus ištrinti.
+# Jeigu patikros sumos nesutampa, diegimą nutraukti, atsisiųstus failus ištrinti.
 if ! compare_checksums_str sha256sum \
   "${TMP_DIR}/zig-x86_64-linux-${LATEST}.tar.xz" \
   "${DATA["shasum"]}"; then

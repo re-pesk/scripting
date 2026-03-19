@@ -41,7 +41,7 @@ trap cleanup EXIT
 
 cd "${TMP_DIR}" || exit 1
 # Atsisiųsti į diegimo aplanką programos failą.
-curl -sSLo "v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
+curl -Lo "v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
 curl -sSL "https://github.com/vlang/v/releases/expanded_assets/${TAG}" |
   xq -q "li > div:has(a span:contains('v_linux.zip')) ~ div > div > span > span" \
   > "v_${TAG}_linux.zip.sha256"

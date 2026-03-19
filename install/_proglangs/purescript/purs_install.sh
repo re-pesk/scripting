@@ -20,7 +20,7 @@ fi
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/purescript/purescript/releases/latest" | xargs basename)"
-CURRENT="v$(purs --version 2> /dev/null)"
+CURRENT="$(purs --version 2> /dev/null | awk '{print "v"$0}')"
 
 # Atnaujinti pranešimų masyvą
 . ../../_helpers_.sh
@@ -35,8 +35,8 @@ TMP_DIR="$( mktemp -p . -d -t purescript_.XXXXXXXX | xargs realpath )"
 trap cleanup EXIT
 
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.tar.gz"
-curl -sSLO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.sha"
+curl -LO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.tar.gz"
+curl -LO "https://github.com/purescript/purescript/releases/download/${LATEST}/linux64.sha"
 
 if ! compare_checksums sha1sum \
   "linux64.tar.gz" \
@@ -52,7 +52,7 @@ ln -fs "${HOME}/.opt/purescript/purs" -t "${HOME}/.local/bin/"
 
 # LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/purescript/purescript/releases/latest" | xargs basename)"
 
-# curl -sSLo- "$(
+# curl -Lo- "$(
 #   curl -sLo /dev/null -w "%{url_effective}" \
 #   "https://github.com/purescript/spago/releases/latest" \
 #   | sed "s/tag/download/"

@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # S-Lang [<sup>&#x2B67;</sup>](https://www.jedsoft.org/slang/index.html)
 
@@ -35,12 +35,16 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://www.jedsoft.org/sna
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(slsh --version | head -n 1 | awk '{print $NF}')"
 
-curl -sSLo "tmp_.slang-${LATEST}.tar.gz" "https://www.jedsoft.org/snapshots/slang-${LATEST}.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'md5 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -Lo "tmp_.slang-${LATEST}.tar.gz" "https://www.jedsoft.org/snapshots/slang-${LATEST}.tar.gz"
+
+printf 'md5 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(md5sum "tmp_.slang-${LATEST}.tar.gz" | awk '{print $1}')" \
   "$(curl -sSL "https://www.jedsoft.org/snapshots/#slang" \
     | xq -q "dd:has(a[href^='slang']) > em:contains('md5:') + span")"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 tar --file="tmp_.slang-${LATEST}.tar.gz" --transform 'flags=r;s/^(slang-[^\/]+)/tmp_.\1/x' --show-transformed-names -xzv
 cd "tmp_.slang-${LATEST}" || exit 1
@@ -76,3 +80,7 @@ slsh kodo-failas.sl
 ```bash
 #!/usr/bin/env -S slsh
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/s-lang/s-lang_readme.md "skriptai")

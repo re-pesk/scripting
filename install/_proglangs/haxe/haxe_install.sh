@@ -121,7 +121,7 @@ install_hashlink() (
     | xq -q "li > div:has(a span:contains('hashlink-latest-linux-amd64.tar.gz')) ~ div > div > span > span" \
     | awk -F':' '{print $NF}' > "hashlink-${COMMIT}-linux-amd64.tar.gz.sha256"
 
-  # Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+  # Jeigu patikros sumos nesutampa, nutraukti diegimą
   if ! compare_checksums sha256sum \
     "hashlink-${COMMIT}-linux-amd64.tar.gz" \
     "hashlink-${COMMIT}-linux-amd64.tar.gz.sha256"; then

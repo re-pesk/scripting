@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Perl [<sup>&#x2B67;</sup>](https://www.perl.org/)
 
@@ -22,3 +22,7 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 ```bash
 #!/usr/bin/env -S perl
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/perl/perl_readme.md "skriptai")

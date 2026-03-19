@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Groovy [<sup>&#x2B67;</sup>](https://groovy-lang.org/)
 
@@ -33,17 +33,19 @@ LATEST="$( curl -s https://groovy.apache.org/download.html#distro \
   | xq -q "button[id='big-download-button']" --attr "onclick" \
   | awk -F'["-]' '{print $(NF-1)}' | sed 's/\.zip$//' )"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(groovy --version 2> /dev/null | awk '{print $3}')"
 
 # Jeigu vėliausia programos versija nėra naujesnė nei įdiegtoji, diegimą nutraukti.
 
-curl -sSLO "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-${LATEST}.zip"
+curl -LO "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-${LATEST}.zip"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "apache-groovy-sdk-${LATEST}.zip" | awk '{print $1}')" \
   "$(curl -sSL "https://downloads.apache.org/groovy/${LATEST}/distribution/apache-groovy-sdk-${LATEST}.zip.sha256" |\
   tr -d '\r')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 unzip "groovy-sdk-${LATEST}.zip"
 rm -rf "${HOME}/.opt/groovy"
@@ -59,7 +61,7 @@ printf '%s\n' $'[ -z "$JAVA_HOME" ] && {
     export PATH="${HOME}/.opt/groovy/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/groovy/env.sh"
 . "${HOME}/.opt/groovy/env.sh"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(groovy --version 2> /dev/null | awk '{print $3}')"
 
 unset LATEST
@@ -90,3 +92,7 @@ arba
 ```bash
 ///usr/bin/env groovy "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/groovy/groovy_readme.md "skriptai")

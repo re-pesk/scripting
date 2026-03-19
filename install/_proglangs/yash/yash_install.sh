@@ -38,12 +38,12 @@ trap cleanup EXIT
 
 # Sukurti laikiną aplanką ir atsisųsti į jį programos failą ir patikros sumą.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/magicant/yash/releases/download/${LATEST}/yash-${LATEST}.tar.gz"
+curl -LO "https://github.com/magicant/yash/releases/download/${LATEST}/yash-${LATEST}.tar.gz"
 curl -sSL "https://github.com/magicant/yash/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('yash-${LATEST}.tar.gz')) ~ div > div > span > span" \
 | awk -F':' '{print $NF}' > "yash-${LATEST}.tar.gz.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "yash-${LATEST}.tar.gz" \
   "yash-${LATEST}.tar.gz.sha256"; then

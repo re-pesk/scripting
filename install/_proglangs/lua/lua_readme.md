@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Lua [<sup>&#x2B67;</sup>](https://www.lua.org/)
 
@@ -34,12 +34,16 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/lua/lua/
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(lua -v 2> /dev/null | awk '{print $2}')"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 curl -sSLRO "https://www.lua.org/ftp/lua-${LATEST}.tar.gz"
 
-printf 'sha256 kontrolinės sumos:\n%s\n%s\n\n' \
+printf 'sha256 patikros sumos:\n%s\n%s\n\n' \
   "$(sha256sum "lua-${LATEST}.tar.gz")" \
   "$(curl -sL https://lua.org/ftp/ | \
     xq -q "body > table:first-of-type td.name:has(a:contains('lua-${LATEST}.tar.gz')) ~ td.sum")  https://lua.org/ftp/"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 tar --file "lua-${LATEST}.tar.gz" -xz
 
@@ -82,3 +86,7 @@ lua kodo-failas.lua
 luac -o vykdomasis-failas.bin kodo-failas.lua
 lua kodo-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/lua/lua_readme.md "skriptai")

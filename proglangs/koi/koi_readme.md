@@ -17,3 +17,7 @@ koi koi_sys-upgrade.koi
 ```bash
 #!/usr/bin/env koi
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./koi_sys-upgrade.koi "sys-upgrade")

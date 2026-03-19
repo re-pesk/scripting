@@ -17,3 +17,7 @@ clj -M clojure_sys-upgrade.clj
 ```bash
 #!/usr/bin/env -S clojure -M
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./clojure_sys-upgrade.clj "sys-upgrade")

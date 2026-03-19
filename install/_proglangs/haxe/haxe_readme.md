@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Haxe
 
@@ -41,6 +41,8 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/HaxeFoun
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(haxe --version 2> /dev/null)"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 rm -rf "${HOME}/.opt/haxe"
 curl -sSLo - "https://github.com/HaxeFoundation/haxe/releases/download/${LATEST}/haxe-${LATEST}-linux64.tar.gz" \
   | tar --transform "flags=r;s/^(haxe)[^\/]+/\1/x" --show-transformed-names -xzvC "${HOME}/.opt"
@@ -65,21 +67,20 @@ Baigę diegti, pakeiskite konfigūracinius failus, kad skriptas `${HOME}/.opt/ha
 COMMIT="$(curl -s "https://github.com/HaxeFoundation/hashlink/releases/tag/latest" | xq -q "code:first-of-type")"
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" https://github.com/HaxeFoundation/hashlink/releases/latest | xargs basename).0"
 
-# Patikrinti, ar kompiuteryje įdiegta kuri nors programos versija, sulyginant versijas
-# Jeigu vėliausia programos versija nėra naujesnė nei įdiegtoji, diegimą nutraukti.
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(hl --version 2> /dev/null)"
 
-# Atsisiųsti failą iš svetainės
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 curl -fsSLO "https://github.com/HaxeFoundation/hashlink/releases/download/latest/hashlink-${COMMIT}-linux-amd64.tar.gz"
 
-# Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
-# Jeigu kontrolinės sumos nesutampa, diegimą nutraukti ir ištrinti atsisiųstus failus.
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "hashlink-${COMMIT}-linux-amd64.tar.gz" | awk '{print $1}')" \
   "$(curl -fsSL "https://github.com/HaxeFoundation/hashlink/releases/expanded_assets/latest" \
       | xq -q "li > div:has(a span:contains('hashlink-latest-linux-amd64.tar.gz')) ~ div > div > span > span" \
       | awk -F':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/hashlink"
 tar --file="hashlink-${COMMIT}-linux-amd64.tar.gz" \
@@ -92,7 +93,7 @@ printf '%s\n' $'[[ -d "${HOME}/.opt/hashlink" ]] && \
   export PATH="${HOME}/.opt/hashlink${PATH:+:${PATH}}"' > "${HOME}/.opt/hashlink/env.sh"
 . "${HOME}/.opt/hashlink/env.sh"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(hl --version 2> /dev/null)"
 
 unset COMMIT LATEST
@@ -122,3 +123,7 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 haxe -hl vykdomasis-failas.hl -main Pagrindinė_klasė.hx
 hl vykdomasis-failas.hl
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/haxe/haxe_readme.md "skriptai")

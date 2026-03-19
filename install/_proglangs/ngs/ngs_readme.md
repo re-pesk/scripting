@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # NGS [<sup>&#x2B67;</sup>](https://ngs-lang.org/)
 
@@ -24,12 +24,14 @@ LATEST="$(
 )"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( ngs --version )"
+  "${LATEST}" "$(ngs --version 2> /dev/null | awk '{print "v"$0}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 curl https://ngs-lang.org/install.sh | bash
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( ngs --version)"
+  "${LATEST}" "$(ngs --version 2> /dev/null | awk '{print "v"$0}')"
 
 unset LATEST
 ```
@@ -45,3 +47,7 @@ ngs kodo-failas.ngs
 ```bash
 #!/usr/bin/env -S ngs
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ngs/ngs_readme.md "skriptai")

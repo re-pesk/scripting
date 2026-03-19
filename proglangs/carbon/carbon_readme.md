@@ -13,3 +13,5 @@ carbon compile --output=carbon_sys-upgrade.o carbon_sys-upgrade.carbon
 carbon link --output=carbon_sys-upgrade.bin carbon_sys-upgrade.o
 ./carbon_sys-upgrade.bin
 ```
+
+## Skriptai

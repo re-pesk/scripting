@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # V [<sup>&#x2B67;</sup>](https://vlang.io/)
 
@@ -27,12 +27,16 @@ awk -F"[' ]" '/version: / {print $3}') ${COMMIT}"
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(v -v 2> /dev/null)"
 
-curl -sSLo "tmp_.v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
+curl -Lo "tmp_.v_${TAG}_linux.zip" "https://github.com/vlang/v/releases/download/${TAG}/v_linux.zip"
 curl -sSL "https://github.com/vlang/v/releases/expanded_assets/${TAG}" |
   xq -q "li > div:has(a span:contains('v_linux.zip')) ~ div > div > span > span" |
   awk -F':' '{print $NF}' > "tmp_.v_${TAG}_linux.zip.sha256"
 
-printf '\nsha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
+
+printf '\nsha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "tmp_.v_${TAG}_linux.zip" | awk '{print $1}')" \
   "$(cat "tmp_.v_${TAG}_linux.zip.sha256")"
 
@@ -77,3 +81,7 @@ arba
 v -o vykdomasis-failas.bin kodo-failas.v
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/v/v_readme.md "skriptai")

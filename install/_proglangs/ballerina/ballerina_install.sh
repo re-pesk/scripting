@@ -43,12 +43,14 @@ trap cleanup EXIT
 # Gauti programos failo nuorodą
 URL="https://github.com/ballerina-platform/ballerina-distribution/releases/download/v${LATEST}/ballerina-${LATEST}-swan-lake.zip"
 
-# Sukurti laikiną aplanką ir atsisųsti programos ir sha256sum failus.
-# Patikrinti, ar failas atitinka patikros sumą
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Pereiti į laikiną aplanką
+# Atsisųsti programos ir sha256sum failus.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "${URL}"
-curl -sSLO "${URL}.sha256"
+curl -LO "${URL}"
+curl -LO "${URL}.sha256"
+
+# Patikrinti, ar failas atitinka patikros sumą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 # shellcheck disable=SC2016
 if ! compare_checksums sha256sum \
   "ballerina-${LATEST}-swan-lake.zip" \
@@ -57,8 +59,6 @@ if ! compare_checksums sha256sum \
   errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi
-
-# compare_checksums sha256sum "ballerina-${LATEST}-swan-lake.zip;'{print $1}'" "ballerina-${LATEST}-swan-lake.zip.sha256;'{print $NF}'"
 
 # Išskleisti programos failą į laikiną aplanką. Ištrinti įdiegtą versiją.
 # Perkelti išarchyvuotus failus į diegimo katalogą. Ištrinti laikiną aplanką su turiniu

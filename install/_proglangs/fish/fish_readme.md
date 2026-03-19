@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Fish shell [<sup>&#x2B67;</sup>](https://fishshell.com/)
 
@@ -31,3 +31,7 @@ fish kodo-failas.fish
 ```bash
 #! /usr/bin/env -S fish
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/fish/fish_readme.md "skriptai")

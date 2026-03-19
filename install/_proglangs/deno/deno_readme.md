@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Deno [<sup>&#x2B67;</sup>](https://deno.com/)
 
@@ -18,6 +18,8 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/denoland
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(deno --version 2> /dev/null | head -n 1 | awk '{print "v"$2}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 # Diegiant atsisakyti mofifikuoti konfigūracinius failus
 curl -fsSL https://deno.land/install.sh | DENO_INSTALL="$HOME/.opt/deno" sh
@@ -53,3 +55,9 @@ deno run kodo-failas.m{j,t}s
 deno compile --allow-run --allow-env --output vykdomasis-failas.bin kodo-failas.m{j,t}s
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Javascript <sup>&#x2B67;</sup>](../../../proglangs/js/js_readme.md "skriptai")
+
+* [TypeScript <sup>&#x2B67;</sup>](../../../proglangs/ts/ts_readme.md "skriptai")

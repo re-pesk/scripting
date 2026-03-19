@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Yash [<sup>&#x2B67;</sup>](https://magicant.github.io/yash/)
 
@@ -17,13 +17,17 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/magicant
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(yash --version 2> /dev/null | head -n 1 | awk '{print $NF}')"
 
-curl -sSLO "https://github.com/magicant/yash/releases/download/${LATEST}/yash-${LATEST}.tar.gz"
+curl -LO "https://github.com/magicant/yash/releases/download/${LATEST}/yash-${LATEST}.tar.gz"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "yash-${LATEST}.tar.gz" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/magicant/yash/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('yash-${LATEST}.tar.gz')) ~ div > div > span > span" \
 | awk -F':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 tar --file="yash-${LATEST}.tar.gz" -xzv
 cd "yash-${LATEST}" || exit 1
@@ -57,3 +61,7 @@ yash kodo-failas.sh
 ```bash
 #!/usr/bin/env yash
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/yash/yash_readme.md "skriptai")

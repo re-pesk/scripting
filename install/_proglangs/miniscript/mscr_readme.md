@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Miniscript [<sup>&#x2B67;</sup>](https://miniscript.org/)
 
@@ -19,6 +19,8 @@ LATEST="$(curl -sSL https://github.com/JoeStrout/miniscript/tags | \
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(miniscript -? 2> /dev/null | tail -n +2 | head -n 1 | awk '{print $5}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 rm -rf "${HOME}/.opt/miniscript"
 curl -sSLo - https://miniscript.org/files/miniscript-linux.tar.gz | \
@@ -50,3 +52,7 @@ arba
 ```bash
 ///usr/bin/env -S miniscript "$0" "$@"; exit "$?"
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/mscr/mscr_readme.md "skriptai")

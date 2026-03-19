@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Euphoria [<sup>&#x2B67;</sup>](https://openeuphoria.org/)
 
@@ -44,12 +44,13 @@ LATEST="$(curl -sL -o /dev/null -w "%{url_effective}" "https://github.com/OpenEu
 printf '\nVersijos:\n  Vėliausia: v%s\n  Instaliuota: %s\n\n' \
   "${LATEST}" "$(eui --version | head -n 1 | awk '{print $3}')"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 FILE_NAME="$(curl -sL "https://api.github.com/repos/OpenEuphoria/euphoria/releases/latest" |\
   jq -r '.assets[].name | match("^euphoria-'"${LATEST}"'-Linux-x64-.*\\.tar\\.gz$") | .string'
 )"
 
-curl -sSLO "https://github.com/OpenEuphoria/euphoria/releases/download/${LATEST}/${FILE_NAME}"
-
+curl -LO "https://github.com/OpenEuphoria/euphoria/releases/download/${LATEST}/${FILE_NAME}"
 
 [ -d "${HOME}/.opt/euphoria" ] && rm -rf "${HOME}/.opt/euphoria"
 
@@ -171,3 +172,7 @@ eui kodo-failas.ex
 euc -o vykdomasis-failas.bin kodo-failas.ex
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/euph/euph_readme.md "skriptai")

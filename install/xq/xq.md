@@ -21,16 +21,18 @@ fi
 
 LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/sibprogrammer/xq/releases/latest" | xargs basename)"
 
-printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   v%s\n\n' \
-  "${LATEST}" "$( xq --version  | awk '{print $3}')"
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
+  "${LATEST}" "$( xq --version  | awk '{print "v"$3}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 rm -rf "${HOME}/.opt/xq"
 curl -fsSLo - "https://github.com/sibprogrammer/xq/releases/download/${LATEST}/xq_${LATEST#v}_linux_amd64.tar.gz" \
 | tar --transform 'flags=r;s/^(.+)$/xq\/\1/x' --show-transformed-names -xzvC "${HOME}/.opt"
 ln -sf "${HOME}/.opt/xq/xq" "${HOME}/.local/bin/"
 
-printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   v%s\n\n' \
-  "${LATEST}" "$( xq --version  | awk '{print $3}')"
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
+  "${LATEST}" "$( xq --version  | awk '{print "v"$3}')"
 
 unset LATEST
 ```

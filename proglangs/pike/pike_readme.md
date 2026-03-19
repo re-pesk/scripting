@@ -27,3 +27,7 @@ Bash'o* kodo eilutė:
 ```bash
 ///usr/bin/env -S pike "$0" "$@"; exit "$?"
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./pike_sys-upgrade.pike "sys-upgrade")

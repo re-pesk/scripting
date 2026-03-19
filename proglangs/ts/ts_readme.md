@@ -38,3 +38,7 @@ arba
 deno compile --allow-run --allow-env --output deno_sys-upgrade.bin deno_sys-upgrade.mts
 ./deno_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./deno_sys-upgrade.mts "sys-upgrade")

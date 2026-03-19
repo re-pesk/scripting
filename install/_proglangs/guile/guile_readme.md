@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # GNU Guile [<sup>&#x2B67;</sup>](https://www.gnu.org/software/guile/)
 
@@ -17,46 +17,41 @@ guild --version
 
 ## Paleistis
 
-```bash
-guile mano-modulis.scm
-```
-
 Be automatinio kompiliavimo
 
 ```bash
-guile --no-auto-compile mano-modulis.scm
+guile --no-auto-compile kodo-failas.scm
+```
+
+Su automatiniu kompiliavimu
+
+```bash
+guile --auto-compile kodo-failas.scm
 ```
 
 ### Vykdymo instrukcija (shebang)
+
+Be automatinio kompiliavimo
 
 ```bash
 #!/usr/bin/env -S guile --no-auto-compile -s
 !#
 ```
 
+Su automatiniu kompiliavimu
+
+```bash
+#!/usr/bin/env -S guile --auto-compile -s
+!#
+```
+
 ## Kompiliavimas (į baitkodą)
 
-Įtepti į kodo-failas.scm failą eilutes:
-
-```scheme
-(define-module (mano-modulis)
-  #:export (main))
-
-(define (main)
-  <ankstesnis kodas>
-)
-
-(main)
-```
-
-Kompiliuoti failą
-
 ```bash
-guild compile --output=mano-modulis.go mano-modulis.scm
+guile -L . -c '(compile-file "kodo-failas.scm"  #:output-file "baitkodo-failas.go")'
+guile -C . -c '(load-compiled "baitkodo-failas.go")'
 ```
 
-Paleisti sukompiliuotą failą:
+## Skriptai
 
-```bash
-guile -C "$PWD" -c "(use-modules (mano-modulis))"
-```
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/guile/guile_readme.md "skriptai")

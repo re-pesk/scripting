@@ -11,7 +11,7 @@ messages["en.UTF-8"]["succ"] = "Successfully finished!";
 messages["lt_LT.UTF-8"]["err"] = "Klaida! Scenarijaus vykdymas sustabdytas!";
 messages["lt_LT.UTF-8"]["succ"] = "Komanda sėkmingai įvykdyta!";
 
-% Pranšimų tekstai pagal aplinkos kalbos nuostatą LANG
+% Pranešimų tekstai pagal aplinkos kalbos nuostatą LANG
 variable errorMessage=messages["${LANG}"$]["err"];
 variable successMessage=messages["${LANG}"$]["succ"];
 

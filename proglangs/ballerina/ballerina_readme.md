@@ -24,3 +24,7 @@ bal run ballerina_sys-upgrade.bal
 bal build ballerina_sys-upgrade.bal
 bar run ballerina_sys-upgrade.jar
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./ballerina_sys-upgrade.bal "sys-upgrade")

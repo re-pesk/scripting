@@ -17,3 +17,7 @@ arsh arsh_sys-upgrade.arsh
 ```bash
 #!/usr/bin/env -S arsh
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./arsh_sys-upgrade.arsh "sys-upgrade")

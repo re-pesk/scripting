@@ -20,3 +20,7 @@
 gcc -static -o c_sys-upgrade.bin c_sys-upgrade.c
 ./c_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./c_sys-upgrade.c "sys-upgrade")

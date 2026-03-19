@@ -22,16 +22,20 @@ LATEST="$(
 FILE_NAME="hyperfine-${LATEST}-x86_64-unknown-linux-gnu.tar.gz"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( hyperfine --version  | awk '{print $NF}')"
+  "${LATEST}" "$( hyperfine --version  | awk '{print "v"$NF}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 curl -fsSLO "https://github.com/sharkdp/hyperfine/releases/download/${LATEST}/${FILE_NAME}"
 curl -fsSL "https://github.com/sharkdp/hyperfine/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('${FILE_NAME}')) ~ div > div > span > span" \
 | awk -F':' '{print $NF}' > "${FILE_NAME}.sha256"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "${FILE_NAME}" | awk '{print $1}')" \
   "$(cat "${FILE_NAME}.sha256")"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/hyperfine"
 tar --file "${FILE_NAME}" --transform 'flags=r;s/^(hyperfine)[^\/]+/\1/x' -xzC "${HOME}/.opt"
@@ -40,6 +44,6 @@ rm -f ${FILE_NAME}*
 ln -fs "${HOME}/.opt/hyperfine/hyperfine" "${HOME}/.local/bin"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( hyperfine --version  | awk '{print $NF}')"
+  "${LATEST}" "$( hyperfine --version  | awk '{print "v"$NF}')"
 
 unset FILE_NAME LATEST

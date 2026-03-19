@@ -20,7 +20,7 @@ fi
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/nvm-sh/nvm/releases/latest" | xargs basename)"
-CURRENT="$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
+CURRENT="$(nvm --version 2> /dev/null | awk '{print "v"$0}')"
 
 # Atnaujinti pranešimų masyvą
 . ../../_helpers_.sh
@@ -57,7 +57,7 @@ if  ! nvm --version &> /dev/null; then
 fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
-CURRENT="$(nvm --version &> /dev/null && printf 'v%s\n' "$(nvm --version 2> /dev/null)")"
+CURRENT="$(nvm --version 2> /dev/null | awk '{print "v"$0}')"
 [[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1

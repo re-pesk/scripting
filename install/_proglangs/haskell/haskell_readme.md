@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Haskell [<sup>&#x2B67;</sup>](https://www.haskell.org/)
 
@@ -36,3 +36,7 @@ ghc -o vykdomasis-failas.bin kodo-failas.hs
 rm vykdomasis-failas.{hi,o}
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/haskell/haskell_readme.md "skriptai")

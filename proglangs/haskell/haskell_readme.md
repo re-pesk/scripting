@@ -25,3 +25,7 @@ ghc -o haskell_sys-upgrade.bin haskell_sys-upgrade.hs
 rm haskell_sys-upgrade.{hi,o}
 ./haskell_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./haskell_sys-upgrade.hs "sys-upgrade")

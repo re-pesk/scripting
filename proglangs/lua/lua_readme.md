@@ -24,3 +24,7 @@ lua lua_sys-upgrade.lua
 luac -o lua_sys-upgrade.bin lua_sys-upgrade.lua
 lua lua_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./lua_sys-upgrade.lua "sys-upgrade")

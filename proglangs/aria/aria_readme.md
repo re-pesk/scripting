@@ -20,4 +20,4 @@ aria kodo-failas.aria
 
 ## Skriptai
 
-[sys-upgrade <sup>&#x2B67;</sup>](./aria_sys-upgrade.aria "sys-upgrade")
+* [sys-upgrade <sup>&#x2B67;</sup>](./aria_sys-upgrade.aria "sys-upgrade")

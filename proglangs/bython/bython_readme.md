@@ -17,3 +17,7 @@ bython bython_sys-upgrade.by
 ```bash
 #!/usr/bin/env -S bython
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./bython_sys-upgrade.by "sys-upgrade")

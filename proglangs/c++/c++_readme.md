@@ -20,3 +20,7 @@
 g++ -static -Wno-sizeof-array-argument -std=c++2b -o c++_sys-upgrade.bin c++_sys-upgrade.cpp
 ./c++_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./c++_sys-upgrade.cpp "sys-upgrade")

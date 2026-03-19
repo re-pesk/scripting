@@ -17,3 +17,7 @@ pwsh pwsh_sys-upgrade.ps1
 ```bash
 #! /usr/bin/env -S pwsh
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./pwsh_sys-upgrade.ps1 "sys-upgrade")

@@ -19,3 +19,7 @@ arba
 ```bash
 #!/usr/bin/env python3
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./py_sys-upgrade.py "sys-upgrade")

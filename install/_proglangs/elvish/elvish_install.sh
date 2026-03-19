@@ -18,7 +18,7 @@ fi
 # Gauti programos paskutinės versijos failo pavadinimą iš repozitorijos
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/elves/elvish/releases/latest" | xargs basename )"
-CURRENT="v$(elvish --version | cut -c -6)"
+CURRENT="$(elvish --version 2> /dev/null | cut -c -6 | sed -E 's/^/v/')"
 
 # Atnaujinti pranešimų masyvą
 . ../../_helpers_.sh
@@ -37,9 +37,9 @@ trap cleanup EXIT
 # Atsisųsti į laikiną aplanką programos failą.
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz"
+curl -LO "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums_str sha256sum \
   "elvish-${LATEST}.tar.gz" \
   "$(curl -sSLo - "https://dl.elv.sh/linux-amd64/elvish-${LATEST}.tar.gz.sha256sum")"; then
@@ -62,7 +62,7 @@ if ! elvish --version > /dev/null 2>&1; then
   exit 1
 fi
 # Patikrinti, ar kompiuteryje įdiegta Elvish versija yra vėliausia
-CURRENT="v$(elvish --version | cut -c -6)"
+CURRENT="$(elvish --version 2> /dev/null | cut -c -6 | sed -E 's/^/v/')"
 [[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1

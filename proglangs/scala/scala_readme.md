@@ -23,3 +23,7 @@ arba
 ```bash
 ///usr/bin/env -S scala shebang "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./scala_sys-upgrade.scala "sys-upgrade")

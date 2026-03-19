@@ -17,3 +17,7 @@ ksh ksh_sys-upgrade.sh
 ```bash
 #!/usr/bin/env ksh
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./ksh_sys-upgrade.sh "sys-upgrade")

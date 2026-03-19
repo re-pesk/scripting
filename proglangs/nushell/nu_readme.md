@@ -17,3 +17,7 @@ nu nu_sys-upgrade.nu
 ```bash
 #! /usr/bin/env -S nu
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./nu_sys-upgrade.nu "sys-upgrade")

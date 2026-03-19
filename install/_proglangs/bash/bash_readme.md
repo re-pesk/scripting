@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Bash [<sup>&#x2B67;</sup>](https://www.gnu.org/software/bash/)
 
@@ -24,3 +24,7 @@ bash kodo-failas.sh
 ```bash
 #! /usr/bin/env -S bash
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/bash/bash_readme.md "skriptai")

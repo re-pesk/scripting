@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Onyx [<sup>&#x2B67;</sup>](https://onyxlang.io/)
 
@@ -37,3 +37,7 @@ onyx build -o vykdomasis-failas.wasm kodo-failas.onyx
 chmod u+x vykdomasis-failas.wasm
 onyx run vykdomasis-failas.wasm
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/onyx/onyx_readme.md "skriptai")

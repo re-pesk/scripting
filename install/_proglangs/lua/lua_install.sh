@@ -41,7 +41,7 @@ curl -sL https://lua.org/ftp/ \
   | xq -q "body > table:first-of-type td.name:has(a:contains('lua-${LATEST}.tar.gz')) ~ td.sum" \
   > "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "${TMP_DIR}/lua-${LATEST}.tar.gz" \
   "${TMP_DIR}/lua-${LATEST}.tar.gz.sha256"; then

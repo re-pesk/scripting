@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Ballerina [<sup>&#x2B67;</sup>](https://ballerina.io/)
 
@@ -33,17 +33,19 @@ LATEST="$(
   xargs basename |  cut -c 2-
 )"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(bal --version 2>/dev/null | head -n 1 | awk '{print $2}')"
 
 # Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-curl -sSLO "https://github.com/ballerina-platform/ballerina-distribution/releases/download/v${LATEST}/ballerina-${LATEST}-swan-lake.zip"
-curl -sSLO "https://github.com/ballerina-platform/ballerina-distribution/releases/download/v${LATEST}/ballerina-${LATEST}-swan-lake.zip.sha256"
+curl -LO "https://github.com/ballerina-platform/ballerina-distribution/releases/download/v${LATEST}/ballerina-${LATEST}-swan-lake.zip"
+curl -LO "https://github.com/ballerina-platform/ballerina-distribution/releases/download/v${LATEST}/ballerina-${LATEST}-swan-lake.zip.sha256"
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "ballerina-${LATEST}-swan-lake.zip")" \
   "$(cat "ballerina-${LATEST}-swan-lake.zip.sha256" | awk -F'\(|\)= |\/| ' '{print $NF"  "$5".sha256"}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 unzip -q "ballerina-${LATEST}-swan-lake.zip"
 rm -rf "${HOME}/.opt/ballerina"
@@ -55,7 +57,7 @@ printf '%s\n' $'[[ -d "${HOME}/.opt/ballerina/bin" ]] && \
     && export PATH="${HOME}/.opt/ballerina/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/ballerina/env.sh"
 . "${HOME}/.opt/ballerina/env.sh"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(bal --version 2>/dev/null | head -n 1 | awk '{print $2}')"
 
 unset LATEST
@@ -81,3 +83,7 @@ bal run kodo-failas.bal
 bal build kodo-failas.bal
 bar run kodo-failas.jar
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ballerina/ballerina_readme.md "skriptai")

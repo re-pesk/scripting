@@ -25,6 +25,8 @@ LATEST="$( curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/jqlang
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$( jq --version )"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 curl -sSLo - "https://github.com/jqlang/jq/releases/download/${LATEST}/${LATEST}.tar.gz" \
 | tar  --transform 'flags=r;s/^('"${LATEST}"')/tmp-\1/x' --show-transformed-names -xz
 

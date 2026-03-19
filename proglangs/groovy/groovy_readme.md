@@ -23,3 +23,7 @@ arba
 ```bash
 ///usr/bin/env groovy "$0" "$@"; exit $?
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./groovy_sys-upgrade.groovy "sys-upgrade")

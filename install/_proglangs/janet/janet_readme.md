@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Janet [<sup>&#x2B67;</sup>](https://janet-lang.org/)
 
@@ -19,13 +19,17 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/janet-la
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(janet --version 2> /dev/null | awk -F '-' '{print $1}')"
 
-curl -sSLO "https://github.com/janet-lang/janet/releases/download/${LATEST}/janet-${LATEST}-linux-x64.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -LO "https://github.com/janet-lang/janet/releases/download/${LATEST}/janet-${LATEST}-linux-x64.tar.gz"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "janet-${LATEST}-linux-x64.tar.gz" | awk '{print $1}')" \
   "$(curl -sL "https://github.com/janet-lang/janet/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('janet-${LATEST}-linux-x64.tar.gz')) ~ div > div > span > span" \
 | awk -F ':' '{print $NF}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/janet"
 tar --file="janet-${LATEST}-linux-x64.tar.gz" \
@@ -54,3 +58,7 @@ janet kodo-failas.janet
 ```bash
 #!/usr/bin/env janet
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/janet/janet_readme.md "skriptai")

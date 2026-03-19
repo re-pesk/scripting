@@ -26,3 +26,7 @@ Norint *odin_sys-upgrade.odin* paversti vykdomuoju failu, reikia suteikti jam vy
 odin build odin_sys-upgrade.odin -file -out:odin_sys-upgrade.bin
 ./odin_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./odin_sys-upgrade.odin "sys-upgrade")

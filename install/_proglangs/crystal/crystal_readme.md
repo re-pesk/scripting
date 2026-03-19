@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Crystal [<sup>&#x2B67;</sup>](https://crystal-lang.org/)
 
@@ -34,3 +34,7 @@ crystal kodo-failas.cr
 crystal build --release --progress --static -o vykdomasis-failas.bin kodo-failas.cr
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/crystal/crystal_readme.md "skriptai")

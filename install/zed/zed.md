@@ -22,9 +22,11 @@ LATEST="$(
 )"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( zed --version  | awk '{print $2}')"
+  "${LATEST}" "$( zed --version  | awk '{print "v"$2}')"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 curl -f https://zed.dev/install.sh | sh
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
-  "${LATEST}" "v$( zed --version  | awk '{print $2}')"
+  "${LATEST}" "$( zed --version  | awk '{print "v"$2}')"

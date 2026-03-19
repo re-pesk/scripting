@@ -30,3 +30,7 @@ arba
 swiftc -static-executable swift_sys-upgrade.bin swift_sys-upgrade.swift
 ./swift_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./swift_sys-upgrade.swift "sys-upgrade")

@@ -29,3 +29,7 @@ arba
 ```bash
 rdmd --build-only -release -of=d_sys-upgrade.bin d_sys-upgrade.d
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./d_sys-upgrade.d "sys-upgrade")

@@ -42,12 +42,12 @@ trap cleanup EXIT
 # Atsisųsti failo patikros sumą iš programos tinklalapio.
 # Sulyginti failo patikros sumą su tinklalapio patikros suma.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://go.dev/dl/${LATEST}.linux-amd64.tar.gz"
+curl -LO "https://go.dev/dl/${LATEST}.linux-amd64.tar.gz"
 curl -sSL https://go.dev/dl/ \
 | xq -q "td:has(a:contains('${LATEST}.linux-amd64.tar.gz')) ~ td:last-of-type tt" \
 | xargs printf "%s  ${LATEST}.linux-amd64.tar.gz\n" > "${LATEST}.linux-amd64.tar.gz.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "${LATEST}.linux-amd64.tar.gz" \
   "${LATEST}.linux-amd64.tar.gz.sha256"; then

@@ -17,3 +17,7 @@ hilbish hilbish_sys-upgrade.lua
 ```bash
 #! /usr/bin/env -S hilbish
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./hilbish_sys-upgrade.lua "sys-upgrade")

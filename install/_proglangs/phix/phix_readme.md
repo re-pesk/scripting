@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Phix [<sup>&#x2B67;</sup>](http://phix.x10.mx/index.php)
 
@@ -31,8 +31,10 @@ LATEST="$(curl http://phix.x10.mx/download.php 2> /dev/null | \
   xq -nq 'body > div#wrap > div#content > div#left > p:first-of-type' | \
   head -n 1 | awk '{print $3}')"
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(p -version 2> /dev/null)"
+
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
 part_array=("" 1 2 3 4)
 for part in "${part_array[@]}";do wget "http://phix.x10.mx/phix.${LATEST}${part:+.$part}.zip"; done
@@ -54,10 +56,9 @@ printf '%s\n' $'[[ -d "${HOME}/.opt/phix/bin" ]] \
     && export PATH="${HOME}/.opt/phix/bin${PATH:+:${PATH}}"' > "${HOME}/.opt/phix/env.sh"
 . "${HOME}/.opt/phix/env.sh"
 
-# Įvykdyti phix testus
 p -test
 
-printf '\nVersijos:\n  Vėliausia: v%s\n  Įdiegta:   v%s\n\n' \
+printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(p -version 2> /dev/null)"
 
 rm -f phix.*.zip
@@ -83,3 +84,7 @@ p kodo-failas.exw
 ```bash
 p -c kodo-failas.exw
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/phix/phix_readme.md "skriptai")

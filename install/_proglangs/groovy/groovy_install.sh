@@ -46,11 +46,11 @@ trap cleanup EXIT
 # Atsisųsti į laikiną aplanką programos failą.
 # Sulyginti failo patikros sumą su patikros suma iš tinklalapio.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://downloads.apache.org/groovy/${LATEST}/distribution/apache-groovy-sdk-${LATEST}.zip"
+curl -LO "https://downloads.apache.org/groovy/${LATEST}/distribution/apache-groovy-sdk-${LATEST}.zip"
 curl -sSLo - "https://downloads.apache.org/groovy/${LATEST}/distribution/apache-groovy-sdk-${LATEST}.zip.sha256" \
   | tr -d '\r' > "groovy-sdk-${LATEST}.zip.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "groovy-sdk-${LATEST}.zip" \
   "groovy-sdk-${LATEST}.zip.sha256"; then

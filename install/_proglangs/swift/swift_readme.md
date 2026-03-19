@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Swift [<sup>&#x2B67;</sup>](https://www.swift.org/)
 
@@ -85,3 +85,7 @@ sudo ln -fs /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/libstdc++.so
 swiftc -static-executable -o vykdomasis-failas.bin kodo-failas.swift
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/swift/swift_readme.md "skriptai")

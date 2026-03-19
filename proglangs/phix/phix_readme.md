@@ -25,3 +25,7 @@ Shebangas veikia tik tada, jeigu failas yra `~/phix` kataloge.
 ```bash
 p -c phix_sys-upgrade.exw
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./phix_sys-upgrade.exw "sys-upgrade")

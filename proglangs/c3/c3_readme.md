@@ -24,3 +24,7 @@ c3c compile-run -o c3_sys-upgrade.bin c3_sys-upgrade.c3
 c3c compile -o c3_sys-upgrade.bin c3_sys-upgrade.c3
 ./c3_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./c3_sys-upgrade.c3 "sys-upgrade")

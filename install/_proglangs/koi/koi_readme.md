@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Köi [<sup>&#x2B67;</sup>](https://koi-lang.dev/)
 
@@ -17,9 +17,11 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" https://github.com/eliaperan
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(koi --version 2> /dev/null | awk '{print $NF}')"
 
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
 rm -rf "${HOME}/.opt/koi"
 mkdir -p "${HOME}/.opt/koi"
-curl -sSLo "${HOME}/.opt/koi/koi" "https://github.com/eliaperantoni/Koi/releases/download/v1.8.0/koi"
+curl -Lo "${HOME}/.opt/koi/koi" "https://github.com/eliaperantoni/Koi/releases/download/v1.8.0/koi"
 chmod +x "${HOME}/.opt/koi/koi"
 ln -sf "${HOME}/.opt/koi/koi" "${HOME}/.local/bin/"
 
@@ -40,3 +42,7 @@ koi kodo-failas.koi
 ```bash
 #!/usr/bin/env -S koi
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/koi/koi_readme.md "skriptai")

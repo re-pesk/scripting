@@ -37,14 +37,14 @@ TMP_DIR="$( mktemp -p . -d -t nushell_.XXXXXXXX | xargs realpath )"
 trap cleanup EXIT
 
 cd "${TMP_DIR}" || exit 1
-curl -sSLO \
+curl -LO \
   "https://github.com/nushell/nushell/releases/download/${LATEST}/nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz"
 curl -sSL "https://github.com/nushell/nushell/releases/expanded_assets/${LATEST}" \
   | xq -q "li > div:has(a span:contains('nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz')) ~ div > div > span > span" \
   | awk -F ':' '{print $NF}' \
   > "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz.sha256"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums sha256sum \
   "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz" \
   "nu-${LATEST}-x86_64-unknown-linux-gnu.tar.gz.sha256"; then

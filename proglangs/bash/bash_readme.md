@@ -17,3 +17,7 @@ bash bash_sys-upgrade.sh
 ```bash
 #! /usr/bin/env -S bash
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./bash_sys-upgrade.sh "sys-upgrade")

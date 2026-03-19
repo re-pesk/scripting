@@ -15,12 +15,16 @@ LATEST="$(
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(yt-dlp --version | awk '{print $NF}')"
 
-curl -sSLO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
 
-printf 'sha256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+curl -LO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
+
+printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "yt-dlp_linux" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS" \
       | grep 'yt-dlp_linux$' | awk '{print $1}')"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 mkdir -p "${HOME}/.opt/yt-dlp"
 mv -fT "yt-dlp_linux" "${HOME}/.opt/yt-dlp/yt-dlp"

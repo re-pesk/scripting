@@ -20,7 +20,7 @@ fi
 # Gauti programos paskutinės versijos numerį
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/janet-lang/janet/releases/latest" | xargs basename)"
-CURRENT="v$(janet --version 2> /dev/null | awk -F'-' '{print $1}')"
+CURRENT="$(janet --version 2> /dev/null | awk -F'-' '{print "v"$1}')"
 
 # Atnaujinti pranešimų masyvą
 . ../../_helpers_.sh
@@ -38,7 +38,7 @@ trap cleanup EXIT
 
 # Atsisųsti į laikiną aplanką programos failą ir patikros sumą.
 cd "${TMP_DIR}" || exit 1
-curl -sSLo "janet-${LATEST}-linux-x64.tar.gz" \
+curl -Lo "janet-${LATEST}-linux-x64.tar.gz" \
   "https://github.com/janet-lang/janet/releases/download/${LATEST}/janet-${LATEST}-linux-x64.tar.gz"
 curl -sL "https://github.com/janet-lang/janet/releases/expanded_assets/${LATEST}" \
 | xq -q "li > div:has(a span:contains('janet-${LATEST}-linux-x64.tar.gz')) ~ div > div > span > span" \
@@ -70,7 +70,7 @@ fi
 
 # Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 # Išvesti pranešimą apie reultatą.
-CURRENT="v$(janet --version 2> /dev/null | awk -F '-' '{print $1}')"
+CURRENT="$(janet --version 2> /dev/null | awk -F'-' '{print "v"$1}')"
 [[ "${CURRENT}" < "${LATEST}" ]] && {
   errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1

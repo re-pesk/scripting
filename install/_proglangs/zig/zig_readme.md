@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Zig [<sup>&#x2B67;</sup>](https://ziglang.org/)
 
@@ -29,32 +29,27 @@ Jeigu nėra įdiegta, įdiegiama [curl](../utils/curl.md)
 Paleidžiamas diegimo skriptas `zig_install.sh` arba terminale įvykdomos komandos:
 
 ```bash
-# Vėliausią versijos numerį galima rasti https://ziglang.org/download/
-# Gauti įdiegtos programos versijos numerį.
 LATEST="$(curl -Lso - https://ziglang.org/download/index.json |\
   jq -r 'keys - ["master"] | sort_by(split(".") | map(tonumber)) | last')"
 
-# Patikrinti, ar kompiuteryje įdiegta kuri nors programos versija.
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(zig version 2> /dev/null)"
 
 # Jeigu vėliausia programos versija nėra naujesnė nei įdiegtoji, diegimą nutraukti.
 
-# Parsiųsti instaliacinio archyvo duomenis iš tinklalapio į asociatyvų masyvą
 declare -A DATA="($(
   curl -s "https://ziglang.org/download/index.json" |\
   jq -r '.[] | select(.version == "'${LATEST}'") | .["x86-linux"] | "[tarball]=" + .tarball + " [shasum]=" + .shasum'
 ))"
 URL="${DATA["tarball"]}"
 
-# Atsisiųsti failą iš tinklalapio
-curl -sSLo "zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
+curl -Lo "zig-x86_64-linux-${LATEST}.tar.xz" "${URL}"
 
-# Išvesti į terminalą SHA256 kontrolines sumas, kad galima būtų sulyginti
-# Jeigu kontrolinės sumos nesutampa, diegimą nutraukti, atsisiųstus failus ištrinti.
-printf 'SHA256 kontrolinės sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
+printf 'SHA256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s\n\n' \
   "$(sha256sum "zig-x86_64-linux-${LATEST}.tar.xz" | awk '{print "\n"$1}')" \
   "${DATA["shasum"]}"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/zig"
 tar --file="zig-x86_64-linux-${LATEST}.tar.xz" \
@@ -67,7 +62,6 @@ printf '%s\n' $'[[ -d "${HOME}/.opt/zig" ]] &&
   export PATH="${HOME}/.opt/zig${PATH:+:${PATH}}"' > "${HOME}/.opt/zig/env.sh"
 . "${HOME}/.opt/zig/env.sh"
 
-# Patikrinti, ar kompiuteryje įdiegta vėliausia programos versija.
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(zig version 2> /dev/null)"
 
@@ -94,3 +88,7 @@ zig run --name vykdomasis-failas.bin kodo-failas.zig
 zig build-exe -O ReleaseSmall -static --name vykdomasis-failas.bin kodo-failas.zig
 rm vykdomasis-failas.bin.o
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/zig/zig_readme.md "skriptai")

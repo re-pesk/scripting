@@ -1,5 +1,5 @@
 <!-- markdownlint-disable-file no-hard-tabs -->
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Oils for Unix [<sup>&#x2B67;</sup>](https://www.oilshell.org/)
 
@@ -20,7 +20,9 @@ LATEST="$(curl -sSLo - https://raw.githubusercontent.com/oils-for-unix/oils/refs
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(osh --version | head -n 1 | awk '{print $2}')"
 
-curl -sSLo- "https://oils.pub/download/oils-for-unix-${LATEST}.tar.gz" | tar -xzv
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
+curl -sSLo - "https://oils.pub/download/oils-for-unix-${LATEST}.tar.gz" | tar -xzv
 
 INIT_DIR="$PWD"
 cd "oils-for-unix-${LATEST}" || exit 1
@@ -55,3 +57,7 @@ Pagal skripto dialektą:
 #!/usr/bin/env -S osh
 #!/usr/bin/env -S ysh
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/oils/oils_readme.md "skriptai")

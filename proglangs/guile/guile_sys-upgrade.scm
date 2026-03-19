@@ -1,4 +1,4 @@
-#!/usr/bin/env -S guile --no-auto-compile -s 
+#!/usr/bin/env -S guile --auto-compile -s
 !#
 
 ;; Prieš kompiliuojant failą, atkomentuoti bloką
@@ -23,9 +23,9 @@
 
   ;; Pranešimai pagal aplinkos kalbos nuostatą
   (define lang (getenv "LANG"))
-  (define 
-    (get-message-text language key) 
-    (assoc-ref 
+  (define
+    (get-message-text language key)
+    (assoc-ref
       (assoc-ref messages language)
       key
     )
@@ -33,14 +33,14 @@
   (define errorMessage (get-message-text lang "err"))
   (define successMessage (get-message-text lang "succ"))
 
-  (define 
+  (define
     (display-strings . args)
     (display (string-join args ""))
   )
 
   ;; Išorinių komandų iškvietimo funkcija
-  (define 
-    (runCmd cmdArg) 
+  (define
+    (runCmd cmdArg)
 
     ;; Sukuriama komanda iš funkcijos argumento
     (define command (string-append "sudo " cmdArg))

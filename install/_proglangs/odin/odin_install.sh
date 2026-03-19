@@ -38,7 +38,7 @@ trap cleanup EXIT
 
 # Atsisiųsti į laikiną aplanką programos failą ir patikros sumą.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/odin-lang/Odin/releases/download/${LATEST}/odin-linux-amd64-${LATEST}.tar.gz"
+curl -LO "https://github.com/odin-lang/Odin/releases/download/${LATEST}/odin-linux-amd64-${LATEST}.tar.gz"
 curl -sSLo - "https://github.com/odin-lang/Odin/releases/expanded_assets/${LATEST}" \
   | xq -q "li > div:has(a span:contains('odin-linux-amd64-${LATEST}.tar.gz')) ~ div > div > span > span" \
   | awk -F':' '{print $NF}' > "odin-linux-amd64-${LATEST}.tar.gz.sha256"

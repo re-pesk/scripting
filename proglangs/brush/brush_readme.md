@@ -19,3 +19,7 @@ brush brush_sys-upgrade.sh
 ```bash
 #! /usr/bin/env -S brush
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./brush_sys-upgrade.sh "sys-upgrade")

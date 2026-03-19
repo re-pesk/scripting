@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # C [<sup>&#x2B67;</sup>](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html)
 
@@ -23,3 +23,7 @@ __*gcc*__ instaliuojamas su Ubuntu 24.04 operacine sistema
 gcc -static -o vykdomasis-failas.bin kodo-failas.c
 ./vykdomasis-failas.bin
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/c/c_readme.md "skriptai")

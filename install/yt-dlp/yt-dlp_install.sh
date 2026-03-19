@@ -43,8 +43,8 @@ trap cleanup EXIT
 # Pereiti į laikiną aplanką
 # Atsisiųsti į laikiną aplanką programos failą ir išskleisti jį į laikiną aplanką.
 cd "${TMP_DIR}" || exit 1
-curl -sSLO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
-curl -sSLO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS"
+curl -LO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
+curl -LO "https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums_str sha256sum \

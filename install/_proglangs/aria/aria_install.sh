@@ -20,7 +20,11 @@ fi
 # Gauti vėliausios programos versijos numerį.
 # Gauti įdiegtos programos versijos numerį
 LATEST="$(curl -sSLo /dev/null -w "%{url_effective}" "https://github.com/arialang/aria/releases/latest" | xargs basename)"
-CURRENT="v$(aria --version | awk '{print $NF}')"
+CURRENT="$(aria --version | awk '{print "v"$NF}')"
+
+# Atnaujinti pranešimų masyvą
+. ../../_helpers_.sh
+
 # Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "aria" "${HOME}/.opt/aria"; then
   exit 1
@@ -35,18 +39,19 @@ trap cleanup EXIT
 
 # Atsisiųsti į laikiną aplanką programos failą ir patikros sumą.
 URL="https://github.com$(
-  curl -sSL https://github.com/arialang/aria/releases/expanded_assets/${LATEST} | \
+  curl -sSL "https://github.com/arialang/aria/releases/expanded_assets/${LATEST}" | \
   xq -q "a[href*='aria-${LATEST#v}-x86_64-unknown-linux-gnu-'][href$='.tgz']" --attr href
 )"
 FILE_NAME="$(basename "${URL}")"
 
-curl -sSLo "${TMP_DIR}/${FILE_NAME}" "${URL}"
-curl -sSLo "${TMP_DIR}/${FILE_NAME}.sha256" "${URL}.sha256"
+cd "${TMP_DIR}" || exit 1
+curl -LO "${URL}"
+curl -LO "${URL}.sha256"
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą
-if ! compare_checksums sha256sum "${TMP_DIR}/${FILE_NAME}" \
-  "${TMP_DIR}/${FILE_NAME}.sha256"; then
-  printf "%s\n\n" "Installation failed!"
+if ! compare_checksums sha256sum "${FILE_NAME}" \
+  "${FILE_NAME}.sha256"; then
+  errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi
 
@@ -54,10 +59,10 @@ fi
 # Išskleisti iš repozitorijos atsisiųstą archyvą į diegimo katalogą.
 # Jeigu nesėkmė, nutraukti diegimą.
 rm -rf "${HOME}/.opt/aria"
-if ! tar --file "${TMP_DIR}/${FILE_NAME}" \
+if ! tar --file "${FILE_NAME}" \
   --transform 'flags=r;s/^(aria)[^\/]+/\1/x' \
   --show-transformed-names -xzC "${HOME}/.opt"; then
-  printf "%s\n\n" "Installation failed!"
+  errorMessage "${LANG_MESSAGES[failed_latest]}"
   exit 1
 fi
 
@@ -66,15 +71,15 @@ ln -fs "${HOME}/.opt/aria/bin/aria" "${HOME}/.local/bin/"
 
 # Jeigu programa neveikia, išvesti pranešimą ir nutraukti scenarijaus vykdymą
 if ! aria --version > /dev/null 2>&1; then
-  printf "Error! Aria is not working as expected!\n\n"
+  errorMessage "${LANG_MESSAGES[not_working]}"
   exit 1
 fi
 
 # Patikrinti, ar įdiegta versija yra naujausia. Išvesti atitinkamą pranešimą
-CURRENT="v$(aria --version | awk '{print $NF}')"
+CURRENT="$(aria --version | awk '{print "v"$NF}')"
 [[ "${CURRENT}" < "${LATEST}" ]] && {
-  printf '%s\n\n' "Aria ${CURRENT} is not up to date!"
+  errorMessage "${LANG_MESSAGES[not_updated]}"
   exit 1
 }
-printf '%s\n\n' "Aria ${LATEST} is succesfully installed"
+successMessage "${LANG_MESSAGES[installed_latest]}"
 

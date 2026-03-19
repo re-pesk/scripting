@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Dash [<sup>&#x2B67;</sup>](https://manned.org/dash.1)
 
@@ -25,3 +25,7 @@ dash kodo-failas.sh
 ```bash
 #! /usr/bin/env -S dash
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/dash/dash_readme.md "skriptai")

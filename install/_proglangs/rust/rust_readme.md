@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Rust [<sup>&#x2B67;</sup>](https://www.rust-lang.org/)
 
@@ -46,3 +46,7 @@ arba
 ```bash
 rustc -o vykdomasis-failas.bin kodo-failas.rs
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/rust/rust_readme.md "skriptai")

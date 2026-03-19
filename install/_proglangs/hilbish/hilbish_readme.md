@@ -1,4 +1,4 @@
-[Grįžti &#x2BA2;](../proglangs_readme.md "Grįžti")
+[Grįžti &#x2BA2;](../readme.md "Grįžti")
 
 # Hilbish [<sup>&#x2B67;</sup>](https://rosettea.github.io/Hilbish/)
 
@@ -19,10 +19,14 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" https://github.com/Rosettea/
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$(hilbish --version 2> /dev/null | head -n 1 | awk '{print $2}')"
 
-curl -sSLO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz"
+# Jeigu vėliausia versija nėra naujesnė nei įdiegtoji, diegimą nutraukti
+
+curl -LO "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz"
 printf '%s\n%s\n\n' \
   "$(md5sum "hilbish-${LATEST}-linux-amd64.tar.gz" | awk '{print $1}')" \
   "$(curl -sSL "https://github.com/sammy-ette/Hilbish/releases/download/${LATEST}/hilbish-${LATEST}-linux-amd64.tar.gz.md5")"
+
+# Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
 rm -rf "${HOME}/.opt/hilbish"
 tar --file="hilbish-${LATEST}-linux-amd64.tar.gz" \
@@ -52,3 +56,7 @@ hilbish kodo-failas.lua
 ```bash
 #!/usr/bin/env -S hilbish
 ```
+
+## Skriptai
+
+* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/hilbish/hilbish_readme.md "skriptai")

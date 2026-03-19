@@ -30,3 +30,7 @@ arba
 dart compile exe -o dart_sys-upgrade.bin dart_sys-upgrade.dart
 ./dart_sys-upgrade.bin
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./dart_sys-upgrade.dart "sys-upgrade")

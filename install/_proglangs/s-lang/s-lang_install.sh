@@ -47,9 +47,9 @@ trap cleanup EXIT
 cd "${TMP_DIR}" || exit 1
 
 # Sukurti laikiną aplanką ir atsisųsti į jį programos failą.
-curl -sSLO "https://www.jedsoft.org/snapshots/slang-${LATEST}.tar.gz"
+curl -LO "https://www.jedsoft.org/snapshots/slang-${LATEST}.tar.gz"
 
-# Jeigu patikros sumos nesutampa, ištrinti laikinąjį katalogą ir nutraukti diegimą
+# Jeigu patikros sumos nesutampa, nutraukti diegimą
 if ! compare_checksums_str md5sum \
   "slang-${LATEST}.tar.gz" \
   "${DATA[1]}"; then

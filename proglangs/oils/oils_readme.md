@@ -21,3 +21,8 @@ Pagal skripto dialektą:
 #!/usr/bin/env osh
 #!/usr/bin/env ysh
 ```
+
+## Skriptai
+
+* [sys-upgrade <sup>&#x2B67;</sup>](./oil-osh_sys-upgrade.oil "sys-upgrade")
+* [sys-upgrade <sup>&#x2B67;</sup>](./oil-ysh_sys-upgrade.oil "sys-upgrade")
