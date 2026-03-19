@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (65)
+# Skriptinimas skirtingomis programavimo kalbomis (66)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -71,14 +71,14 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) keista sintaksė\
   (–) kilmė iš Microsoft'o
 
-## Intepretuojamos kalbos ir JIT kompiliatoriai (35)
+## Intepretuojamos kalbos ir JIT kompiliatoriai (36)
 
 ### JavaVM (8)
 
 Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK. (–)
 
 * [x] [Clojure <sup>&#x2B67;</sup>](clojure/clojure_readme.md) (–)\
-  (?) Lispo sintaksė
+  (?) Lisp'o sintaksė
 * [x] [Ballerina <sup>&#x2B67;</sup>](ballerina/ballerina_readme.md) (–)\
   (–) ribotos išorinių komandų iškvietimo funkcijos\
   (–) sudėtingas klaidų apdrojimas\
@@ -107,7 +107,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] Deno (+)
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
-### Kitos (23)
+### Kitos (24)
 
 * [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis: negalima išvesti pranešimų vykdymo metu\
@@ -121,7 +121,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] [Phix <sup>&#x2B67;</sup>](phix/phix_readme.md) - stipriai modifikuota Euforijos versija (–)\
     (–) nepavyko paleisti visų pavyzdžių
 * [x] [Guile <sup>&#x2B67;</sup>](guile/guile_readme.md) (–)\
-  (?) Lispo sintaksė\
+  (?) Lisp'o sintaksė\
   (–) sudėtinga susigaudyti dokumentacijoje\
   (–) mažai informacijos intenete
 * [x] [Haxe <sup>&#x2B67;</sup>](haxe/haxe_readme.md) (–)\
@@ -132,7 +132,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (?) Smaltalk'o sintaksė\
   (–) nebevystoma
 * [x] [Janet <sup>&#x2B67;</sup>](janet/janet_readme.md) (?)\
-  (?) Lispo sintaksė\
+  (?) Lisp'o sintaksė\
   (+) pozicionuojama kaip skriptinė kalba
 * [x] [Julia <sup>&#x2B67;</sup>](julia/julia_readme.md) (±)\
   (?) Pythono pakaitalas moksliniams skaičiavimams
@@ -171,6 +171,8 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
 * [x] [Ruby <sup>&#x2B67;</sup>](ruby/ruby_readme.md) (–)\
   (–) keistoka sintaksė\
   (–) lėtas, išnaudoja tik vieną procesoriaus branduolį
+* [x] [SBCL <sup>&#x2B67;</sup>](sbcl/sbcl_readme.md) (±)\
+  (?) Lisp'o dialektas Common Lisp
 * [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/slang_readme.md) (–)\
   (+) brandi kalba, naudojama jed redaktoriuje ir kitose aplikacijose\
   (–) kartais nepatogi sintaksė\
