@@ -1,5 +1,7 @@
-#!/usr/bin/env -S guile --no-auto-compile -q -s
-!#
+#!/usr/bin/env -S racket
+
+#lang racket
+(require racket/dict)
 
 ;; Klaidų ir sėkmės pranešimų medis
 (define messages '(
@@ -16,22 +18,22 @@
 ))
 
 ;; Pranešimai pagal aplinkos kalbos nuostatą
-(define langMessages (assoc-ref messages (getenv "LANG")))
+(define langMessages (dict-ref messages (getenv "LANG")))
 
 ;; Funkcija spalvotiems tekstams išvesti
 (define (display-strings code . args)
-  (let ([code (case code  [(red)   "\x1B[31m"]
+  ( let ([code (case code [(red)   "\x1B[31m"]
                           [(green) "\x1B[32m"]
                           [else    "\x1B[39m"])]
         [defcol "\x1B[39m"])
-  (format #t "\n~a~a~a\n" code (string-join args "") defcol))
+  (printf "\n~a~a~a\n" code (string-join args "") defcol))
 )
 
 ;; Funkcija spalvotiems pranešimų tekstams išvesti
 (define (print-message key)
   (if (equal? key "err")
-    (display-strings 'red (assoc-ref langMessages key) "")
-    (display-strings 'green (assoc-ref langMessages key) "")
+    (display-strings 'red (dict-ref langMessages key) "")
+    (display-strings 'green (dict-ref langMessages key) "")
   )
 )
 
@@ -48,16 +50,17 @@
   (define separator (make-string (string-length command) #\- ))
 
   ;; Išvedama komanda, apsupta skirtuko eilučių
-  (display-strings "" separator "\n" command "\n" separator "\n\n")
+  (display-strings "" separator "\n" command "\n" separator "\n" )
+
 
   ;; Įvykdoma komanda, proceso statusas išsaugomas į kintamąjį
-  (define status (system command))
+  (define status (system/exit-code command))
 
   ;; Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
-  (if (> (status:exit-val status) 0) (
+  (when (> status 0)
     (print-message "err")
     (exit 99)
-  ))
+  )
 
   ;; Kitu atveju išvedamas sėkmės pranešimas
   (print-message "succ")

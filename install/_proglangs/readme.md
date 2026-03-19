@@ -59,6 +59,7 @@ Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 * [x] [Pluto <sup>&#x2B67;</sup>](pluto/pluto_readme.md)
 * [x] [PowerShell <sup>&#x2B67;</sup>](powershell/pwsh_readme.md)
 * [ ] [Purescript <sup>&#x2B67;</sup>](purescript/purs_readme.md)
+* [x] [Racket <sup>&#x2B67;</sup>](racket/racket_readme.md)
 * [x] [Ruby <sup>&#x2B67;</sup>](ruby/ruby_readme.md)
 * [x] [Rust <sup>&#x2B67;</sup>](rust/rust_readme.md)
 * [x] [Scala (JVM) <sup>&#x2B67;</sup>](scala/scala_readme.md)
