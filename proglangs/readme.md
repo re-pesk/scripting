@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (66)
+# Skriptinimas skirtingomis programavimo kalbomis (67)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -71,7 +71,7 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) keista sintaksė\
   (–) kilmė iš Microsoft'o
 
-## Intepretuojamos kalbos ir JIT kompiliatoriai (36)
+## Intepretuojamos kalbos ir JIT kompiliatoriai (37)
 
 ### JavaVM (8)
 
@@ -107,7 +107,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] Deno (+)
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
-### Kitos (24)
+### Kitos (25)
 
 * [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis: negalima išvesti pranešimų vykdymo metu\
@@ -120,10 +120,6 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (–) seniai nebuvo leidimų
   * [x] [Phix <sup>&#x2B67;</sup>](phix/phix_readme.md) - stipriai modifikuota Euforijos versija (–)\
     (–) nepavyko paleisti visų pavyzdžių
-* [x] [Guile <sup>&#x2B67;</sup>](guile/guile_readme.md) (–)\
-  (?) Lisp'o sintaksė\
-  (–) sudėtinga susigaudyti dokumentacijoje\
-  (–) mažai informacijos intenete
 * [x] [Haxe <sup>&#x2B67;</sup>](haxe/haxe_readme.md) (–)\
   (–) pagrindinė klasė nepatogiai susieta su kodo failo pavadinimu\
   (–) reikalauja pagrindinės klasės
@@ -173,6 +169,14 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (–) lėtas, išnaudoja tik vieną procesoriaus branduolį
 * [x] [SBCL <sup>&#x2B67;</sup>](sbcl/sbcl_readme.md) (±)\
   (?) Lisp'o dialektas Common Lisp
+* Scheme
+  * [x] [Guile <sup>&#x2B67;</sup>](guile/guile_readme.md) (–)\
+    (?) Lisp'o sintaksė\
+    (–) sudėtinga susigaudyti dokumentacijoje\
+    (–) mažai informacijos intenete
+  * [x] [Racket <sup>&#x2B67;</sup>](racket/racket_readme.md) (±)\
+    (?) Lisp'o sintaksė\
+    (+) daug informacijos internete\
 * [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/slang_readme.md) (–)\
   (+) brandi kalba, naudojama jed redaktoriuje ir kitose aplikacijose\
   (–) kartais nepatogi sintaksė\
