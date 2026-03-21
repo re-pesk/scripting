@@ -4,8 +4,6 @@
 
 ## Parengimas
 
-Operacinė sistema – Ubuntu 24.04
-
 Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md) ir xargs (findutils).
 
 ## Diegimas

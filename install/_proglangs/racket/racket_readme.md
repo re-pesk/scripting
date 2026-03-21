@@ -4,8 +4,6 @@
 
 ## Parengimas
 
-Operacinė sistema – Ubuntu 24.04
-
 Jeigu nėra sukurtas, sukuriamas ~/.pathrc failas ir įterpiama jo įkėlimo komanda į .bashrc failą
 
 ```bash
