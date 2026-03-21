@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (67)
+# Skriptinimas skirtingomis programavimo kalbomis (68)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -71,7 +71,7 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) keista sintaksė\
   (–) kilmė iš Microsoft'o
 
-## Intepretuojamos kalbos ir JIT kompiliatoriai (37)
+## Intepretuojamos kalbos ir JIT kompiliatoriai (38)
 
 ### JavaVM (8)
 
@@ -107,7 +107,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   * [x] Deno (+)
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
-### Kitos (25)
+### Kitos (26)
 
 * [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis: negalima išvesti pranešimų vykdymo metu\
@@ -134,8 +134,9 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (?) Pythono pakaitalas moksliniams skaičiavimams
 * [x] [Lua <sup>&#x2B67;</sup>](lua/lua_readme.md) (+)\
   (+) paprasta kalba
-  * [x] [Hilbish <sup>&#x2B67;</sup>](hilbish/hilbish_readme.md) Apvalkalas (shell) Lua kalbos pagrindu (+)
-  * [x] [Pluto <sup>&#x2B67;</sup>](pluto/pluto_readme.md) Lua kalbos supersetas su klasėmis (+)
+  * [x] [Hilbish <sup>&#x2B67;</sup>](hilbish/hilbish_readme.md) - apvalkalas (shell) Lua kalbos pagrindu (+)
+  * [x] [Pluto <sup>&#x2B67;</sup>](pluto/pluto_readme.md) - Lua kalbos supersetas su klasėmis (+)
+  * [x] [Terra <sup>&#x2B67;</sup>](terra/terra_readme.md) - žemo lygmens sisteminio programavimo kalba, įterpta į „Lua“ programavimo kalbą ir jos valdoma (metaprogramuojama). (+)
 * [x] [Miniscript <sup>&#x2B67;</sup>](miniscript/mscr_readme.md) (–)\
   (+) paprasta kalba\
   (–) menkos galimybės dirbti su išorinėmis komandomis\

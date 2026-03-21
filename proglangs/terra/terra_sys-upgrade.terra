@@ -1,0 +1,108 @@
+#!/usr/bin/env -S terra
+
+local C_io = terralib.includec("stdio.h") -- Čia yra sprintf ir strlen (dažniausiai string.h)
+local C_str = terralib.includec("string.h")
+local ffi = require("ffi")
+
+-- Klaidų ir sėkmės pranešimų medis
+local messages = {
+  ["en.UTF-8"] = {
+    ["err"] = "Error! Script execution was terminated!",
+    ["succ"] = "Successfully finished!",
+    ["end"] = "End of execution.",
+  },
+  ["lt_LT.UTF-8"] = {
+    ["err"] = "Klaida! Scenarijaus vykdymas sustabdytas!",
+    ["succ"] = "Komanda sėkmingai įvykdyta!",
+    ["end"] = "Scenarijaus baigtas.",
+  }
+}
+
+-- Aplinkos kalbos nuostata
+local lang = os.getenv("LANG")
+
+-- Pranešimai pagal aplinkos kalbos nuostatą
+local langMessages = messages[lang]
+
+-- Funcija pranešimų tekstams gauti. Paruošta naudojimui Terra aplinkoje
+local function getLangMessage(key)
+  return ffi.cast("char*", langMessages[ffi.string(key)])
+end
+local TerraFuncType = {&int8} -> {&int8}
+local terra_getLangMessage = terralib.cast(TerraFuncType, getLangMessage)
+
+local output
+local printText
+local printMessage
+
+-- Terra - naudojama Terra ir Lua kalbos, kita - naudojama tik Lua kalba
+local mode = "Terra"
+
+if mode == "Terra" then
+  terra output(format : &int8, str : &int8)
+    C_io.fprintf(C_io.stderr, format, str)
+  end
+  terra printText (text : &int8)
+    output("\n%s\n", text)
+  end
+  terra printMessage (key:&int8)
+    var message = terra_getLangMessage(key)
+    if C_str.strcmp(key, "err") == 0 then
+      output("\n\x1b[31m%s\x1b[39m\n", message)
+      return
+    end
+    output("\n\x1b[32m%s\x1b[39m\n", message)
+  end
+else
+  function output (format, str)
+    io.stderr:write(string.format(format, str))
+  end
+  function printText (text)
+    output("\n%s\n", text)
+  end
+  function printMessage (key)
+    local message = langMessages[key]
+    if key == "err" then
+      output("\n\x1b[31m%s\x1b[39m\n", message)
+      return
+    end
+    output("\n\x1b[32m%s\x1b[39m\n", message)
+  end
+end
+
+-- Išorinių komandų iškvietimo funkcija
+local function runCmd(cmdArg)
+  -- Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  local command = "sudo " .. cmdArg
+
+  -- Sukuriamas komandos ilgio skirtukas iš "-" simbolių
+  -- #command - komandinės eilutės ilgis
+  -- string.rep("-",  n) - kartojamas '-' simbolis
+  local separator = string.rep("-", #command)
+
+  -- Išvedama komandos eilutė, apsupta skirtuko eilučių
+  printText(separator .. "\n" .. command .. "\n" .. separator .. "\n")
+
+  -- vykdoma komanda, statusas ir išėjimo kodas išsaugomi
+  local status, _, exitCode = os.execute(command)
+
+  -- Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
+  if status > 0 or exitCode and exitCode > 0 then
+    printMessage("err")
+    print("")
+    os.exit(exitCode or 1)
+  end
+
+  -- Kitu atveju išvedamas sėkmės pranešimas
+  printMessage("succ")
+end -- runCmd
+
+-- Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
+runCmd("apt update")
+runCmd("apt-get upgrade -y")
+runCmd("apt-get autoremove -y")
+runCmd("snap refresh")
+
+printMessage("end")
+
+print("")

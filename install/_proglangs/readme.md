@@ -67,6 +67,7 @@ Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 * [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/s-lang_readme.md)
 * [x] [Swift <sup>&#x2B67;</sup>](swift/swift_readme.md)
 * [x] [Tcl <sup>&#x2B67;</sup>](tcl/tcl_readme.md)
+* [x] [Terra <sup>&#x2B67;</sup>](terra/terra_readme.md)
 * [x] [V <sup>&#x2B67;</sup>](v/v_readme.md)
 * [x] [Zig <sup>&#x2B67;</sup>](zig/zig_readme.md)
 * [x] [Zsh <sup>&#x2B67;</sup>](zsh/zsh_readme.md)
