@@ -1,0 +1,74 @@
+#!/usr/bin/env -S amber run
+
+import { array_filled } from "std/array"
+import { join, match_regex, replace_regex, split } from "std/text"
+import { echo_info, echo_colored, env_var_get, env_var_set } from "std/env"
+
+// Klaidų ir sėkmės pranešimų masyvas
+const messages = [
+  "[en.UTF-8.err]=Error! Script execution was terminated!",
+  "[en.UTF-8.succ]=Successfully finished!",
+  "[en.UTF-8.end=End of execution.",
+  "[lt_LT.UTF-8.err]=Klaida! Scenarijaus vykdymas sustabdytas!",
+  "[lt_LT.UTF-8.succ]=Komanda sėkmingai įvykdyta!",
+  "[lt_LT.UTF-8.end]=Scenarijaus baigtas.",
+]
+
+// Funkcija gauti pranešimų tekstams pagal aplinkos kalbos nuostatą
+fun get_language_message(key) {
+  const lang = env_var_get("LANG")?
+  for index, value in messages {
+    if match_regex(value, "^\[{lang}\.{key}\]=.+$", true) {
+      return split(value, "=")[1]
+    }
+  }
+}
+
+// Funkcija spalvotiems pranešimams išvesti
+fun print_message(key) {
+  const message = get_language_message(key)?
+  if key == "err" {
+    echo_colored("\n{message}", 31)
+    return 0
+  }
+  echo_colored("\n{message}", 32)
+}
+
+// Išorinių komandų iškvietimo funkcija
+fun run_cmd(cmd_arg) {
+
+  // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  const command = "sudo {cmd_arg}"
+
+  // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
+  // replace_regex(command, ".", "-", false) - bet kokia raidė pakeičiama "-" simboliu
+  const separator = replace_regex(command, ".", "-", false)
+
+  // Išvedama komandos eilutė, apsupta skirtuko eilučių
+  echo "\n{separator}\n{command}\n{separator}\n"
+
+  // Įvykdoma komanda, jeigu įvyksta klaida,
+  // išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
+  $ {command} $ failed(code) {
+    print_message("err")?
+    exit(1)
+  }
+
+  // Kitu atveju išvedamas sėkmės pranešimas
+  print_message("succ")?
+}
+
+// pagrindinė funkcija
+main(arg) {
+
+  // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
+  run_cmd("apt update")?
+  run_cmd("apt-get upgrade -y")?
+  run_cmd("apt-get autoremove -y")?
+  run_cmd("snap refresh")?
+
+  // Išvedamas scenarijaus baigties pranešimas
+  print_message("end")?
+
+  echo ""
+}

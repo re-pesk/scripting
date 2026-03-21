@@ -5,6 +5,7 @@
 Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 
 * [x] [Abs <sup>&#x2B67;</sup>](abs/abs_readme.md)
+* [x] [Amber <sup>&#x2B67;</sup>](amber/amber_readme.md)
 * [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md)
 * [x] [Arsh <sup>&#x2B67;</sup>](arsh/arsh_readme.md)
 * [x] [Ballerina <sup>&#x2B67;</sup>](ballerina/ballerina_readme.md)

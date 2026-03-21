@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Skriptinimas skirtingomis programavimo kalbomis (68)
+# Skriptinimas skirtingomis programavimo kalbomis (69)
 
 Ubuntu paketų atnaujinimo skriptas skirtingomis programavimo kalbomis ar jų dialektais.
 
@@ -38,11 +38,17 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
   (–) asociatyvieji masyvai netinka medžio tipo struktūroms\
   (+) pakankamai paplitusi, daug informacijos
 
-## Alternatyvios apvalkalo scenarijų (Shell scripting) kalbos (10)
+## Alternatyvios apvalkalo scenarijų (Shell scripting) kalbos (11)
 
 * [x] [Abs <sup>&#x2B67;</sup>](abs/abs_readme.md) (±)\
   (+) patogi kalba\
   (?) ~~nebevystoma?~~ atnaujinta 2025-04-27
+* [x] [Amber <sup>&#x2B67;</sup>](amber/amber_readme.md) (–)\
+  (+) traspiliatorius į Bash'ą\
+  (–) nauja, kuriama kalba\
+  (–) nėra dokumentacijos ir pavyzdžių
+  (–) trūksta duomenų tipų\
+  (–) kai kurie dalykai sudėtingesni už Bash'ą
 * [x] [Arsh <sup>&#x2B67;</sup>](arsh/arsh_readme.md) (–)\
   (–) vieno žmogaus projektas\
   (+) statiškai tipizuota scenarijų kalba\
