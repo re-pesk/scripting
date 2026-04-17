@@ -2,6 +2,8 @@
 
 # Pagalbiniai skriptai
 
+* [alternative-to-no-sandbox](./alternative-to-no-sandbox/readme.md) - saugesnė alternativa --no-sandbox parametrui, leidžiant AppImage failus.
+
 * file-manager/\*.*
 
   * nautilus-scripts - [Nautilaus skriptai](./file-manager/nautilus-scripts/readme.lt.md)
