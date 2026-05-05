@@ -17,4 +17,4 @@
 
 ## Programavimo kalbos ir vykdymo aplinkos
 
-[Sąrašas](./_proglangs/readme.md "Proglangs")
+[Sąrašas](./proglangs/readme.md "Proglangs")

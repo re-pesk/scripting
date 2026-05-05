@@ -4,7 +4,7 @@
 
 ## Diegimas Linuxe (Ubuntu 24.04)
 
-[Žiūrėti](../install/zig/zig_readme.md)
+[Žiūrėti](../../install/proglangs/zig/zig_readme.md "Diegimas")
 
 ## Paleistis
 
