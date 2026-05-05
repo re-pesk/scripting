@@ -7,7 +7,7 @@
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/s-lang/s-lang_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangss-lang/s-lang_readme.md "Diegimas")
 
 ## Paleistis
 

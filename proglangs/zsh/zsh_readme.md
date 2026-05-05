@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Žiūrėti](../../install/zsh/zsh_readme.md)
+[Žiūrėti](../../install/proglangs/zsh/zsh_readme.md "Diegimas")
 
 ## Paleistis
 

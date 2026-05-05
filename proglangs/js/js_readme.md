@@ -9,13 +9,13 @@
 
 ## Vykdymas
 
-JavaScript vykdomas [Bun <sup>&#x2B67;</sup>](../../bun/install/bun_readme.md), [Deno <sup>&#x2B67;</sup>](../../deno/install/deno_readme.md) , [Node <sup>&#x2B67;</sup>](../../node/install/node_readme.md) aplinkose.
+JavaScript vykdomas *Bun*, *Deno* arba *Node* aplinkoje.
 
 ### Diegimas
 
-Apie Bun diegimą [žiūrėti <sup>&#x2B67;</sup>](../../bun/install/bun_readme.md).
-Apie Deno diegimą [žiūrėti <sup>&#x2B67;</sup>](../../deno/install/deno_readme.md).
-Apie Node diegimą [žiūrėti <sup>&#x2B67;</sup>](../../node/install/node_readme.md).
+Apie Bun diegimą [žiūrėti <sup>&#x2B67;</sup>](../../install/proglangs/bun/bun_readme.md).
+Apie Deno diegimą [žiūrėti <sup>&#x2B67;</sup>](../../install/proglangs/deno/deno_readme.md).
+Apie Node diegimą [žiūrėti <sup>&#x2B67;</sup>](../../install/proglangs/node/node_readme.md).
 
 ### Paleistis
 

@@ -10,7 +10,7 @@
 
 * Ubuntu [atnaujinimo skriptas](./proglangs/readme.md)
 
-  * Programavimo kalbų ir vykdymo aplinkų [diegimo skriptai](./install/_proglangs/proglangs/readme.md)
+  * Programavimo kalbų ir vykdymo aplinkų [diegimo skriptai](./install/proglangs/proglangs/readme.md)
 
 * Skriptų [pavyzdžiai](./shell/readme.md)
 

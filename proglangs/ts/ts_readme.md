@@ -9,10 +9,10 @@
 
 ## Diegimas
 
-TypeScriptas vykdomas tiesiogiai [Bun <sup>&#x2B67;</sup>](../../bun/install/bun_readme.md) ir [Deno <sup>&#x2B67;</sup>](../../deno/install/deno_readme.md) aplinkose arba sukompiliuotas į Javascriptą.
+TypeScriptas vykdomas tiesiogiai *Bun* arba *Deno* aplinkose arba sukompiliuotas į Javascriptą.
 
-Apie Bun diegimą [diegimą <sup>&#x2B67;</sup>](../../bun/install/bun_readme.md)
-Apie Deno [diegimą <sup>&#x2B67;</sup>](../install/deno_readme.md)
+Apie Bun diegimą [diegimą <sup>&#x2B67;</sup>](../../install/proglangs/bun/bun_readme.md)
+Apie Deno [diegimą <sup>&#x2B67;</sup>](../../install/proglangs/deno/deno_readme.md)
 
 ## Paleistis
 
