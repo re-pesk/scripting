@@ -22,7 +22,7 @@ bal run ballerina_sys-upgrade.bal
 
 ```bash
 bal build ballerina_sys-upgrade.bal
-bar run ballerina_sys-upgrade.jar
+bal run ballerina_sys-upgrade.jar
 ```
 
 ## Skriptai

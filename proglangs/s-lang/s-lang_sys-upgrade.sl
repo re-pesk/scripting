@@ -8,12 +8,28 @@ messages["lt_LT.UTF-8"] = Assoc_Type[String_Type];
 % Pranešimų tekstai
 messages["en.UTF-8"]["err"] = "Error! Script execution was terminated!";
 messages["en.UTF-8"]["succ"] = "Successfully finished!";
+messages["en.UTF-8"]["end"] = "End of execution.";
 messages["lt_LT.UTF-8"]["err"] = "Klaida! Scenarijaus vykdymas sustabdytas!";
 messages["lt_LT.UTF-8"]["succ"] = "Komanda sėkmingai įvykdyta!";
+messages["lt_LT.UTF-8"]["end"] = "Scenarijaus vykdymas baigtas.";
 
 % Pranešimų tekstai pagal aplinkos kalbos nuostatą LANG
+variable langMessages = messages["${LANG}"$];
 variable errorMessage=messages["${LANG}"$]["err"];
 variable successMessage=messages["${LANG}"$]["succ"];
+
+% Funkcija spalvotiems pranešimams išvesti
+define printMessage(key) {
+  variable color = "32";
+  if (key == "err") {
+    color = "31";
+  }
+  variable message = langMessages[key];
+  vmessage("\n\x1b[%sm%s\x1b[39m", color, message);
+  if (key != "succ") {
+    vmessage("");
+  }
+}
 
 % Išorinių komandų iškvietimo funkcija
 define runCmd(cmdArg)  {
@@ -29,25 +45,26 @@ define runCmd(cmdArg)  {
   variable separator = strreplace(sprintf("% ${len}s"$,""), " ", "-");
 
   % Išvedama komandos eilutė, apsupta skirtuko eilučių
-  vmessage("%s\n%s\n%s\n", separator, command, separator);
+  vmessage("\n%s\n%s\n%s\n", separator, command, separator);
 
   % Vykdoma komanda, išėjimo kodas išsaugomas
   variable exitCode = system("sudo ${cmdArg}"$);
 
   % Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if (exitCode > 0) {
-    vmessage("\n\x1b[31m%s\x1b[39m\n", errorMessage);
+    printMessage("err");
     exit(exitCode);
   }
 
   % Kitu atveju išvedamas sėkmės pranešimas
-  vmessage("\n\x1b[32m%s\x1b[39m\n", successMessage);
+  printMessage("succ");
 }
-
-message("");
 
 % Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt update");
 runCmd("apt-get upgrade -y");
 runCmd("apt-get autoremove -y");
 runCmd("snap refresh");
+
+% Scenarijaus baigties pranešimas
+printMessage("end");

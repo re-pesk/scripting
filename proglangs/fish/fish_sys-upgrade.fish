@@ -2,60 +2,74 @@
 
 # set fish_trace 1
 
-# Klaidų ir sėkmės pranešimų masyvas - kiekvienas pranešimas naujoje eilutėje
 set -g messages \
-  "[en.UTF-8.err]=Error! Script execution was terminated!"
-set -a messages \
-  "[en.UTF-8.succ]=Successfully finished!"
-set -a messages \
-  "[lt_LT.UTF-8.err]=Klaida! Scenarijaus vykdymas sustabdytas!"
-set -a messages \
-  "[lt_LT.UTF-8.succ]=Komanda sėkmingai įvykdyta!"
+"[en_US.UTF-8.err]=Error! Script execution was terminated!" \
+"[en_US.UTF-8.succ]=Successfully finished!" \
+"[en_US.UTF-8.end]=End of execution." \
+"[lt_LT.UTF-8.err]=Klaida! Scenarijaus vykdymas sustabdytas!" \
+"[lt_LT.UTF-8.succ]=Komanda sėkmingai įvykdyta!" \
+"[lt_LT.UTF-8.end]=Scenarijaus vykdymas baigtas."
+
+# Pranešimai pagal aplinkos kalbos nuostatą
+  # -a - visi atitikimai, f - tik atitinkančios eilutės, r - regexas
+set -g langMessages (
+  string replace -afr -- "^\[$LANG\.(?<key>.*)\]=(?<value>.*)\$" '[$key]=$value' $messages
+)
+
+echo "langMessages: $langMessages"
 
 # Funkcija pranešimui iš masyvo paimti pagal raktą
-function getMessageText --argument-names key
+function getMessage --argument-names key
   # -q - vykdoma be pranešimų, -r - regexas
-  string match -qr -- "^\[$key\]=(?<value>.*)\$" $messages
-  echo $value
+  string replace -fr -- "^\[$key\]=(?<value>.*)\$" '$value' $langMessages
 end
 
-# Išsaugomi pranešimai, atitinkantys aplinkos kalbą
-set -g errorMessage (getMessageText "$LANG.err")
-set -g successMessage (getMessageText "$LANG.succ")
+# Funkcija spalvotiems pranešimams išvesti
+function printMessage --argument-names key
+  set -l color "32"
+  if test "$key" = "err"
+    set color "31"
+  end
+  set -l message (getMessage $key)
+  set -l endLine "\n"
+  if test "$key" = "succ"
+    set endLine ""
+  end
+  printf "\n\e[%sm%s\e[39m\n$endLine" $color $message
+end
 
 # Išorinių komandų iškvietimo funkcija
 function runCmd ()
 
-    # Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
-    set -l command "sudo $argv"
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  set -l command "sudo $argv"
 
-    # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
-    # (string length $command) - grąžina eilutės, saugomos $command, ilgį
-    # (string repeat --count (string length $command) '-') - generuoja duoto ilgio separatorių iš '-' simbolių
-    # set -l separator (string repeat --count (string length $command) '-')
-    set -l separator (string replace -a -r '.' '-' $command)
+  # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
+  # -a - visi atitikmenys, -r - regexas, '.' - bet koks simbolis, '-' - į '-' simbolį
+  set -l separator (string replace -ar '.' '-' $command)
 
-    # Išvedama komandos eilutė, apsupta skirtuko eilučių
-    printf '%s\n' "$separator\n$command\n$separator\n"
+  # Išvedama komandos eilutė, apsupta skirtuko eilučių
+  printf '\n%s\n%s\n%s\n\n' $separator $command $separator
 
-    # Vykdoma komanda
-    sudo $argv
+  # Vykdoma komanda
+  sudo $argv
 
-    # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
-    # Įvykdymo rezultatas programos kintamajame $status išsaugomas automatiškai
-    if test $status -gt 0
-      printf '%s\n' "\n$errorMessage\n"
-      exit 99
-    end
+  # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
+  # Įvykdymo rezultatas programos kintamajame $status išsaugomas automatiškai
+  if test $status -gt 0
+    printMessage "err"
+    exit 99
+  end
 
-    # Kitu atveju išvedamas sėkmės pranešimas
-    printf '%s\n' "\n$successMessage\n"
+  # Kitu atveju išvedamas sėkmės pranešimas
+  printMessage "succ"
 end
-
-echo ""
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd apt-get update
 runCmd apt-get upgrade -y
 runCmd apt-get autoremove -y
 runCmd snap refresh
+
+# Scenarijaus baigties pranešimas
+printMessage "end"

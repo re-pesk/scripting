@@ -14,7 +14,7 @@ local messages = {
   ["lt_LT.UTF-8"] = {
     ["err"] = "Klaida! Scenarijaus vykdymas sustabdytas!",
     ["succ"] = "Komanda sėkmingai įvykdyta!",
-    ["end"] = "Scenarijaus baigtas.",
+    ["end"] = "Scenarijaus vykdymas baigtas.",
   }
 }
 
@@ -39,34 +39,34 @@ local printMessage
 local mode = "Terra"
 
 if mode == "Terra" then
-  terra output(format : &int8, str : &int8)
-    C_io.fprintf(C_io.stderr, format, str)
-  end
   terra printText (text : &int8)
-    output("\n%s\n", text)
+    C_io.fprintf(C_io.stderr, "\n%s\n", text)
   end
   terra printMessage (key:&int8)
     var message = terra_getLangMessage(key)
+    var color: int32 = 32
     if C_str.strcmp(key, "err") == 0 then
-      output("\n\x1b[31m%s\x1b[39m\n", message)
-      return
+      color = 31
     end
-    output("\n\x1b[32m%s\x1b[39m\n", message)
+    C_io.fprintf(C_io.stderr, "\n\x1b[%dm%s\x1b[39m\n", color, message)
+    if C_str.strcmp(key, "succ") ~= 0 then
+      C_io.fprintf(C_io.stderr, "\n")
+    end
   end
 else
-  function output (format, str)
-    io.stderr:write(string.format(format, str))
-  end
   function printText (text)
-    output("\n%s\n", text)
+    io.stderr:write(string.format("\n%s\n", text))
   end
   function printMessage (key)
     local message = langMessages[key]
+    local color = 32
     if key == "err" then
-      output("\n\x1b[31m%s\x1b[39m\n", message)
-      return
+      color = 31
     end
-    output("\n\x1b[32m%s\x1b[39m\n", message)
+    io.stderr:write(string.format("\n\x1b[%dm%s\x1b[39m\n", color, message))
+    if key ~= "succ" then
+      io.stderr:write("\n")
+    end
   end
 end
 
@@ -103,6 +103,5 @@ runCmd("apt-get upgrade -y")
 runCmd("apt-get autoremove -y")
 runCmd("snap refresh")
 
+-- Scenarijaus baigties pranešimas
 printMessage("end")
-
-print("")

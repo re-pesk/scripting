@@ -1,17 +1,17 @@
 #!/usr/bin/env -S amber run
 
 import { array_filled } from "std/array"
-import { join, match_regex, replace_regex, split } from "std/text"
+import { join, match_regex, replace_one, replace_regex, split } from "std/text"
 import { echo_info, echo_colored, env_var_get, env_var_set } from "std/env"
 
 // Klaidų ir sėkmės pranešimų masyvas
 const messages = [
   "[en.UTF-8.err]=Error! Script execution was terminated!",
   "[en.UTF-8.succ]=Successfully finished!",
-  "[en.UTF-8.end=End of execution.",
+  "[en.UTF-8.end]=End of execution.",
   "[lt_LT.UTF-8.err]=Klaida! Scenarijaus vykdymas sustabdytas!",
   "[lt_LT.UTF-8.succ]=Komanda sėkmingai įvykdyta!",
-  "[lt_LT.UTF-8.end]=Scenarijaus baigtas.",
+  "[lt_LT.UTF-8.end]=Scenarijaus vykdymas baigtas.",
 ]
 
 // Funkcija gauti pranešimų tekstams pagal aplinkos kalbos nuostatą
@@ -26,12 +26,12 @@ fun get_language_message(key) {
 
 // Funkcija spalvotiems pranešimams išvesti
 fun print_message(key) {
-  const message = get_language_message(key)?
-  if key == "err" {
-    echo_colored("\n{message}", 31)
-    return 0
+  let color = key == "err" then 31 else 32
+  let message = get_language_message(key)?
+  echo_colored("\n{message}", color)
+  if key != "succ" {
+    echo("")
   }
-  echo_colored("\n{message}", 32)
 }
 
 // Išorinių komandų iškvietimo funkcija
@@ -51,7 +51,7 @@ fun run_cmd(cmd_arg) {
   // išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   $ {command} $ failed(code) {
     print_message("err")?
-    exit(1)
+    exit(code)
   }
 
   // Kitu atveju išvedamas sėkmės pranešimas
@@ -67,8 +67,7 @@ main(arg) {
   run_cmd("apt-get autoremove -y")?
   run_cmd("snap refresh")?
 
-  // Išvedamas scenarijaus baigties pranešimas
+  // Scenarijaus baigties pranešimas
   print_message("end")?
 
-  echo ""
 }

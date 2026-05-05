@@ -8,53 +8,62 @@ import scala.sys.process._
 val messages = HashMap(
   "en.UTF-8" -> HashMap(
     "err" -> "Error! Script execution was terminated!",
-    "succ" -> "Successfully finished!"
+    "succ" -> "Successfully finished!",
+    "end" -> "End of execution.",
   ),
   "lt_LT.UTF-8" -> HashMap(
     "err" -> "Klaida! Scenarijaus vykdymas sustabdytas!",
-    "succ" -> "Komanda sėkmingai įvykdyta!"
+    "succ" -> "Komanda sėkmingai įvykdyta!",
+    "end" -> "Scenarijaus vykdymas baigtas.",
   )
 )
 
 // Pranešimai pagal aplinkos kalbos nuostatą
 val lang = sys.env("LANG")
-val errorMessage = messages(lang)("err")
-val successMessage = messages(lang)("succ")
+val langMessages = messages(lang)
+
+// Funkcija spalvotiems pranešimams išvesti
+def printMessage(key: String): Unit = {
+  val color = if (key == "err") "31" else "32"
+  val message = langMessages(key)
+  println(s"\n\u001B[${color}m${message}\u001B[39m")
+  if (key != "succ") println()
+}
 
 // Išorinių komandų iškvietimo funkcija
 def runCmd(cmdArg: String) : Unit = {
 
-  // Sukuriama komandos tekstinė eilutė iš funkcijos argumento to 
+  // Sukuriama komandos tekstinė eilutė iš funkcijos argumento to
   val command = s"sudo $cmdArg"
 
   // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
   // "-" * - kartoja '-' simbolį
   // command.length() - paima komandinės eilutės ilgį
-  val separator = "-" * command.length() 
+  val separator = "-" * command.length()
 
   // Išvedama komandos eilutė, apsupta skirtuko eilučių
-  println(s"$separator\n$command\n$separator\n")
+  println(s"\n$separator\n$command\n$separator\n")
 
-  // Vykdoma komanda, išėjimo kodas išsaugomas į kintamąjį 
+  // Vykdoma komanda, išėjimo kodas išsaugomas į kintamąjį
   val exitCode = Process(command).!
 
   // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if (exitCode > 0) {
-    println(s"\n$errorMessage\n")
+    printMessage("err")
     System.exit(exitCode)
   }
-  
+
   // Kitu atveju išvedamas sėkmės pranešimas
-  println(s"\n$successMessage\n")
+  printMessage("succ")
 }
 
-
 @main def main(): Unit = {
-  println()
-
   // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
   runCmd("apt-get update")
   runCmd("apt-get upgrade -y")
   runCmd("apt-get autoremove -y")
   runCmd("snap refresh")
+
+  // Scenarijaus baigties pranešimas
+  printMessage("end")
 }

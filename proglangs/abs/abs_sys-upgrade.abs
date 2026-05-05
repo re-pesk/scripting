@@ -4,22 +4,34 @@
 messages = {
   'en.UTF-8' : {
     'succ' : "Successfully finished!",
-    'err' : "Error! Script execution was terminated!"
+    'err' : "Error! Script execution was terminated!",
+    'end' : "End of execution.",
   },
   'lt_LT.UTF-8' : {
     'succ' : "Komanda sėkmingai įvykdyta!",
-    'err' : "Klaida! Scenarijaus vykdymas sustabdytas!"
+    'err' : "Klaida! Scenarijaus vykdymas sustabdytas!",
+    'end' : "Scenarijaus vykdymas baigtas.",
   },
 }
 
 # Išsaugomi pranešimai, atitinkantys aplinkos kalbą
-errorMessage = messages[env("LANG")].err
-successMessage = messages[env("LANG")].succ
+langMessages = messages[env("LANG")]
+
+# Funkcija spalvotiems pranešimams paruošti
+ESC = `printf '\033'`.trim()
+getMessage = f(key) {
+  color = "32"
+  if key == "err" { color = "31" }
+  endLine = "\n"
+  if key == "succ" { endLine = "" }
+  message = langMessages[key]
+  return "\n${ESC}[${color}m${message}${ESC}[39m${endLine}"
+}
 
 # Išorinių komandų iškvietimo funkcija
 runCmd = f(cmdArg) {
 
-  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
   command = "sudo $cmdArg"
 
   # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
@@ -28,21 +40,19 @@ runCmd = f(cmdArg) {
   separator = "-".repeat(command.len())
 
   # Išvedama komandos eilutė, apsupta skirtuko eilučių
-  echo("$separator\n$command\n$separator\n")
+  echo("\n$separator\n$command\n$separator\n")
 
-  # Įvykdoma komanda, vykdymo rezultatas išsaugomas į kintamąjį 
+  # Įvykdoma komanda, vykdymo rezultatas išsaugomas į kintamąjį
   error = exec(command)
 
   # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if(error) {
-      exit(99, "\n" + errorMessage + "\n\n")
+    exit(99, getMessage("err"))
   }
 
   # Kitu atveju išvedamas sėkmės pranešimas
-  echo("\n" + successMessage + "\n")
+  echo(getMessage("succ"))
 }
-
-echo()
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt-get update")
@@ -50,3 +60,5 @@ runCmd("apt-get upgrade -y")
 runCmd("apt-get autoremove -y")
 runCmd("snap refresh")
 
+# Scenarijaus baigties pranešimas
+echo(getMessage("end"))

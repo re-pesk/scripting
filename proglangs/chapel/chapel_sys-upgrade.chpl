@@ -8,11 +8,13 @@ use Subprocess;
 var messages = [
   "en.UTF-8" => [
     "err" => "Error! Script execution was terminated!",
-    "succ" => "Successfully finished!"
+    "succ" => "Successfully finished!",
+    "end" => "End of execution."
   ],
   "lt_LT.UTF-8" => [
     "err" => "Klaida! Scenarijaus vykdymas sustabdytas!",
-    "succ" => "Komanda sėkmingai įvykdyta!"
+    "succ" => "Komanda sėkmingai įvykdyta!",
+    "end" => "Scenarijaus vykdymas baigtas."
   ]
 ];
 
@@ -20,8 +22,17 @@ var messages = [
 const lang = string.createBorrowingBuffer(getenv("LANG"));
 
 // Pranešimai pagal aplinkos kalbos nuostatą
-const errorMessage = messages[lang]["err"];
-const successMessage = messages[lang]["succ"];
+const langMessages = messages[lang];
+
+// Funkcija spalvotiems pranešimams išvesti
+proc printMessage(key: string) {
+  var color : string = "32";
+  if key == "err" then color = "31";
+  const message = langMessages[key];
+  var endLine : string = "\n";
+  if key == "succ" then end = "";
+  writef("\n\x1B[%sm%s\x1B[39m\n%s", color, message, endLine);
+}
 
 // Išorinių komandų iškvietimo funkcija
 proc runCmd(cmdArg: string) {
@@ -35,26 +46,28 @@ proc runCmd(cmdArg: string) {
   const separator = "-" * command.size;
 
   // Išvedama komandos eilutė, apsupta skirtuko eilučių
-  writef("%s\n%s\n%s\n\n", separator, command, separator);
+  writef("\n%s\n%s\n%s\n\n", separator, command, separator);
 
-  // Įvykdoma komanda, sulaukiama kol pasibaigs 
+  // Įvykdoma komanda, sulaukiama kol pasibaigs
   var sub = spawnshell(command);
   sub.wait();
 
   // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if !sub.running && sub.exitCode != 0 {
-    writef("\n%s\n\n", errorMessage);
+    printMessage("err");
     exit(99);
   }
 
   // Kitu atveju išvedamas sėkmės pranešimas
-  writef("\n%s\n\n", successMessage);
-}
+  printMessage("succ");
 
-writeln();
+}
 
 // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt-get update");
 runCmd("apt-get upgrade -y");
 runCmd("apt-get autoremove -y");
 runCmd("snap refresh");
+
+// Scenarijaus baigties pranešimas
+printMessage("end");

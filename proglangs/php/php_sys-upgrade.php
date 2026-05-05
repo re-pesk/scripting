@@ -5,24 +5,33 @@
 $messages = [
   'en.UTF-8' => [
     'err' => "Error! Script execution was terminated!",
-    'succ' => "Successfully finished!"
+    'succ' => "Successfully finished!",
+    'end' => "End of execution."
   ],
   'lt_LT.UTF-8' => [
     'err' => "Klaida! Scenarijaus vykdymas sustabdytas!",
-    'succ' => "Komanda sėkmingai įvykdyta!"
+    'succ' => "Komanda sėkmingai įvykdyta!",
+    'end' => "Scenarijaus vykdymas baigtas."
   ],
 ];
 
 // Pranešimai, atitinkantys aplinkos kalbą
 $LANG = getenv("LANG");
-$errorMessage = $messages[$LANG]["err"];
-$successMessage = $messages[$LANG]["succ"];
+$langMessages = $messages[$LANG];
+
+// Funkcija spalvotiems pranešimams išvesti
+function printMessage($key) {
+  global $langMessages;
+  $color = ($key === "err" ) ? "31" : "32";
+  $message = $langMessages[$key];
+  $endLine = ($key === "succ" ) ? "" : "\n";
+  echo "\n\x1B[{$color}m{$message}\x1B[39m\n{$endLine}";
+}
 
 // Išorinių komandų iškvietimo funkcija
 function runCmd($cmdArg) {
-  global $errorMessage, $successMessage;
 
-  // Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
+  // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
   $command = "sudo {$cmdArg}";
 
   // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
@@ -31,7 +40,7 @@ function runCmd($cmdArg) {
   $separator = str_repeat("-", strlen($command));
 
   // Išvedama komandos eilutė, apsupta skirtuko eilučių
-  echo "{$separator}\n{$command}\n{$separator}\n\n";
+  echo "\n{$separator}\n{$command}\n{$separator}\n\n";
 
   // Vykdoma komanda, išėjimo kodas išsaugomas į kintamąjį
   $exitCode = null;
@@ -39,18 +48,19 @@ function runCmd($cmdArg) {
 
   // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if ($exitCode > 0) {
-      echo "\n{$errorMessage}\n\n";
+      printMessage("err");
       exit(99);
   }
 
   // Kitu atveju išvedamas sėkmės pranešimas
-  echo "\n{$successMessage}\n\n";
+  printMessage("succ");
 };
-
-echo "\n";
 
 // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt-get update");
 runCmd("apt-get upgrade -y");
 runCmd("apt-get autoremove -y");
 runCmd("snap refresh");
+
+// Scenarijaus baigties pranešimas
+printMessage("end");

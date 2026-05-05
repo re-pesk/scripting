@@ -6,38 +6,46 @@ use core {*}
 main :: () {
 
   // Klaidų ir sėkmės pranešimų medis
-  use messages := Map.literal(str, Map(str, str), .[
+  messages := Map.literal(str, Map(str, str), .[
     .{"en.UTF-8", Map.literal(str, str, .[
       .{"err", "Error! Script execution was terminated!"},
       .{"succ", "Successfully finished!"},
+      .{"end", "End of execution."},
     ])},
     .{"lt_LT.UTF-8", Map.literal(str, str, .[
       .{"err", "Klaida! Scenarijaus vykdymas sustabdytas!"},
       .{"succ", "Komanda sėkmingai įvykdyta!"},
+      .{"end", "Scenarijaus vykdymas baigtas."},
     ])},
   ])
 
   // Aplinkos kalbos nuostata
-  use lang := os.env("LANG")?
+  lang := os.env("LANG")?
 
   // Pranešimai pagal aplinkos kalbos nuostatą
-  use errorMessage := messages->get_ptr(lang)->get("err")?
-  use successMessage := messages->get_ptr(lang)->get("succ")?
+  langMessages := messages->get_ptr(lang);
+
+  // Funkcija spalvotiems pranešimams išvesti
+  printMessage := (key: str) use (langMessages) {
+    color := "31" if key == "err" else "32";
+    message := langMessages->get(key)?;
+    endLine := "" if key == "succ" else "\n";
+    printf("\n\x1B[{}m{}\x1B[39m\n{}", color, message, endLine);
+  }
 
   // Išorinių komandų iškvietimo funkcija
-  runCmd := (cmdArg: str) use(errorMessage, successMessage) {
-
+  runCmd := (cmdArg: str) use(printMessage){
     // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
-    use command := aprintf("sudo {}", cmdArg);
+    command := aprintf("sudo {}", cmdArg);
 
     // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
     // command->map(x => '-') - pakeičia bet kokį komandos simbolį '-' simboliu
-    use separator := command->map(x => '-');
+    separator := command->map(x => '-');
 
     // Išvedama komandos eilutė, apsupta skirtuko eilučių
-    printf("{}\n{}\n{}\n\n", separator, command, separator);
+    printf("\n{}\n{}\n{}\n\n", separator, command, separator);
 
-    // Įvykdoma komanda, rezultatas išsaugomas į kintamąjį 
+    // Įvykdoma komanda, rezultatas išsaugomas į kintamąjį
     result := os.command()
       ->path("sudo")
       ->args(cmdArg->split(' '))
@@ -45,19 +53,20 @@ main :: () {
 
     // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
     if result != os.ProcessResult.Success {
-      printf("\n{}\n\n", errorMessage);
+      printMessage("err");
       os.exit(1);
     }
-  
-    // Kitu atveju išvedamas sėkmės pranešimas
-    printf("\n{}\n\n", successMessage);
-  }
 
-  println("")
+    // Kitu atveju išvedamas sėkmės pranešimas
+    printMessage("succ");
+  }
 
   // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
   runCmd("apt-get update");
   runCmd("apt-get upgrade -y");
   runCmd("apt-get autoremove -y");
   runCmd("snap refresh");
+
+  // Scenarijaus baigties pranešimas
+  printMessage("end");
 }

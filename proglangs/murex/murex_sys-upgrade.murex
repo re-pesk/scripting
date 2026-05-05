@@ -1,57 +1,68 @@
 #!/usr/bin/env murex
 
 # Klaidų ir sėkmės pranešimų medis
-messages = %{
-  en.UTF-8 : {
-    err: "Error! Script execution was terminated!",
-    succ: "Successfully finished!"
+$messages = %{
+  "en_US.UTF-8" : {
+    "err": "Error! Script execution was terminated!",
+    "succ": "Successfully finished!",
+    "end": "End of execution."
   },
-  lt_LT.UTF-8: {
-    err: "Klaida! Scenarijaus vykdymas sustabdytas!",
-    succ: "Komanda sėkmingai įvykdyta!"
+  "lt_LT.UTF-8" : {
+    "err": "Klaida! Scenarijaus vykdymas sustabdytas!",
+    "succ": "Komanda sėkmingai įvykdyta!",
+    "end": "Scenarijaus vykdymas baigtas."
   }
 }
 
 # Pranešimai, atitinkantys aplinkos kalbą
-lang = $ENV.LANG
-global errorMessage = $messages[[/$lang/err]]
-global successMessage = $messages[[/$lang/succ]]
+$lang = $ENV.LANG
+$GLOBAL.langMessages = $messages[[/$(lang)]]
+
+# Funkcija spalvotiems pranešimams išvesti
+function printMessage (key: str) {
+  $color = "{GREEN}"
+  if { $key == "err" } then { $color = "{RED}" }
+  $message = $langMessages[$(key)]
+  err "\n$(color)$message{RESET}"
+  if { $key != "succ" } then { err "" }
+}
 
 # Išorinių komandų iškvietimo funkcija
 function runCmd () {
 
   # Sukuria argumentą iš funkcijos parametrų
-  cmdArg = ${ $PARAMS -> mjoin " " }
+  $cmdArg = ${ $PARAMS -> mjoin " " }
 
-  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
-  command = "sudo $cmdArg"
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
+  $command = "sudo $cmdArg"
 
   # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
-  separator = ${ 
+  $separator = ${
     $command -> \
     jsplit "" -> \
     formap key value { out "-" } -> \
     mjoin ""
   }
-  out $separator\n$command\n$separator\n
+  err "\n{RESET}$(separator)\n$(command)\n$(separator)\n"
 
   # Vykdoma komanda
-  try { exec sudo @PARAMS }
+  try {exec sudo @PARAMS}
 
   # Jeigu vykdant komandą įvyko klaida, išveda klaidos pranešimą ir nutraukia programos vykdymą
   catch {
-    err \n$errorMessage\n
+    printMessage "err"
     exit
   }
-  
-  # Kitu atveju išvedamas sėkmės pranešimas
-  out \n{GREEN}$successMessage{RESET}\n
-}
 
-out
+  # Kitu atveju išvedamas sėkmės pranešimas
+  printMessage "succ"
+}
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd apt update
 runCmd apt-get upgrade -y
 runCmd apt-get autoremove -y
 runCmd snap refresh
+
+# Scenarijaus baigties pranešimas
+printMessage "end"
