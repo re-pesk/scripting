@@ -1,4 +1,4 @@
-#!/usr/bin/env -S guile --no-auto-compile -q -s
+#!/usr/bin/env -S guile --no-auto-compile -s
 !#
 
 ;; Klaidų ir sėkmės pranešimų medis
@@ -18,26 +18,17 @@
 ;; Pranešimai pagal aplinkos kalbos nuostatą
 (define langMessages (assoc-ref messages (getenv "LANG")))
 
-;; Funkcija spalvotiems tekstams išvesti
-(define (display-strings code . args)
-  (let ([code (case code  [(red)   "\x1B[31m"]
-                          [(green) "\x1B[32m"]
-                          [else    "\x1B[39m"])]
-        [defcol "\x1B[39m"])
-  (format #t "\n~a~a~a\n" code (string-join args "") defcol))
-)
-
 ;; Funkcija spalvotiems pranešimų tekstams išvesti
 (define (print-message key)
-  (if (equal? key "err")
-    (display-strings 'red (assoc-ref langMessages key) "")
-    (display-strings 'green (assoc-ref langMessages key) "")
-  )
+  (define color (if (equal? key "err") "\x1B[31m" "\x1B[32m" ))
+  (define message (assoc-ref langMessages key))
+  (define defaultColor "\x1B[39m")
+  (format #t "\n~a~a~a\n" color message defaultColor)
+  (if (string<> key "succ") (format #t "\n" ))
 )
 
 ;; Išorinių komandų iškvietimo funkcija
-(define
-  (runCmd cmdArg)
+(define (runCmd cmdArg)
 
   ;; Sukuriama komanda iš funkcijos argumento
   (define command (string-append "sudo " cmdArg))
@@ -48,7 +39,7 @@
   (define separator (make-string (string-length command) #\- ))
 
   ;; Išvedama komanda, apsupta skirtuko eilučių
-  (display-strings "" separator "\n" command "\n" separator "\n\n")
+  (format #t "\n~a\n~a\n~a\n\n" separator command separator)
 
   ;; Įvykdoma komanda, proceso statusas išsaugomas į kintamąjį
   (define status (system command))
@@ -69,6 +60,5 @@
 (runCmd "apt-get autoremove -y")
 (runCmd "snap refresh")
 
+;; Scenarijaus baigties pranešimas
 (print-message "end")
-
-(newline)

@@ -9,6 +9,19 @@ import (
 	"strings"
 )
 
+func printMessage(key string, langMessages map[string]string) {
+	color := "32"
+	if key == "err" {
+		color = "31"
+	}
+	message := langMessages[key]
+	endLine := "\n"
+	if key == "succ" {
+		endLine = ""
+	}
+	fmt.Printf("\n\x1b[%sm%s\x1b[39m\n%s", color, message, endLine)
+}
+
 // Išorinių komandų iškvietimo funkcija
 func runCmd(cmdArg string, langMessages map[string]string) {
 
@@ -20,7 +33,7 @@ func runCmd(cmdArg string, langMessages map[string]string) {
 	separator := strings.Repeat("-", len(command))
 
 	// Išvedama komandos eilutė, apsupta skirtuko eilučių
-	fmt.Printf("%v\n%v\n%v\n\n", separator, command, separator)
+	fmt.Printf("\n%v\n%v\n%v\n\n", separator, command, separator)
 
 	// Komandos eilutę pverčia masyvu
 	cmdArray := strings.Fields(command)
@@ -35,12 +48,12 @@ func runCmd(cmdArg string, langMessages map[string]string) {
 
 	// Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
 	if err != nil {
-		fmt.Printf("\n%v\n\n", langMessages["err"])
+		printMessage("err", langMessages)
 		os.Exit(0)
 	}
 
 	// Kitu atveju išvedamas sėkmės pranešimas
-	fmt.Printf("\n%v\n\n", langMessages["succ"])
+	printMessage("succ", langMessages)
 }
 
 // Pagrindinė funkcija - programos įeigos taškas
@@ -51,10 +64,12 @@ func main() {
 		"en.UTF-8": {
 			"err":  "Error! Script execution was terminated!",
 			"succ": "Successfully finished!",
+			"end":  "End of execution.",
 		},
 		"lt_LT.UTF-8": {
 			"err":  "Klaida! Scenarijaus vykdymas sustabdytas!",
 			"succ": "Komanda sėkmingai įvykdyta!",
+			"end":  "Scenarijaus vykdymas baigtas.",
 		},
 	}
 
@@ -62,11 +77,12 @@ func main() {
 	lang := os.Getenv("LANG")
 	langMessages := messages[lang]
 
-	fmt.Println("")
-
 	// Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 	runCmd("apt-get update", langMessages)
 	runCmd("apt-get upgrade -y", langMessages)
 	runCmd("apt-get autoremove -y", langMessages)
 	runCmd("snap refresh", langMessages)
+
+  // Scenarijaus baigties pranešimas
+	printMessage("end", langMessages)
 }

@@ -6,18 +6,27 @@ let messages : Map<String, Map<String,String>>
 $messages.putAll([
   "en.UTF-8": [
     "err": "Error! Script execution was terminated!",
-    "succ": "Successfully finished!"
+    "succ": "Successfully finished!",
+    "end": "End of execution.",
+
   ],
    "lt_LT.UTF-8": [
     "err": "Klaida! Scenarijaus vykdymas sustabdytas!",
-    "succ": "Komanda sėkmingai įvykdyta!"
+    "succ": "Komanda sėkmingai įvykdyta!",
+    "end": "Scenarijaus vykdymas baigtas.",
    ]
 ])
 
 # Išsaugomi pranešimai, atitinkantys aplinkos kalbą
 getenv LANG
-let errMessage = $messages[$REPLY]["err"]
-let succMessage = $messages[$REPLY]["succ"]
+let langMessages = $messages[$REPLY]
+
+# Funkcija spalvotiems pranešimams išvesti
+function printMessage ( key : String ) {
+  let color = ($key == 'err') ? 31 : 32
+  let endLine = ($key == 'succ') ? '' : '\n'
+  printf "\n\x1b[${color}m%s\x1b[39m\n${endLine}" $langMessages[$key]
+}
 
 # Išorinių komandų iškvietimo funkcija
 function runCmd(cmdArgs : String) {
@@ -31,23 +40,20 @@ function runCmd(cmdArgs : String) {
   let separator = $/./.replace( $command, '-' )
 
   # Išvedama komandos eilutė, apsupta skirtuko eilučių
-  printf '%s\n%s\n%s\n\n' $separator $command $separator
+  printf '\n%s\n%s\n%s\n\n' $separator $command $separator
 
   # Įvykdoma komanda. Jeigu vykdant komandą įvyko klaida,
   # išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas,
   # grąžinant klaidos kodą
   if !(call ${$command.split(' ')}) {
     let exitCode = $?
-    printf '\n\x1b[31m%s\x1b[39m\n\n' ${$errMessage}
+    $printMessage("err")
     exit $exitCode
   }
 
   # Kitu atveju išvedamas sėkmės pranešimas
-  printf '\n\x1b[31m%s\x1b[39m\n\n' ${$succMessage}
-
+  $printMessage("succ")
 }
-
-echo ""
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 $runCmd("apt update")
@@ -55,3 +61,5 @@ $runCmd("apt-get upgrade -y")
 $runCmd("apt-get autoremove -y")
 $runCmd("snap refresh")
 
+# Scenarijaus baigties pranešimas
+$printMessage("end")

@@ -1,107 +1,101 @@
 ///usr/bin/env -S zig run "$0" -- "$@"; exit $?
 
 const std = @import ("std");
-const stdout = std.io.getStdOut().writer();
-const allocPrint = std.fmt.allocPrint;
-const print = std.debug.print;
-const exit = std.os.linux.exit;
-const Child = std.process.Child;
 
-// Pranešimų rinkinys kalbai
-const LangMessages = struct { err: []const u8 = "", succ: []const u8 = "" };
+// Kalbos pranešimų šakos tipas
+const LangMessages = std.StaticStringMap([]const u8);
 
-// Pranešimų medžio struktūra
-const Messages = struct {
-    en: LangMessages,
-    lt_LT: LangMessages,
+// Pranešimų medžio tipas
+const Messages = std.StaticStringMap(LangMessages);
 
-    // Motodas pranešimui iš masyvo paimti pagal raktą
-    pub fn get(self: Messages, name: []const u8) LangMessages {
-        if (std.mem.eql(u8, name, "en")) {
-            return self.en;
-        } else if (std.mem.eql(u8, name, "lt_LT")) {
-            return self.lt_LT;
-        } else {
-            return LangMessages{ .err = "!!!", .succ = "!!!" };
-        }
+// Pranešimų medis: kalbos kodas -> LangMessages
+const messages = Messages.initComptime(.{
+    .{ "en_US.UTF-8", LangMessages.initComptime(.{
+        .{ "err", "Error! Script execution was terminated!" },
+        .{ "succ", "Successfully finished!" },
+        .{ "end", "End of execution." },
+    }) },
+    .{ "lt_LT.UTF-8", LangMessages.initComptime(.{
+        .{ "err", "Klaida! Scenarijaus vykdymas sustabdytas!" },
+        .{ "succ", "Komanda sėkmingai įvykdyta!" },
+        .{ "end", "Scenarijaus vykdymas baigtas." },
+    }) },
+});
+
+// Funkcija spalvotiems pranešimams išvesti
+fn printMessage(key: []const u8, langMessages: LangMessages) !void {
+
+    const message = langMessages.get(key) orelse messages.get("en_US.UTF-8").?.get(key) orelse return;
+    const color = if (std.mem.eql(u8, key, "err")) "\x1b[31m" else "\x1b[32m";
+    const reset = "\x1b[39m";
+
+    std.debug.print("\n{s}{s}{s}\n", .{ color, message, reset });
+
+    if (!std.mem.eql(u8, key, "succ")) {
+        std.debug.print("\n", .{});
     }
-};
+}
 
 // Išorinių komandų iškvietimo funkcija
-fn runCmd(cmdArg: []const u8, langMessages: LangMessages) !void {
+fn runCmd(cmdArg: []const u8, langMessages: LangMessages, init: std.process.Init) !void {
     //Sukuriamas alocatorius
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer arena.deinit(); // alocatorius deinicializuojamas, išeinant iš funkcijos
+    var arena = init.arena;
     const allocator = arena.allocator();
 
     // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
-    const command = try allocPrint(allocator, "{s} {s}", .{ "sudo", cmdArg });
+    const command = try std.fmt.allocPrint(allocator, "{s} {s}", .{ "sudo", cmdArg });
     defer allocator.free(command);
 
     // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
     // allocator.alloc(u8, command.len) - sukuriama tuščia komandos ilgio eilutė
     // while (...)... - kiekvienas to eilutės ženklas pakeičiamas '-' simboliu
-    var separator = try allocator.alloc(u8, command.len);
+    const separator = try allocator.alloc(u8, command.len);
     defer allocator.free(separator);
-    var i: usize = 0;
-    while (i < separator.len) : (i += 1) {
-        separator[i] = '-';
-    }
+    @memset(separator, '-');
 
     // Išvedama komandos eilutė, apsupta skirtuko eilučių
-    print("{s}\n{s}\n{s}\n\n", .{ separator, command, separator });
+    std.debug.print("\n{s}\n{s}\n{s}\n\n", .{ separator, command, separator });
 
     // Sukuriamas argumentų masyvas
-    var cmdArgsList = std.ArrayList([]const u8).init(allocator);
-    var iterator = std.mem.splitScalar(u8, command, ' ');
-    while (iterator.next()) |x| {
-        try cmdArgsList.append(x);
+    var cmdArgsList = std.ArrayList([]const u8).initCapacity(init.gpa, 0) catch unreachable;
+    defer cmdArgsList.deinit(init.gpa);
+
+    // Masyvas užpildomas iš komandos eilutės
+    var iterator = std.mem.tokenizeAny(u8, command, " ");
+    while (iterator.next()) |word| {
+        try cmdArgsList.append(init.gpa, word);
     }
 
-    // Ir argumentųsukuriamas ir įvykdomas procesas, išėjimo kodas išsaugomas kintamjame
-    var child = Child.init(cmdArgsList.items, allocator);
-    try child.spawn();
-    const exitCode = try child.wait();
+    // Iš argumentų sukuriamas ir įvykdomas procesas, išėjimo kodas išsaugomas kintamjame
+    var child = try std.process.spawn(init.io, .{
+        .argv = cmdArgsList.items,
+     });
+    const exitTerm = try child.wait( init.io );
 
     // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
-    if (exitCode.Exited > 0) {
-        print("\n{s}\n\n", .{langMessages.err});
-        exit(99);
+    if (exitTerm.exited > 0) {
+        try printMessage("err", langMessages);
+        std.os.linux.exit(99);
     }
 
     // Kitu atveju išvedamas sėkmės pranešimas
-    print("\n{s}\n\n", .{langMessages.succ});
+    try printMessage("succ", langMessages);
 }
 
 // Pagrindinė funkcija - programos įeigos taškas
-pub fn main() !void {
-    // Sukuriamas alokatorius
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer arena.deinit();
-    const allocator = arena.allocator();
-
-    // Pranešimų medžio inicializacija
-    const messages: Messages = .{ .en = .{ .err = "Error! Script execution was terminated!", .succ = "Successfully finished!" }, .lt_LT = .{ .err = "Klaida! Scenarijaus vykdymas sustabdytas!", .succ = "Komanda sėkmingai įvykdyta!" } };
-
-    // Paimti aplinkos kintamuosius į struktūrą
-    const env_map = try allocator.create(std.process.EnvMap);
-    env_map.* = try std.process.getEnvMap(arena.allocator());
-    defer env_map.deinit(); // technically unnecessary when using ArenaAllocator
-
-    // Gauti aplinlos kalbos nustatymus
-    const lang = env_map.get("LANG") orelse "";
-    defer allocator.free(lang);
+pub fn main(init: std.process.Init) !void {
+    // Gauti aplinkos kalbos nustatymus
+    const lang = init.minimal.environ.getPosix("LANG") orelse "";
 
     // Paimti pranešimus, atitinkančius aplinkos kalbą
-    const key: []const u8 = try std.mem.replaceOwned(u8, allocator, lang, ".UTF-8", "");
-    defer allocator.free(key);
-    const langMessages = messages.get(key);
-
-    try stdout.print("{s}", .{"\n"});
+    const langMessages = messages.get(lang) orelse messages.get("en_US.UTF-8").?;
 
     // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
-    try runCmd("apt-get update", langMessages);
-    try runCmd("apt-get upgrade -y", langMessages);
-    try runCmd("apt-get autoremove -y", langMessages);
-    try runCmd("snap refresh", langMessages);
+    try runCmd("apt-get update", langMessages, init);
+    try runCmd("apt-get upgrade -y", langMessages, init);
+    try runCmd("apt-get autoremove -y", langMessages, init);
+    try runCmd("snap refresh", langMessages, init);
+
+    // Scenarijaus baigties pranešimas
+    try printMessage("end", langMessages);
 }

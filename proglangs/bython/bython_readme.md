@@ -9,7 +9,9 @@
 ## Paleistis
 
 ```bash
+source "${HOME}/.pyvenvs/tests/bin/activate"
 bython bython_sys-upgrade.by
+deactivate
 ```
 
 ### Vykdymo instrukcija (shebang)

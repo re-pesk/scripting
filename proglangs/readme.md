@@ -86,7 +86,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
 * [x] [Clojure <sup>&#x2B67;</sup>](clojure/clojure_readme.md) (–)\
   (?) Lisp'o sintaksė
 * [x] [Ballerina <sup>&#x2B67;</sup>](ballerina/ballerina_readme.md) (–)\
-  (–) ribotos išorinių komandų iškvietimo funkcijos\
+  (–) ribotos išorinių komandų iškvietimo funkcijos, todėl tenka naudoti Java klases\
   (–) sudėtingas klaidų apdrojimas\
   (–) skurdi dokumentacija\
   (–) mažai informacijos internete

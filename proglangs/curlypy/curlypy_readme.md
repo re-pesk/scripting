@@ -9,8 +9,9 @@
 ## Paleistis
 
 ```bash
-curlypy curlypy_sys-upgrade.cpy
-```
+source "${HOME}/.pyvenvs/tests/bin/activate"
+curlypy kodo-failas.cpy
+deactivate```
 
 ### Vykdymo instrukcija (shebang)
 

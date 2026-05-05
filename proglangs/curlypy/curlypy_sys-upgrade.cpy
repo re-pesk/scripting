@@ -1,25 +1,32 @@
 #!/usr/bin/env -S curlypy
 
 import os
+import subprocess
 
 # Klaidų ir sėkmės pranešimų medis
 messages: dict[str, str] = {
   "en.UTF-8" : {
     "err" : "Error! Script execution was terminated!",
     "succ" : "Successfully finished!",
+    "end" : "End of execution.",
   },
   "lt_LT.UTF-8":{
     "err":"Klaida! Scenarijaus vykdymas sustabdytas!",
     "succ":"Komanda sėkmingai įvykdyta!",
+    "end":"Scenarijaus vykdymas baigtas.",
   },
 }
 
 # Pranešimai pagal aplinkos kalbos nuostatą
 lang = os.environ["LANG"]
-errorMessage = messages[lang]['err']
-successMessage = messages[lang]['succ']
+langMessages = messages[lang]
 
-import subprocess
+# Funkcija spalvotiems pranešimams išvesti
+def printMessage(key) {
+  color = "31" if key == "err" else "32"
+  endLine = "" if key == "succ" else "\n"
+  print(f"\n\033[{color}m{langMessages[key]}\033[39m{endLine}")
+}
 
 ## Išorinių komandų iškvietimo funkcija
 def runCmd(cmdArg) {
@@ -33,25 +40,26 @@ def runCmd(cmdArg) {
   separator = "-" * len(command)
 
   # Išvedama komandos eilutė, apsupta skirtuko eilučių
-  print(f"{separator}\n{command}\n{separator}\n")
+  print(f"\n{separator}\n{command}\n{separator}\n")
 
   # Vykdoma komanda, komandos vykdymo rezultatą išsaugo į kintamąjį
   exitCode = subprocess.run(command.split(' ')).returncode
 
   # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if(exitCode != 0) {
-      print(f"\n{errorMessage}\n")
+      printMessage("err")
       exit(exitCode)
   }
 
   # Jeigu klaidos nėra, išveda sėkmės pranešimą
-  print(f"\n{successMessage}\n")
+  printMessage("succ")
 }
-
-print()
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd('apt update')
 runCmd("apt-get upgrade -y")
 runCmd("apt-get autoremove -y")
 runCmd('snap refresh')
+
+# Scenarijaus baigties pranešimas
+printMessage("end")

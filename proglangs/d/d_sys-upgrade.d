@@ -15,11 +15,13 @@ void main()
   const auto messages = [
     "en.UTF-8": [
       "err": "Error! Script execution was terminated!",
-      "succ": "Successfully finished!"
+      "succ": "Successfully finished!",
+      "end": "End of execution."
     ],
     "lt_LT.UTF-8": [
       "err": "Klaida! Scenarijaus vykdymas sustabdytas!",
-      "succ": "Komanda sėkmingai įvykdyta!"
+      "succ": "Komanda sėkmingai įvykdyta!",
+      "end": "Scenarijaus vykdymas baigtas."
     ]
   ];
 
@@ -27,13 +29,21 @@ void main()
   const auto lang = environment.get("LANG");
 
   // Pranešimai, atitinkantys aplinkos kalbą
-  const auto errorMessage = messages[lang]["err"];
-  const auto successMessage = messages[lang]["succ"];
+  const auto langMessages = messages[lang];
+
+  // Funkcija spalvotiems pranešimams išvesti
+  void printMessage(string key)
+  {
+    const auto color = key == "err" ? "31" : "32";
+    const auto message = langMessages[key];
+    const auto endLine = key == "succ" ? "" : "\n";
+    writefln("\n\x1B[%sm%s\x1B[39m%s", color, message, endLine);
+  }
 
   // Išorinių komandų iškvietimo funkcija
   void runCmd(string cmdStr)
   {
-    // Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
+    // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
     const auto command = "sudo " ~ cmdStr;
 
     // Sukuriamas komandos ilgio skirtukas iš "-" simbolių
@@ -41,7 +51,7 @@ void main()
     const auto separator = replicate("-", command.length);
 
     // Išvedama komandos eilutė, apsupta skirtuko eilučių
-    writefln("%s\n%s\n%s\n", separator, command, separator);
+    writefln("\n%s\n%s\n%s\n", separator, command, separator);
 
     // Vykdoma komanda
     auto pipesPid = spawnShell(command);
@@ -52,15 +62,13 @@ void main()
     // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiams programos vykdymas
     if (exitCode != 0)
     {
-      writefln("\n%s\n", errorMessage);
+      printMessage("err");
       exit(99);
     }
 
     // Kitu atveju išvedamas sėkmės pranešimas
-    writefln("\n%s\n", successMessage);
+    printMessage("succ");
   }
-
-  writeln();
 
   // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
   runCmd("apt-get update");
@@ -68,4 +76,6 @@ void main()
   runCmd("apt-get autoremove -y");
   runCmd("snap refresh");
 
+  // Scenarijaus baigties pranešimas
+  printMessage("end");
 }

@@ -1,17 +1,67 @@
 ///usr/bin/env -S bal run "$0" "$@"; exit $?
 
+import ballerina/jballerina.java;
 import ballerina/io;
 import ballerina/os;
+
+function ArrayList\.new() returns handle = @java:Constructor {
+  'class: "java.util.ArrayList"
+} external;
+
+function ArrayList\.add(handle list, handle element) returns boolean = @java:Method {
+  name: "add",
+  'class: "java.util.ArrayList"
+} external;
+
+// Konstruktorius new ProcessBuilder(List<String> command)
+function ProcessBuilder\.new(handle cmdArrList) returns handle = @java:Constructor {
+  'class: "java.lang.ProcessBuilder",
+  paramTypes: ["java.util.List"]
+} external;
+
+// Metodas redirectOutput(Redirect.INHERIT)
+function ProcessBuilder\.redirectOutput(handle builder, handle redirect) returns handle = @java:Method {
+  name: "redirectOutput",
+  'class: "java.lang.ProcessBuilder",
+  paramTypes: ["java.lang.ProcessBuilder$Redirect"]
+} external;
+
+// Metodas redirectError(Redirect.INHERIT)
+function ProcessBuilder\.redirectError(handle builder, handle redirect) returns handle = @java:Method {
+  name: "redirectError",
+  'class: "java.lang.ProcessBuilder",
+  paramTypes: ["java.lang.ProcessBuilder$Redirect"]
+} external;
+
+// Metodas: start()
+function ProcessBuilder\.start(handle builder) returns handle|error = @java:Method {
+  name: "start",
+  'class: "java.lang.ProcessBuilder"
+} external;
+
+// Prieiga prie statinio lauko ProcessBuilder.Redirect.INHERIT
+function ProcessBuilder\.Redirect\.INHERIT() returns handle = @java:FieldGet {
+  name: "INHERIT",
+  'class: "java.lang.ProcessBuilder$Redirect"
+} external;
+
+// Metodas waitFor()
+function Process\.waitFor(handle process) returns int|error = @java:Method {
+  name: "waitFor",
+  'class: "java.lang.Process"
+} external;
 
 // Klaidų ir sėkmės pranešimų medis
 map<map<string>> messages = {
   "en.UTF-8" : {
     "err" : "Error! Script execution was terminated!",
-    "succ" : "Successfully finished!"
+    "succ" : "Successfully finished!",
+    "end" : "End of execution."
   },
   "lt_LT.UTF-8" : {
     "err" : "Klaida! Scenarijaus vykdymas sustabdytas!",
-    "succ" : "Komanda sėkmingai įvykdyta!"
+    "succ" : "Komanda sėkmingai įvykdyta!",
+    "end" : "Scenarijaus vykdymas baigtas."
   }
 };
 
@@ -19,11 +69,17 @@ map<map<string>> messages = {
 string lang = os:getEnv("LANG");
 
 // Pranešimai pagal aplinkos kalbos nuostatą
-string? errorMessage = messages[lang]["err"];
-string? successMessage = messages[lang]["succ"];
+map<string>? langMessages = messages[lang];
+
+function printMessage(string key) {
+  string? message = langMessages[key];
+  string color = key == "err" ? "31" : "32";
+  string endLine = key == "succ" ? "" : "\n";
+  io:println("\n\u{1B}[", color, "m", message,"\u{1B}[39m", endLine);
+}
 
 // Išorinių komandų iškvietimo funkcija
-function runCmd(string cmdArg) returns int {
+function runCmd(string cmdArg) returns int|error {
 
   // Sukuriama komandos tekstinė eilutė iš funkcijos argumento
   string command = "sudo " + cmdArg;
@@ -34,66 +90,48 @@ function runCmd(string cmdArg) returns int {
   string separator = string:padStart("", command.length(), "-");
 
   // Išvedama komandos eilutė, apsupta skirtuko eilučių
-  io:println(separator, "\n", command, "\n", separator);
+  io:println("\n", separator, "\n", command, "\n", separator, "\n");
 
-  // Įvykdoma komanda, sukuriamas procesas ir išsaugomas į kintamąjį
-  os:Process|os:Error process = os:exec({
-    value: "sudo", 
-    arguments: re ` `.split(cmdArg)
-  });
-
-  // Jeigu procesas yra klaidos tipo (proceso sukūrimas nepavyko), 
-  // išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
-  if process is os:Error {
-    io:println(process.message());
-    // Gražinamas išėjimo kodas 1 (klaida)
-    return 1;
+  // Komandos eilutė paverčiama java masyvu
+  handle cmdArrList = ArrayList\.new();
+  foreach string part in re ` `.split(command) {
+    _ = ArrayList\.add(cmdArrList, java:fromString(part));
   }
 
-  // Sulaukiama, kol procesas pasibaigs, išėjimo kodas išsaugomas kintamajame
-  int|os:Error exitCode = process.waitForExit();
-  
+  // Parengiamas proceso kurimo metodas
+  handle processBuilder = ProcessBuilder\.new(cmdArrList);
+  _ = ProcessBuilder\.redirectOutput(processBuilder, ProcessBuilder\.Redirect\.INHERIT());
+  _ = ProcessBuilder\.redirectError(processBuilder, ProcessBuilder\.Redirect\.INHERIT());
+
+  // Įvykdoma komanda, išėjimo kodas išsaugomas į kintamąjį
+  handle process = check ProcessBuilder\.start(processBuilder);
+  int|error exitCode = Process\.waitFor(process);
+
   // Jeigu išėjimo kodas yra klaidos tipo (proceso vykdymas nepavyko),
   // išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if exitCode is error {
     io:println(exitCode.message());
-    io:println("\n", errorMessage);
+    printMessage("err");
     // Gražinamas išėjimo kodas 1 (klaida)
     return 1;
-  }
-
-  // Klaidų ir pranešimų srautų turinys išsaugomas kintamuosiuose
-  byte[]|os:Error err = process.output(io:stderr);
-  byte[]|os:Error out = process.output(io:stdout);
-
-  // Jeigu klaidų srautas yra netuščias bytų masyvas, išvedamas pranešimas
-  if err is byte[] && err.length() > 0 {
-    io:println("\n", string:fromBytes(err));
-  }
-
-  // Jeigu pranešimų srautas yra netuščias bytų masyvas, išvedamas pranešimas
-  if out is byte[] && out.length() > 0 {
-    io:println("\n", string:fromBytes(out));  
   }
 
   // Jeigu išėjimo kodas nelygus 0 (komanda užsibaigė klaida),
   // išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if exitCode != 0 {
-    io:println(errorMessage, "\n");
-    // Gražinamas išėjimo kodas 1 (klaida)
+    printMessage("err");
+    // Gražinamas gautas išėjimo kodas
     return exitCode;
   }
 
   // Kitu atveju išvedamas sėkmės pranešimas
-  io:println(successMessage, "\n");
+  printMessage("succ");
 
   // Gražinamas išėjimo kodas 0 (sėkmė)
   return 0;
 }
 
-public function main() {
-  io:println();
-
+public function main() returns error? {
   // Komandų iškvietimo eilučių masyvas
   string[] commandArr = [
     "apt-get update",
@@ -102,13 +140,16 @@ public function main() {
     "snap refresh"
   ];
 
+  // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
   foreach string command in commandArr {
-    // Komandos vykdymo funkcijos iškvietimas su vykdomos komandos duomenimis
-    int exitCode = runCmd(command);
+    int|error result = runCmd(command);
 
     // Jeigu vykdant komandą įvyko klaida, programos vykdymas nutraukiamas
-    if exitCode > 0 {
+    if result is error || result > 0 {
       return;
     }
   }
+
+  // Scenarijaus baigties pranešimas
+  printMessage("end");
 }

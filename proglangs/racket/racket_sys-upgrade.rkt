@@ -13,28 +13,20 @@
   ("lt_LT.UTF-8" . (
     ("err" . "Klaida! Scenarijaus vykdymas sustabdytas!")
     ("succ" . "Komanda sėkmingai įvykdyta!")
-    ("end" . "Vykdymas baigtas.")
+    ("end" . "Scenarijaus vykdymas baigtas.")
   ))
 ))
 
 ;; Pranešimai pagal aplinkos kalbos nuostatą
 (define langMessages (dict-ref messages (getenv "LANG")))
 
-;; Funkcija spalvotiems tekstams išvesti
-(define (display-strings code . args)
-  ( let ([code (case code [(red)   "\x1B[31m"]
-                          [(green) "\x1B[32m"]
-                          [else    "\x1B[39m"])]
-        [defcol "\x1B[39m"])
-  (printf "\n~a~a~a\n" code (string-join args "") defcol))
-)
-
 ;; Funkcija spalvotiems pranešimų tekstams išvesti
 (define (print-message key)
-  (if (equal? key "err")
-    (display-strings 'red (dict-ref langMessages key) "")
-    (display-strings 'green (dict-ref langMessages key) "")
-  )
+  (define color (if (equal? key "err") "\x1B[31m" "\x1B[32m" ))
+  (define message (dict-ref langMessages key))
+  (define defaultColor "\x1B[39m")
+  (printf "\n~a~a~a\n" color message defaultColor)
+  (when (not (equal? key "succ")) (printf "\n" ))
 )
 
 ;; Išorinių komandų iškvietimo funkcija
@@ -50,7 +42,7 @@
   (define separator (make-string (string-length command) #\- ))
 
   ;; Išvedama komanda, apsupta skirtuko eilučių
-  (display-strings "" separator "\n" command "\n" separator "\n" )
+  (printf "\n~a\n~a\n~a\n\n" separator command separator)
 
 
   ;; Įvykdoma komanda, proceso statusas išsaugomas į kintamąjį
@@ -72,6 +64,5 @@
 (runCmd "apt-get autoremove -y")
 (runCmd "snap refresh")
 
+;; Scenarijaus baigties pranešimas
 (print-message "end")
-
-(newline)

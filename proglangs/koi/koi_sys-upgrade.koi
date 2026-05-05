@@ -1,25 +1,36 @@
-#!/usr/bin/env koi
+#!/usr/bin/env -S koi
 
 # Klaidų ir sėkmės pranešimų medis
 let messages = {
   'en.UTF-8': {
     'err': "Error! Script execution was terminated!",
-    'succ': "Successfully finished!"
+    'succ': "Successfully finished!",
+    'end': "End of execution."
   },
   'lt_LT.UTF-8': {
     'err': "Klaida! Scenarijaus vykdymas sustabdytas!",
-    'succ': "Komanda sėkmingai įvykdyta!"
+    'succ': "Komanda sėkmingai įvykdyta!",
+    'end': "Scenarijaus vykdymas baigtas."
   }
 }
 
 # Išsaugomi pranešimai, atitinkantys aplinkos kalbą
-let errorMessage = messages[LANG].err
-let successMessage = messages[LANG].succ
+let langMessages = messages[LANG]
+
+# Funkcija spalvotiems pranešimams išvesti
+fn printMessage(key) {
+  let ESC = ""
+  let color = "32"
+  if key == "err" { color = "31" }
+  let message = langMessages[key]
+  print("\n{ESC}[{color}m{message}{ESC}[39m")
+  if key != "succ" { print() }
+}
 
 # Išorinių komandų iškvietimo funkcija
 fn runCmd(cmdArg) {
 
-  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento 
+  # Sukuriama komandos tekstinė eilutė iš funkcijos argumento
   let command = "sudo {cmdArg}"
 
   # Sukuriamas komandos ilgio skirtukas iš "-" simbolių
@@ -27,32 +38,32 @@ fn runCmd(cmdArg) {
   # separator += '-' - prie separatoriaus tekstinės eilutės pridedamas '-' simbolis
   let separator=""
   for i in 0..command.len() {
-    separator += '-' 
+    separator += '-'
   }
 
   # Išvedama komandos eilutė, apsupta skirtuko eilučių
-  print("{separator}\n{command}\n{separator}\n")
-  
-  # Įvykdoma komanda bash'e, išėjimo kodas išsaugomas į failą 
+  print("\n{separator}\n{command}\n{separator}\n")
+
+  # Įvykdoma komanda bash'e, išėjimo kodas išsaugomas į failą
   echo "{command}; echo $? > /tmp/exitCode-ljlhh" | bash
-  
-  # Išėjimo kodas iš failo konvertuojamas į skaičių iš išsaugomas kintamajame 
+
+  # Išėjimo kodas iš failo konvertuojamas į skaičių iš išsaugomas kintamajame
   let exitCode = $(cat /tmp/exitCode-ljlhh).strip().parseNum()
 
   # Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if exitCode != 0 {
-    print("\n{errorMessage}\n")
+    printMessage("err")
     exit(99)
   }
 
   # Kitu atveju išvedamas sėkmės pranešimas
-  print("\n{successMessage}\n")
+  printMessage("succ")
 }
-
-print()
 
 # Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt-get update")
 runCmd("apt-get upgrade -y")
 runCmd("apt-get autoremove -y")
 runCmd("snap refresh")
+
+printMessage("end")

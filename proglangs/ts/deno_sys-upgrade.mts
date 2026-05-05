@@ -7,11 +7,13 @@
 const messages : Record<string, Record<string, string>> = {
   'en.UTF-8': {
     'err': "Error! Script execution was terminated!",
-    'succ': "Successfully finished!"
+    'succ': "Successfully finished!",
+    'end': "End of execution.",
   },
   'lt_LT.UTF-8': {
     'err': "Klaida! Scenarijaus vykdymas sustabdytas!",
-    'succ': "Komanda sėkmingai įvykdyta!"
+    'succ': "Komanda sėkmingai įvykdyta!",
+    'end': "Scenarijaus vykdymas baigtas.",
   },
 }
 
@@ -19,8 +21,17 @@ const messages : Record<string, Record<string, string>> = {
 const LANG : keyof typeof messages = Deno.env.get("LANG") as keyof typeof messages
 
 // Pranešimai pagal aplinkos kalbos nuostatą
+const langMessages = messages[LANG]
 const errorMessage = messages[LANG].err
 const successMessage = messages[LANG as keyof typeof messages].succ
+
+// Funkcija spalvotiems pranešimams išvesti
+const printMessage = (key : string) => {
+  const color = key === "err" ? "31" : "32"
+  const message = langMessages[key]
+  console.log(`\n\x1B[${color}m${message}\x1B[39m`)
+  if (key !== "succ") console.log()
+}
 
 // Išorinių komandų iškvietimo funkcija
 const runCmd = (cmdArg : string) => {
@@ -34,7 +45,7 @@ const runCmd = (cmdArg : string) => {
   const separator : string = "-".repeat(command.length)
 
   // Išvedama komandos eilutė, apsupta skirtuko eilučių
-  console.log(`${separator}\n${command}\n${separator}\n`)
+  console.log(`\n${separator}\n${command}\n${separator}\n`)
 
   // Įvykdoma komandas, procesas išsaugomas į kintamąjį
   const child_proc : Deno.Command = new Deno.Command('sudo', {
@@ -49,18 +60,19 @@ const runCmd = (cmdArg : string) => {
 
   // Jeigu vykdant komandą įvyko klaida, išvedamas klaidos pranešimas ir nutraukiamas programos vykdymas
   if (code !== 0) {
-    console.log(`\n${errorMessage}\n`);
+    printMessage("err")
     Deno.exit(99)
   }
 
   // Kitu atveju išvedamas sėkmės pranešimas
-  console.log(`\n${successMessage}\n`)
+  printMessage("succ")
 }
-
-console.log()
 
 // Komandų vykdymo funkcijos iškvietimai su vykdomų komandų duomenimis
 runCmd("apt-get update")
 runCmd("apt-get upgrade -y")
 runCmd("apt-get autoremove -y")
 runCmd("snap refresh")
+
+// Scenarijaus baigties pranešimas
+printMessage("end")
