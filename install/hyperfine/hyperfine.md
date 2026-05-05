@@ -39,9 +39,13 @@ printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s
 
 rm -rf "${HOME}/.opt/hyperfine"
 tar --file "${FILE_NAME}" --transform 'flags=r;s/^(hyperfine)[^\/]+/\1/x' -xzC "${HOME}/.opt"
+mkdir -p "${HOME}/.opt/hyperfine/bin"
+mkdir -p "${HOME}/.opt/hyperfine/share/man/man1"
+mv "${HOME}/.opt"/hyperfine/hyperfine "${HOME}/.opt/hyperfine/bin"
+mv "${HOME}/.opt"/hyperfine/hyperfine.1 "${HOME}/.opt/hyperfine/share/man/man1"
 rm -f ${FILE_NAME}*
 
-ln -fs "${HOME}/.opt/hyperfine/hyperfine" "${HOME}/.local/bin"
+ln -fsT "${HOME}/.opt/hyperfine/bin/hyperfine" "${HOME}/.local/bin/hyperfine"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$( hyperfine --version  | awk '{print "v"$NF}')"
