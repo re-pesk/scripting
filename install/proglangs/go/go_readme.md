@@ -22,7 +22,7 @@ fi
 # end include .pathrc' >> ${HOME}/.bashrc
 ```
 
-Jeigu nėra įdiegta, įdiegiama [curl](../curl/curl.md), xargs (findutils) ir [xq](../xq/xq.md).
+Jeigu nėra įdiegta, įdiegiama [curl](../../misc/curl/curl.md), xargs (findutils) ir [xq](../../misc/xq/xq.md).
 
 ## Diegimas
 

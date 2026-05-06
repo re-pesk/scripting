@@ -7,7 +7,7 @@
 
 ## Parengimas
 
-Jeigu nėra įdiegta, įdiekite app-launcher, [curl](../curl.md) ir xarg
+Jeigu nėra įdiegta, įdiekite app-launcher, [curl](../../misc/curl/curl.md) ir xarg
 
 ## Diegimas
 

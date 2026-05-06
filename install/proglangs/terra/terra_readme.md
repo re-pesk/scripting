@@ -7,7 +7,7 @@
 
 ## Parengimas
 
-Jeigu nėra įdiegta, įdiekite [curl](../utils/curl.md) ir xarg
+Jeigu nėra įdiegta, įdiekite [curl](../../misc/curl/curl.md) ir xarg
 
 ## Diegimas
 

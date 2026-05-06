@@ -4,7 +4,7 @@
 
 ## Parengimas
 
-Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md) ir xargs (findutils).
+Jeigu nėra įdiegta, įdiekite [curl](../../misc/curl/curl.md) ir xargs (findutils).
 
 ## Diegimas
 

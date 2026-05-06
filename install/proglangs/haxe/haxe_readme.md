@@ -27,7 +27,7 @@ fi
 # end include .pathrc' >> ${HOME}/.bashrc
 ```
 
-Jeigu nėra įdiegtos, įdiegiamos [curl](../curl/curl.md) ir [xq](../xq/xq.md)
+Jeigu nėra įdiegtos, įdiegiamos [curl](../../misc/curl/curl.md) ir [xq](../../misc/xq/xq.md)
 
 ## Diegimas
 

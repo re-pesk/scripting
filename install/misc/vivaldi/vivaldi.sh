@@ -5,8 +5,8 @@ APP_NAME="Vivaldi"
 
 # Jeigu nėra pagalbinio failo, paleisti skriptą pagalbiniams failams įkelti
 # Įkelti pagalbines funkcijas
-../../utils/install_helpers/_set_helpers.sh ../
-. ../_helpers_.sh
+../../../utils/install_helpers/_set_helpers.sh ../../
+. ../../_helpers_.sh
 
 echo ""
 

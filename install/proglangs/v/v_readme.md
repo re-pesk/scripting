@@ -7,7 +7,7 @@
 
 ## Parengimas
 
-Jeigu nėra įdiegtos, įdiegiamos [curl](../curl/curl.md), realpath (coreutils), unzip, xargs (findutils) ir xq.
+Jeigu nėra įdiegtos, įdiegiamos [curl](../../misc/curl/curl.md), realpath (coreutils), unzip, xargs (findutils) ir xq.
 
 ```bash
   # Išvedamos neįdiegtus komandos

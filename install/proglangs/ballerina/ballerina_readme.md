@@ -19,7 +19,7 @@ fi
 # end include .pathrc' >> ${HOME}/.bashrc
 ```
 
-Jeigu nėra įdiegta, įdiekite [curl](../curl/curl.md), unzip ir xargs (findutils).
+Jeigu nėra įdiegta, įdiekite [curl](../../misc/curl/curl.md), unzip ir xargs (findutils).
 
 ## Diegimas
 

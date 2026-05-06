@@ -7,8 +7,8 @@ APP_NAME="VSCodium"
 
 # Jeigu nėra pagalbinio failo, paleisti skriptą pagalbiniams failams įkelti
 # Įkelti pagalbines funkcijas
-../../utils/install_helpers/_set_helpers.sh ../
-. ../_helpers_.sh
+../../../utils/install_helpers/_set_helpers.sh ../../
+. ../../_helpers_.sh
 
 echo ""
 
@@ -23,7 +23,7 @@ LATEST="$(curl -sLo /dev/null -w "%{url_effective}" "https://github.com/VSCodium
 CURRENT="$(codium --version 2> /dev/null | head -n 1)"
 
 # Atnaujinti pranešimų masyvą
-. ../_helpers_.sh
+. ../../_helpers_.sh
 
 #Pasirinkti, ar įdiegti naujausią versiją
 if ! ask_to_install "codium" "/usr/share/codium/bin/codium"; then

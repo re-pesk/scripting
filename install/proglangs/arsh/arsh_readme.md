@@ -7,7 +7,7 @@
 
 ## Parengimas
 
-Jeigu nėra įdiegta, įdiegiama [curl](../utils/curl.md)
+Jeigu nėra įdiegta, įdiegiama [curl](../../misc/curl/curl.md)
 
 ## Diegimas
 

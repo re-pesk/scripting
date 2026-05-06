@@ -22,7 +22,7 @@ fi
 # end include .pathrc' >> ${HOME}/.bashrc
 ```
 
-Jeigu nėra įdiegta, įdiegiama [curl](../utils/curl.md)
+Jeigu nėra įdiegta, įdiegiama [curl](../../misc/curl/curl.md)
 
 ## Diegimas Linuxe (Ubuntu 24.04)
 
