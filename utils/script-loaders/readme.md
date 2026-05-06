@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Kodo paleidimo skriptai
+# Kodo paleidimo scenarijai
 
 ## PHP kodo paleidimo skriptas
 
