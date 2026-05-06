@@ -85,6 +85,6 @@ p kodo-failas.exw
 p -c kodo-failas.exw
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/phix/phix_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/phix/phix_readme.md "sys-upgrade")

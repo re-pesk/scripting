@@ -65,6 +65,6 @@ arba
 ///usr/bin/env -S node "$0" "$@"; exit $?
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Javascript <sup>&#x2B67;</sup>](../../../proglangs/js/js_readme.md "skriptai")
+* [Javascript <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/js/js_readme.md "sys-upgrade")

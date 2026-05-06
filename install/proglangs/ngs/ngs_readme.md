@@ -48,6 +48,6 @@ ngs kodo-failas.ngs
 #!/usr/bin/env -S ngs
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ngs/ngs_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/ngs/ngs_readme.md "sys-upgrade")

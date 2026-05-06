@@ -23,6 +23,6 @@ Norint kodo failą paversti vykdomuoju failu, reikia suteikti jam vykdymo teises
 #!/usr/bin/env -S perl
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/perl/perl_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/perl/perl_readme.md "sys-upgrade")

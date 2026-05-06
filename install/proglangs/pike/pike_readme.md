@@ -31,6 +31,6 @@ arba
 ///usr/bin/env -S pike "$0" "$@"; exit "$?"
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/pike/pike_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/pike/pike_readme.md "sys-upgrade")

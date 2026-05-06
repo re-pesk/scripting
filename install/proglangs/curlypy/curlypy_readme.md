@@ -37,6 +37,6 @@ deactivate
 #!/usr/bin/env -S curlypy
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/curlypy/curlypy_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/curlypy/curlypy_readme.md "sys-upgrade")

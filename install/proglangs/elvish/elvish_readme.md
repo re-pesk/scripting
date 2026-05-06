@@ -53,6 +53,6 @@ elvish kodo-failas.elv
 #!/usr/bin/env elvish
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/elvish/elvish_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/elvish/elvish_readme.md "sys-upgrade")

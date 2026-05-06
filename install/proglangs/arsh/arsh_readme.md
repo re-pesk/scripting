@@ -61,6 +61,6 @@ arsh kodo-failas.arsh
 #!/usr/bin/env -S arsh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/arsh/arsh_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/arsh/arsh_readme.md "sys-upgrade")

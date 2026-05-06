@@ -55,6 +55,6 @@ aria kodo-failas.aria
 #!/usr/bin/env -S aria
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/aria/aria_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/aria/aria_readme.md "sys-upgrade")

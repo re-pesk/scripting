@@ -83,6 +83,6 @@ bal build kodo-failas.bal
 bar run kodo-failas.jar
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ballerina/ballerina_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/ballerina/ballerina_readme.md "sys-upgrade")

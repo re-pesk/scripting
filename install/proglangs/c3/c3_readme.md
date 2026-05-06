@@ -49,6 +49,6 @@ c3c compile -o vykdomasis-failas.bin kodo-failas.c3
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/c3/c3_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/c3/c3_readme.md "sys-upgrade")

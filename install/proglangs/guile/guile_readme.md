@@ -52,6 +52,6 @@ guile -L . -c '(compile-file "kodo-failas.scm"  #:output-file "baitkodo-failas.g
 guile -C . -c '(load-compiled "baitkodo-failas.go")'
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/guile/guile_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/guile/guile_readme.md "sys-upgrade")

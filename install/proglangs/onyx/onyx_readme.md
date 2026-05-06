@@ -38,6 +38,6 @@ chmod u+x vykdomasis-failas.wasm
 onyx run vykdomasis-failas.wasm
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/onyx/onyx_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/onyx/onyx_readme.md "sys-upgrade")

@@ -173,6 +173,6 @@ euc -o vykdomasis-failas.bin kodo-failas.ex
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/euph/euph_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/euph/euph_readme.md "sys-upgrade")
