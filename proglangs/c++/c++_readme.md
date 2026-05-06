@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/c++/c++_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangs/c++/c++_readme.md "Diegimas")
 
 ## Paleistis
 

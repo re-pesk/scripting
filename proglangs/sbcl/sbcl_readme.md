@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/sbcl/sbcl_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangs/sbcl/sbcl_readme.md "Diegimas")
 
 ## Paleistis
 

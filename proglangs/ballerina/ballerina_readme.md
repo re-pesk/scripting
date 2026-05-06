@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/ballerina/ballerina_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangs/ballerina/ballerina_readme.md "Diegimas")
 
 ## Paleistis
 

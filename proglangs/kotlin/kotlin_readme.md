@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-### [Kotlin'o](../install/kotlin_readme.md)
+### [Kotlin'o](../../install/proglangs/kotlin/kotlin_readme.md "Diegimas") diegimas
 
 ## Paleistis
 

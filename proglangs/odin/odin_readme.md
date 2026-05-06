@@ -4,7 +4,7 @@
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/odin/odin_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangs/odin/odin_readme.md "Diegimas")
 
 ## Paleistis
 

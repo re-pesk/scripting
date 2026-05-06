@@ -10,7 +10,7 @@ Naudota operacinė sistema – Ubuntu 24.04
 
 ## Diegimas
 
-Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../install/_proglangs/readme.md "Diegimas")
+Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../install/proglangs/readme.md "Diegimas")
 
 ## Tipinės apvalkalo scenarijų (Shell scripting) kalbos (7)
 

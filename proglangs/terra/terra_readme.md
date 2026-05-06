@@ -6,7 +6,7 @@ Terra yra žemo lygio sistemų programavimo kalba, įterpta į Lua ir metaprogra
 
 ## Diegimas
 
-[Diegimas <sup>&#x2B67;</sup>](../../install/_proglangs/terra/terra_readme.md "Diegimas")
+[Diegimas <sup>&#x2B67;</sup>](../../install/proglangs/terra/terra_readme.md "Diegimas")
 
 ## Paleistis
 
