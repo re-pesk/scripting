@@ -59,6 +59,6 @@ janet kodo-failas.janet
 #!/usr/bin/env janet
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/janet/janet_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/janet/janet_readme.md "sys-upgrade")

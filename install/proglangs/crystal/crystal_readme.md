@@ -35,6 +35,6 @@ crystal build --release --progress --static -o vykdomasis-failas.bin kodo-failas
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/crystal/crystal_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/crystal/crystal_readme.md "sys-upgrade")

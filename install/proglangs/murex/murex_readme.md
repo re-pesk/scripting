@@ -46,6 +46,6 @@ murex kodo-failas.murex
 #!/usr/bin/env murex
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/murex/murex_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/murex/murex_readme.md "sys-upgrade")

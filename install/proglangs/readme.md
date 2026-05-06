@@ -75,4 +75,4 @@ Skirtingų programavimo kalbų instaliavimas Ubuntu 24.04 operacinėje sistemoje
 
 ## Skriptinimas
 
-* [Programavimo kalbų skriptai <sup>&#x2B67;</sup>](../../../proglangs/readme.md "Skriptai")
+* [Programavimo kalbų scenarijai <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/readme.md "Scenarijai")

@@ -85,6 +85,6 @@ go build -o vykdomasis-failas.bin kodo-failas.go
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/go/go_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/go/go_readme.md "sys-upgrade")

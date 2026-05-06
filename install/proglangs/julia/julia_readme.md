@@ -43,6 +43,6 @@ julia +nightly juliac.jl --output-exe julia_sys-upgrade.bin --trim julia_sys-upg
 ```
 -->
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/julia/julia_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/julia/julia_readme.md "sys-upgrade")

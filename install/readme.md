@@ -1,6 +1,6 @@
 [Grįžti &#x2BA2;](../readme.md "Grįžti")
 
-# Programų instaliavimo intrukcijos ir skriptai
+# Programų instaliavimo instrukcijos ir scenarijai
 
 ## Programavimo kalbos ir vykdymo aplinkos
 

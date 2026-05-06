@@ -31,6 +31,6 @@ io kodo-failas.io
 #!/usr/bin/env -S io
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/io/io_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/io/io_readme.md "sys-upgrade")

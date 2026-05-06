@@ -57,6 +57,6 @@ arba
 rdmd --build-only -release -of=vykdomasis_failas.bin kodo_failas.d
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/d/d_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/d/d_readme.md "sys-upgrade")

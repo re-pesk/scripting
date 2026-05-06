@@ -62,6 +62,6 @@ yash kodo-failas.sh
 #!/usr/bin/env yash
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/yash/yash_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/yash/yash_readme.md "sys-upgrade")

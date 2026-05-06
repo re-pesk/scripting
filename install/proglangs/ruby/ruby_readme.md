@@ -22,6 +22,6 @@ ruby ruby_sys-upgrade.rb
 #!/usr/bin/env -S ruby
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ruby/ruby_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/ruby/ruby_readme.md "sys-upgrade")

@@ -24,6 +24,6 @@ ksh kodo-failas.sh
 #!/usr/bin/env ksh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/ksh/ksh_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/ksh/ksh_readme.md "sys-upgrade")

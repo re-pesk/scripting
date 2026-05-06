@@ -56,8 +56,8 @@ deno compile --allow-run --allow-env --output vykdomasis-failas.bin kodo-failas.
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Javascript <sup>&#x2B67;</sup>](../../../proglangs/js/js_readme.md "skriptai")
+* [Javascript <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/js/js_readme.md "sys-upgrade")
 
-* [TypeScript <sup>&#x2B67;</sup>](../../../proglangs/ts/ts_readme.md "skriptai")
+* [TypeScript <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/ts/ts_readme.md "sys-upgrade")

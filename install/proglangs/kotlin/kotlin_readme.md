@@ -105,6 +105,6 @@ kotlinc-native -o vykdomasis-failas.bin.kexe kodo-failas.bin.kt
 ./vykdomasis-failas.bin.kexe
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/kotlin/kotlin_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/kotlin/kotlin_readme.md "sys-upgrade")
