@@ -1,8 +1,8 @@
 [&#x2BA2;](../../readme.md)
 
-# Nautilaus skriptai
+# Nautilaus scenarijai
 
-Nautilaus failų naršyklės skriptai
+Nautilaus failų naršyklės scenarijai
 
 * Copy File Location
   Kopijuoja failo pavadinimą su visu failo keliu nuo šakninio katalogo

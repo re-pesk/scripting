@@ -436,7 +436,7 @@ insert_path() (
   INSERT_STR="${2}"
 
   # Check if the record already exists in the file.
-  if [[ "$(grep -c -F "#begin ${APP_NAME,,} init" < "${FILE_NAME}")" -gt 0 ]]; then
+  if [[ "$(grep -c -F "# begin ${APP_NAME,,} init" < "${FILE_NAME}")" -gt 0 ]]; then
     infoMessage \
       "${LANG_MESSAGES[record_exists]//'{FILE_NAME}'/"${FILE_NAME}"}" \
       "${FUNC_NAME}"
@@ -453,9 +453,9 @@ insert_path() (
   [[ "$( tail -n 1 "${FILE_NAME}" )" =~ ^[[:blank:]]*$ ]] || echo "" >> "${FILE_NAME}"
 
   # Append the record to the file
-  printf '%s\n\n' '#begin '"${APP_NAME,,}"' init
+  printf '%s\n\n' '# begin '"${APP_NAME,,}"' init
 
 '"${INSERT_STR}"'
 
-#end '"${APP_NAME,,}"' init' >> "${FILE_NAME}"
+# end '"${APP_NAME,,}"' init' >> "${FILE_NAME}"
 )
