@@ -2,6 +2,8 @@
 
 # Pagalbiniai scenarijai
 
+* [alarm-clock](./alarm-clock/readme.md) - priminimų skriptas
+
 * [alternative-to-no-sandbox](./alternative-to-no-sandbox/readme.md) - saugesnė alternativa --no-sandbox parametrui, leidžiant AppImage failus.
 
 * file-manager - failų tvarkyklių scenarijai
@@ -16,6 +18,6 @@
 
 * [pandoc](./pandoc/readme.md) - pandoc konverterio pagalbinis scenarijus
 
-* [alarm-clock](./alarm-clock/readme.md) - priminimų skriptas
-
 * [script-loaders](./script-loaders/readme.md) - scenarijų leidyklės
+
+* [split_strings](./split_strings/readme.md) - tekstų skaidymo funkcijos
