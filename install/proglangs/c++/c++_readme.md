@@ -24,6 +24,6 @@ g++ -static -Wno-sizeof-array-argument -std=c++2b -o vykdomasis-failas.bin kodo-
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/c++/c++_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/c++/c++_readme.md "sys-upgrade")

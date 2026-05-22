@@ -84,6 +84,6 @@ sbcl --load kodo-faila.lisp --eval "(sb-ext:save-lisp-and-die \"vykdomasis-faila
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-[Skriptai <sup>&#x2B67;</sup>](../../../proglangs/sbcl/sbcl_readme.md "Skriptai")
+[sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/sbcl/sbcl_readme.md "Scenarijai")

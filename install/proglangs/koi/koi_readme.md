@@ -43,6 +43,6 @@ koi kodo-failas.koi
 #!/usr/bin/env -S koi
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/koi/koi_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/koi/koi_readme.md "sys-upgrade")

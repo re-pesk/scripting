@@ -41,6 +41,6 @@ pwsh pwsh_sys-upgrade.ps1
 #!/usr/bin/env -S pwsh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/powershell/pwsh_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/powershell/pwsh_readme.md "sys-upgrade")

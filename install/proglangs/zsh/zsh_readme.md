@@ -17,9 +17,9 @@ zsh kodo-failas.sh
 ### Vykdymo instrukcija (shebang)
 
 ```bash
-#! /usr/bin/env -S zsh
+#!/usr/bin/env -S zsh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/zsh/zsh_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/zsh/zsh_readme.md "sys-upgrade")

@@ -87,6 +87,6 @@ luac -o vykdomasis-failas.bin kodo-failas.lua
 lua kodo-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/lua/lua_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/lua/lua_readme.md "sys-upgrade")

@@ -32,6 +32,6 @@ fish kodo-failas.fish
 #! /usr/bin/env -S fish
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/fish/fish_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/fish/fish_readme.md "sys-upgrade")

@@ -46,6 +46,6 @@ clojure -M kodo-failas.clj
 #!/usr/bin/env -S clojure -M
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/clojure/clojure_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/clojure/clojure_readme.md "sys-upgrade")

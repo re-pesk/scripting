@@ -24,6 +24,6 @@ gcc -static -o vykdomasis-failas.bin kodo-failas.c
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/c/c_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/c/c_readme.md "sys-upgrade")

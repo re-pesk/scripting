@@ -43,6 +43,6 @@ abs kodo-failas.abs
 #!/usr/bin/env abs
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/abs/abs_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/abs/abs_readme.md "sys-upgrade")

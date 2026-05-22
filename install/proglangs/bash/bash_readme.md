@@ -25,6 +25,6 @@ bash kodo-failas.sh
 #! /usr/bin/env -S bash
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/bash/bash_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/bash/bash_readme.md "sys-upgrade")

@@ -36,6 +36,6 @@ bython kodo-failas.by
 #!/usr/bin/env -S bython
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/bython/bython_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/bython/bython_readme.md "sys-upgrade")

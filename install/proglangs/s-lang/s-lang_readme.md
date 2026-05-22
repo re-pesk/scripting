@@ -79,6 +79,6 @@ slsh kodo-failas.sl
 #!/usr/bin/env -S slsh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/s-lang/s-lang_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/s-lang/s-lang_readme.md "sys-upgrade")

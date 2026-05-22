@@ -23,6 +23,6 @@ arba
 #!/usr/bin/env -S python3
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/python/python_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/python/python_readme.md "sys-upgrade")
