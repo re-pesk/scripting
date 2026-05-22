@@ -57,6 +57,6 @@ hilbish kodo-failas.lua
 #!/usr/bin/env -S hilbish
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/hilbish/hilbish_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/hilbish/hilbish_readme.md "sys-upgrade")

@@ -47,6 +47,6 @@ arba
 rustc -o vykdomasis-failas.bin kodo-failas.rs
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/rust/rust_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/rust/rust_readme.md "sys-upgrade")

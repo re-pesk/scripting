@@ -41,6 +41,6 @@ printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
 
 Purescripto programos pirmiau yra kompiliuojamos į Javascriptą, o ne tiesiogiai vykdomos, todėl Purescriptas netinka scenarijų kalbos vaidmeniui.
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/purs/purs_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/purs/purs_readme.md "sys-upgrade")

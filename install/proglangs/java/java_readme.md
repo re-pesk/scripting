@@ -23,6 +23,6 @@ java --source 21 --enable-preview java_sys-upgrade.java
 ///usr/bin/env java --source 21 --enable-preview "$0" "$@"; exit $?
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/java/java_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/java/java_readme.md "sys-upgrade")

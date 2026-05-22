@@ -83,6 +83,6 @@ odin build kodo-failas.odin -file -out:vykdomasis-failas.bin
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/odin/odin_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/odin/odin_readme.md "sys-upgrade")

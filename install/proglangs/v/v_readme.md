@@ -82,6 +82,6 @@ v -o vykdomasis-failas.bin kodo-failas.v
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/v/v_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/v/v_readme.md "sys-upgrade")

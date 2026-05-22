@@ -124,6 +124,6 @@ haxe -hl vykdomasis-failas.hl -main Pagrindinė_klasė.hx
 hl vykdomasis-failas.hl
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/haxe/haxe_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/haxe/haxe_readme.md "sys-upgrade")

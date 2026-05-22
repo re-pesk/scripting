@@ -26,6 +26,6 @@ dash kodo-failas.sh
 #! /usr/bin/env -S dash
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/dash/dash_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/dash/dash_readme.md "sys-upgrade")

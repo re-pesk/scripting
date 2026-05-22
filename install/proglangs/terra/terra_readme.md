@@ -54,6 +54,6 @@ brush kodo-failas.sh
 #!/usr/bin/env -S brush
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/terra/terra_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/terra/terra_readme.md "sys-upgrade")

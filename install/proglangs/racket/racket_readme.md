@@ -90,6 +90,6 @@ racket kodo-failas.rkt
 #!/usr/bin/env -S racket
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/racket/racket_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/racket/racket_readme.md "sys-upgrade")

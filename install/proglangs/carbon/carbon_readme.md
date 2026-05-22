@@ -46,6 +46,6 @@ carbon link --output=vykdomasis-failas.bin objektinis-failas.o
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/carbon/carbon_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/carbon/carbon_readme.md "sys-upgrade")

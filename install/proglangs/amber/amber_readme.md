@@ -90,6 +90,6 @@ amber build kodo-failas.ab
 bash kodo-failas.sh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [sys-upgrade <sup>&#x2B67;</sup>](./amber_sys-upgrade.ab "sys-upgrade")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/amber/amber_sys-upgrade.ab "sys-upgrade")

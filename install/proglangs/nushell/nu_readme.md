@@ -76,6 +76,6 @@ nu kodo-failas.nu
 #! /usr/bin/env -S nu
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/nushell/nu_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/nushell/nu_readme.md "sys-upgrade")

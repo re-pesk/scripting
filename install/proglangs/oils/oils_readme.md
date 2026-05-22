@@ -58,6 +58,6 @@ Pagal skripto dialektą:
 #!/usr/bin/env -S ysh
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/oils/oils_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/oils/oils_readme.md "sys-upgrade")

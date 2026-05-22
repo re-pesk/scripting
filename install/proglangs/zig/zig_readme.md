@@ -89,6 +89,6 @@ zig build-exe -O ReleaseSmall -static --name vykdomasis-failas.bin kodo-failas.z
 rm vykdomasis-failas.bin.o
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/zig/zig_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/zig/zig_readme.md "sys-upgrade")

@@ -79,6 +79,6 @@ arba
 ///usr/bin/env -S scala shebang "$0" "$@"; exit $?
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/scala/scala_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/scala/scala_readme.md "sys-upgrade")

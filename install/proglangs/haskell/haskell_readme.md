@@ -37,6 +37,6 @@ rm vykdomasis-failas.{hi,o}
 ./vykdomasis-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/haskell/haskell_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/haskell/haskell_readme.md "sys-upgrade")

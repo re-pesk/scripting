@@ -61,6 +61,6 @@ plutoc -o baitkodo-failas.bin kodo-failas.pluto
 pluto baitkodo-failas.bin
 ```
 
-## Skriptai
+## Scenarijai
 
-* [Skriptai <sup>&#x2B67;</sup>](../../../proglangs/pluto/pluto_readme.md "skriptai")
+* [sys-upgrade <sup>&#x2B67;</sup>](../../../scripts/sys-upgrade/pluto/pluto_readme.md "sys-upgrade")
