@@ -4,6 +4,8 @@
 
 * [curl <sup>&#x2B67;</sup>](./curl/curl.md)
   Komandinės eilutės įrankis ir biblioteka duomenims perduoti su URL
+* [glow <sup>&#x2B67;</sup>](./glow/glow_install.md)
+  Terminalams skirta markdown'o failų skaitymo programa
 * [hyperfine <sup>&#x2B67;</sup>](./hyperfine/hyperfine.md)
 * [yt-dlp <sup>&#x2B67;</sup>](./yt-dlp/yt-dlp.md)
 * [yq <sup>&#x2B67;</sup>](./yq/yq.md)
