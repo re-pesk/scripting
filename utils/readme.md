@@ -6,6 +6,8 @@
 
 * [alternative-to-no-sandbox](./alternative-to-no-sandbox/readme.md) - saugesnė alternativa --no-sandbox parametrui, leidžiant AppImage failus.
 
+* [app-launcher](./app-launcher/readme.md) - būdas instaliuoti programas į atskirus katalogus, neužteršiant sistemos PATH kintamojo ir išvengiant apribojimų, kuriant įprastines simbolines nuorodas PATH kintamajame nurodytuose aplankuose.
+
 * file-manager - failų tvarkyklių scenarijai
 
   * [Nautilaus scenarijai](./file-manager/nautilus-scripts/readme.lt.md)
