@@ -3,6 +3,7 @@
 # Įvairios naudingos programos
 
 * [curl <sup>&#x2B67;</sup>](./curl/curl.md)
+  Komandinės eilutės įrankis ir biblioteka duomenims perduoti su URL
 * [hyperfine <sup>&#x2B67;</sup>](./hyperfine/hyperfine.md)
 * [yt-dlp <sup>&#x2B67;</sup>](./yt-dlp/yt-dlp.md)
 * [yq <sup>&#x2B67;</sup>](./yq/yq.md)

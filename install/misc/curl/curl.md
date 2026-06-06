@@ -8,6 +8,10 @@ Command line tool and library for transferring data with URLs
 * Statinis binarinis vykdomasis failas [<sup>&#x2B67;</sup>](https://github.com/stunnel/static-curl)
 * Knyga *Everything curl* [<sup>&#x2B67;</sup>](https://everything.curl.dev/)
 
+## Parengimas
+
+Jeigu nėra įdiegta, įdiegiama [app-launcher](../../../utils/app-launcher/readme.md) ir wget.
+
 ## Diegimas
 
 ### Naujausios versijos diegimas iš repozitorijos
@@ -33,11 +37,12 @@ printf 'sha256 patikros sumos:\n  atsisiųsto failo: %s\n  iš repozitorijos: %s
 
 # Jeigu patikros sumos nesutampa, nutraukti diegimą ir ištrinti atsisiųstus failus
 
-rm -rf "${HOME}/.opt/curl"
-tar --file "curl-linux-x86_64-musl-${LATEST}.tar.xz" --transform 'flags=r;s/^(.+)$/curl\/\1/x' --show-transformed-names -xJvC "${HOME}/.opt"
-ln -sf "${HOME}/.opt/curl/curl" "${HOME}/.local/bin/"
-ln -sf "${HOME}/.opt/curl/trurl" "${HOME}/.local/bin/"
+rm -rf "${APPS_STORE}/curl"
+tar --file "curl-linux-x86_64-musl-${LATEST}.tar.xz" --transform 'flags=r;s/^(.+)$/curl\/\1/x' --show-transformed-names -xJvC "${APPS_STORE}"
 rm -rf "curl-linux-x86_64-musl-${LATEST}.tar.xz"
+
+config-link "${APPS_BIN}/app-launcher" "${APPS_BIN}" curl trurl
+config-insert "${HOME}/.app_paths.conf" "curl=${APPS_STORE}/curl" "trurl=${APPS_STORE}/curl"
 
 printf '\nVersijos:\n  Vėliausia: %s\n  Įdiegta:   %s\n\n' \
   "${LATEST}" "$( curl --version | head -n 1 | awk '{print $2}' )"
