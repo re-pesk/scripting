@@ -2,20 +2,22 @@
 
 # Klaidų ir sėkmės pranešimų medis
 typeset -A messages=(
-  [en_US.UTF-8.err]="Error! Script execution was terminated!"
-  [en_US.UTF-8.succ]="Successfully finished!"
-  [en_US.UTF-8.end]="End of execution."
-  [lt_LT.UTF-8.err]="Klaida! Scenarijaus vykdymas sustabdytas!"
-  [lt_LT.UTF-8.succ]="Komanda sėkmingai įvykdyta!"
-  [lt_LT.UTF-8.end]="Scenarijaus vykdymas baigtas."
+  [en_US.UTF-8]=(
+    [err]="Error! Script execution was terminated!"
+    [succ]="Successfully finished!"
+    [end]="End of execution."
+  )
+  [lt_LT.UTF-8]=(
+    [err]="Klaida! Scenarijaus vykdymas sustabdytas!"
+    [succ]="Komanda sėkmingai įvykdyta!"
+    [end]="Scenarijaus vykdymas baigtas."
+  )
 )
 
 # Išsaugomi pranešimai, atitinkantys aplinkos kalbą
-typeset -A langMessages=()
-for key in "${!messages[@]}"; do
-  [[ "${key}" == "${LANG}"* ]] || continue
-  langMessages["${key#"${LANG}".}"]="${messages[${key}]}"
-done
+lang="${LANG:-en_US.UTF-8}"
+[[ -z "${messages[$lang]}" ]] && lang="en_US.UTF-8"
+typeset -n langMessages="messages[$lang]"
 
 # Funkcija spalvotiems pranešimams išvesti
 printMessage() {
