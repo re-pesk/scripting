@@ -10,7 +10,7 @@ Naudota operacinė sistema – Ubuntu 24.04
 
 ## Diegimas
 
-Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../install/proglangs/readme.md "Diegimas")
+Programavimo kalbų ir vykdymo aplinkų [diegimas <sup>&#x2B67;</sup>](../../install/proglangs/readme.md "Diegimas")
 
 ## Tipinės apvalkalo scenarijų (Shell scripting) kalbos (7)
 
@@ -69,7 +69,7 @@ Apie programavimo kalbų ir vykdymo aplinkų [diegimą <sup>&#x2B67;</sup>](../i
 * [x] [Murex <sup>&#x2B67;</sup>](murex/murex_readme.md) (–)\
   (–) keista sintaksė
 * [x] [Ngs <sup>&#x2B67;</sup>](ngs/ngs_readme.md) (?)\
-  (–) keistai organizuotas darbas su klaidomis
+  (–) keistai organizuotas darbas su klaidomis\
   (?) ~~nebevystoma?~~ atnaujinta 2025-04-05
 * [x] [Nushell <sup>&#x2B67;</sup>](nushell/nu_readme.md) (?)\
   (+) dažniau minima, nei kitos alteratyvios apvalkalo scenarijų kalbos
@@ -101,23 +101,23 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
 
 ### JavaScript'as ir TypeScript'as (4)
 
-* [JavaScript'as <sup>&#x2B67;</sup>](js/js_readme.md) (+)
+* [JavaScript'as <sup>&#x2B67;</sup>](js/js_readme.md) (+)\
   (+) Daug informacijos internete
   * [x] Bun (+)
   * [x] Deno (±)
   * [x] Node (+)
-* [TypeScript'as <sup>&#x2B67;</sup>](ts/ts_readme.md) (±)
-  (+) Daug informacijos internete
-  (+) Sparčiai populiarėja
+* [TypeScript'as <sup>&#x2B67;</sup>](ts/ts_readme.md) (±)\
+  (+) Daug informacijos internete\
+  (+) Sparčiai populiarėja\
   (–) Paprastai vykdomas ne tiesiogiai, bet po vertimo į JS
-  * [x] Deno (+)
+  * [x] Deno (+)\
     (+) Vykdomas tiesiogiai, be vertimo į JS
 
 ### Kitos (26)
 
 * [x] [Aria <sup>&#x2B67;</sup>](aria/aria_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis: negalima išvesti pranešimų vykdymo metu\
-  (+) žada ištaisyti tai ateityje
+  (+) žada ištaisyti tai ateityje\
   (+) dažni leidimai
 * [x] [Dart <sup>&#x2B67;</sup>](dart/dart_readme.md) (–)\
   (–) nepatogus darbas su išorinėmis komandomis
@@ -159,7 +159,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
 * [x] [PHP <sup>&#x2B67;</sup>](php/php_readme.md) (±)\
   (+) daug informacijos internete\
   (+) kalba pakankamai universali, kad būtų taikoma ne tik web srityje\
-  (–) sintaksė vis dar orientuota į web skriptinimą („<?php“ failo pradžioje)
+  (–) sintaksė vis dar orientuota į web skriptinimą („\<?php“ failo pradžioje)
 * [x] [Pike <sup>&#x2B67;</sup>](pike/pike_readme.md) (+)\
   (+) C++ kalbos sintakse\
   (–) mažai naudojama
@@ -183,7 +183,7 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
     (–) mažai informacijos intenete
   * [x] [Racket <sup>&#x2B67;</sup>](racket/racket_readme.md) (±)\
     (?) Lisp'o sintaksė\
-    (+) daug informacijos internete\
+    (+) daug informacijos internete
 * [x] [S-Lang <sup>&#x2B67;</sup>](s-lang/slang_readme.md) (–)\
   (+) brandi kalba, naudojama jed redaktoriuje ir kitose aplikacijose\
   (–) kartais nepatogi sintaksė\
@@ -211,7 +211,8 @@ Lėtai pasileidžia arba reikalingas kompiliavimas. Reikalinga Java JRE arba JDK
   (–) pernelyg nauja, nedaug informacijos\
   (–) nelabai patogi dokumentacija
 * [x] [Crystal <sup>&#x2B67;</sup>](crystal/crystal_readme.md) (+)\
-  (+) kalba su Ruby sintakse, tačiau kompiliuojama, tad daugiau prasmės mokytis nei Ruby
+  (–) kalba su Ruby sintakse\
+  (+) kompiliuojama, tad daugiau prasmės mokytis nei Ruby
 * [x] [D <sup>&#x2B67;</sup>](d/d_readme.md) (+)\
   (+) išvystyta kalba\
   (–) sunkiai panaudojama be šiukšlių surinktuvo (Garbage Collector)
