@@ -61,7 +61,7 @@ runCmd() {
 runCmd apt-get update
 runCmd apt-get upgrade -y
 runCmd apt-get autoremove -y
-runCmd snap re
+runCmd snap refresh
 
 # Scenarijaus baigties pranešimas
 printMessage "end"
