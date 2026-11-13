@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env -S sh
+# shellcheck disable=2016
 
-# Import the core functions from split_strings.sh
+# Import the core functions from split-string.sh
 # Using POSIX dot command for sourcing
-. ./split_strings.sh
+. ../lib/split-string.sh
 
 # ==============================================================================
 # AUTOMATED TESTING ENGINE (POSIX COMPLIANT)
