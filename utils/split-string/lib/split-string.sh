@@ -2,10 +2,13 @@
 
 # Guard clause to ensure this file is ONLY used as a sourced library.
 # If executed directly, $0 will contain the script name, matching this guard.
-case "$0" in
-  (split_strings.sh|*/split_strings.sh)
-    printf 'Error: This file is a library and cannot be executed directly.\n' >&2
-    printf 'Please source it instead: . ./split_strings.sh\n' >&2
+script_name="${0##*/}"
+case "${script_name}" in
+  (split-string.sh)
+    case "${LANG%".UTF-8"}" in
+      (lt_LT) printf 'Klaida: Šis failas - tai biblioteka, tad negali būti vydomas tiesiogiai.\nĮterpkite jį kaip šaltinį: . %s\n' "${script_name}" >&2 ;;
+      (*)     printf 'Error: This file is a library and cannot be executed directly.\nPlease source it instead: . %s\n' "${script_name}" >&2 ;;
+    esac
     exit 1
     ;;
 esac
