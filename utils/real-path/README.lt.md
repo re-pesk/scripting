@@ -1,10 +1,11 @@
 [\[&nbsp;&uarr;&nbsp;\]](./README.md "Eiti link pradinio puslapio")
 
+*Diegimo vadovas: [lietuviškas](install.lt.md), [angliškas](install.en.md).*
 <!-- &#x2BA2; -->
 
 # real-path
 
-*Skaityti kitomis kalbomis: [English](README.md)*
+*Skaityti kitomis kalbomis: [angliškai](README.md).*
 
 Gryna POSIX `sh` biblioteka, skirta patikimam ir greitam fizinių failų bei katalogų kelių išrišimui. Biblioteka automatiškai seka simbolinių nuorodų grandines, ieško failų per `$PATH` bei `$APPS_LIB` ir dinamiškai prisitaiko prie sistemoje esančių įrankių (`realpath`, `readlink` arba `ls -ld`).
 
@@ -32,34 +33,17 @@ real-path/
 └── README.en.md            # Angliškas aprašymas
 ```
 
-## Diegimas ir įkėlimas
+## Diegimas
 
 Prieš diegdami įsitikinkite, kad aplinkos kintamasis `$APPS_LIB` yra nustatytas ir nurodo į egzistuojantį jūsų bibliotekų katalogą.
 
-### Rankinis diegimas
+*Diegimo vadovą rasite [install.lt.md](install.lt.md).*
 
-*Jei biblioteką norite įdiegti rankiniu būdu be scenarijaus, skaitykite [install.lt.md](install.lt.md).*
-
-### Automatinis diegimas (`install.sh`)
-
-Naudokite pridėtą `install.sh` scenarijų simbolinei nuorodai į `lib/real-path.sh` sukurti arba pašalinti `$APPS_LIB` kataloge:
-
-```sh
-  chmod +x install.sh
-  ./install.sh
-```
-
-#### Galimos vėliavėlės
-
-* **`--install`**, **`-install`**, **`-i`** – Sukuria arba atnaujina simbolinę nuorodą `$APPS_LIB` kataloge (numatytasis veiksmas nenurodžius jokių argumentų).
-* **`--uninstall`**, **`-uninstall`**, **`-u`** – Saugiai pašalina simbolinę nuorodą iš `$APPS_LIB` katalogo.
-* **`--help`**, **`-help`**, **`-h`** – Išveda naudojimo instrukciją.
-
-### Įkėlimas į scenarijus
+## Įkėlimas į scenarijus
 
 Biblioteka skirta tik įterpimui (angl. *sourcing*) į kitus scenarijus per `.` komandą.
 
-#### 1. Bazinis režimas (tik vieno failo funkcijos)
+### 1. Bazinis režimas (tik vieno failo funkcijos)
 
 Įkelia tik `get_real_path` ir `get_real_dir`:
 
@@ -67,7 +51,7 @@ Biblioteka skirta tik įterpimui (angl. *sourcing*) į kitus scenarijus per `.` 
   . "${APPS_LIB}/real-path.sh"
 ```
 
-#### 2. Pilnas režimas (visos funkcijos)
+### 2. Pilnas režimas (visos funkcijos)
 
 Papildomai įkelia masinio apdorojimo funkcijas iš `real-path-list.sh`:
 

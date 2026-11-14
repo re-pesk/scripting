@@ -1,8 +1,10 @@
 [\[&nbsp;&uarr;&nbsp;\]](./README.md "Go toward the start page")
 
+*Installation guide: [English](install.en.md), [Lithuanian](install.lt.md).*
+
 # real-path
 
-*Read this in other languages: [Lietuvių](README.lt.md)*
+*Read this in other languages: [Lithuanian](README.lt.md).*
 
 A pure POSIX `sh` library for reliable and fast resolution of physical file and directory paths. The library automatically follows symbolic link chains, searches for files through `$PATH` and `$APPS_LIB`, and dynamically adapts to available system tools (`realpath`, `readlink`, or `ls -ld`).
 
@@ -30,34 +32,17 @@ real-path/
 └── README.en.md            # Description in English
 ```
 
-## Installation and Loading
+## Installation
 
 Ensure that the `$APPS_LIB` environment variable is set and points to an existing library directory on your system.
 
-### Manual installation
+*For the installation guide, see [install.en.md](install.en.md).*
 
-*For manual setup without using the script, see [install.en.md](install.en.md).*
-
-### Automated Installation (`install.sh`)
-
-Use the included `install.sh` script to create or remove a symbolic link to `lib/real-path.sh` inside your `$APPS_LIB` directory:
-
-```sh
-  chmod +x install.sh
-  ./install.sh
-```
-
-#### Available Flags
-
-* **`--install`**, **`-install`**, **`-i`** – Creates or updates the symbolic link in `$APPS_LIB` (default action if no flags are provided).
-* **`--uninstall`**, **`-uninstall`**, **`-u`** – Safely removes the symbolic link from `$APPS_LIB`.
-* **`--help`**, **`-help`**, **`-h`** – Displays usage instructions.
-
-### Loading into Scripts
+## Loading into Scripts
 
 This library is designed strictly to be sourced into other scripts using the `.` command.
 
-#### 1. Base Mode (Single-file functions only)
+### 1. Base Mode (Single-file functions only)
 
 Loads only `get_real_path` and `get_real_dir`:
 
@@ -65,7 +50,7 @@ Loads only `get_real_path` and `get_real_dir`:
   . "\${APPS_LIB}/real-path.sh"
 ```
 
-#### 2. Full Mode (All functions)
+### 2. Full Mode (All functions)
 
 Additionally loads batch processing functions from `real-path-list.sh`:
 
@@ -153,22 +138,22 @@ Directly resolves multiple directory paths at once and returns them separated by
 ### Safely Iterating Over an `RS`-Separated List
 
 ```sh
-remaining="$(get_real_path_list "a.txt" "b.txt")"
-has_more=1
-
-while [ "${has_more}" -eq 1 ]; do
-  case "${remaining}" in
-    ( *"${RS}"* )
-      path="${remaining%%"${RS}"*}"
-      remaining="${remaining#*"${RS}"}"
-      ;;
-    ( * )
-      path="${remaining}"
-      has_more=0
-      ;;
-  esac
-  echo "Resolved path: '${path}'"
-done
+  remaining="$(get_real_path_list "a.txt" "b.txt")"
+  has_more=1
+  
+  while [ "${has_more}" -eq 1 ]; do
+    case "${remaining}" in
+      ( *"${RS}"* )
+        path="${remaining%%"${RS}"*}"
+        remaining="${remaining#*"${RS}"}"
+        ;;
+      ( * )
+        path="${remaining}"
+        has_more=0
+        ;;
+    esac
+    echo "Resolved path: '${path}'"
+  done
 ```
 
 ## Testing
