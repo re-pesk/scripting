@@ -1,10 +1,10 @@
-[\[&nbsp;&uarr;&nbsp;\]](./README.md "Eiti link pradinio puslapio")
+[\[&nbsp;&uarr;&nbsp;\]](./readme.md "Eiti link pradinio puslapio")
 
-*Skaityti aprašymą: [lietuviškai](./README.lt.md), [angliškai](./README.en.md).*
+*[Angliškai](./install.en.md)*
+
+*Skaityti aprašymą: [lietuviškai](./readme.lt.md), [angliškai](./readme.en.md).*
 
 # `real-path` diegimas
-
-*Skaityti kitomis kalbomis: [angliškai](./install.en.md).*
 
 Šiame dokumente aprašoma, kaip įdiegti ir sukonfigūruoti `real-path` biblioteką.
 

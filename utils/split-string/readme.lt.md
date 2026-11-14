@@ -1,6 +1,8 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.lt.md "Eiti link pradinio puslapio")
 
-# Pagalbinės funkcijos split_strings.sh
+*[Angliškai](readme.en.md)*
+
+# Pagalbinės funkcijos `split-string.sh`
 
 ## split_string
 
@@ -8,14 +10,16 @@ Suskaido tekstą pagal duotą skirtuką ir gražina jo dalis, sujungtas join_wit
 
 Argumentai:
 
-(-d=\*|-delim=\*|--delim=\*)
+```text
+(-d=*|-delim=*|--delim=*)
 : simbolių eilutė, pagal kurią skaidomas tekstas
 
-(-j=\*|-join_with=\*|--join_with=\*)
+(-j=*|-join_with=*|--join_with=*)
 : simbolių eilutė, kuria sujungiamos teksto dalys (numatytoji reikšmė - "")
 
-Pozicinis argumentas
+pozicinis argumentas
 : tekstas, kurį reikia apdoroti
+```
 
 ## normalize_indexes
 
@@ -23,14 +27,16 @@ Suskaido kableliais atskirtų indeksų rinkinį. Neigiami indeksai, rodantys, ki
 
 Argumentai:
 
-(-m=\*|-max=\*|--max=\*)
+```text
+(-m=*|-max=*|--max=*)
 : didžiausia galima indekso reikšmė.
 
-(-j=\*|-join_with=\*|--join_with=\*)
+(-j=*|-join_with=*|--join_with=*)
 : grąžinamos indeksų eilutės skirtukas (numatytasis - " ")
 
-Pozicinis argumentas
+pozicinis argumentas
 : kableliais atskirtų indeksų eilutė, kurią reikia apdoroti
+```
 
 ## filter_text
 
@@ -38,17 +44,19 @@ Suskaido tekstą pagal duotą skirtuką, išrenka dalis su nurodytais indeksais 
 
 Argumentai:
 
-(-d=\*|-delim=\*|--delim=\*)
+```text
+(-d=*|-delim=*|--delim=*)
 : simbolių eilutė, pagal kurią dalinamas tekstas; jeigu ji tuščia, tekstas dalinamas po vieną simbolį
 
-(-i=\*|-incl=\*|--incl=\*)
+(-i=*|-incl=*|--incl=*)
 : teksto dalių, kurias reikia gražinti, indeksai, atskirti kableliais
 
-(-e=\*|-excl=\*|--excl=\*)
+(-e=*|-excl=*|--excl=*)
 : teksto dalių, kurias reikia praleisti, indeksai, atskirti kableliais
 
-(-j=\*|-join_with=\*|--join_with=\*)
+(-j=*|-join_with=*|--join_with=*)
 : simbolių eilutė, kuria sujungiamos teksto dalys (numatytoji reikšmė - "")
 
-Pozicinis argumentas
+pozicinis argumentas
 : tekstas, kurį reikia apdoroti
+```

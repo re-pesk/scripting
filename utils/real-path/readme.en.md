@@ -1,10 +1,10 @@
-[\[&nbsp;&uarr;&nbsp;\]](./README.md "Go toward the start page")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.en.md "Go toward the start page")
+
+*[Lithuanian](readme.lt.md).*
 
 *Installation guide: [English](install.en.md), [Lithuanian](install.lt.md).*
 
 # real-path
-
-*Read this in other languages: [Lithuanian](README.lt.md).*
 
 A pure POSIX `sh` library for reliable and fast resolution of physical file and directory paths. The library automatically follows symbolic link chains, searches for files through `$PATH` and `$APPS_LIB`, and dynamically adapts to available system tools (`realpath`, `readlink`, or `ls -ld`).
 

@@ -1,4 +1,6 @@
-[&#x2BA2;](../../readme.md)
+[\[&nbsp;&uarr;&nbsp;\]](../../readme.lt.md "Eiti link pradinio puslapio")
+
+*[Angliškai](readme.en.md)*
 
 # Nautilaus scenarijai
 

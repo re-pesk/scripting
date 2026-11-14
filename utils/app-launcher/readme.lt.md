@@ -1,4 +1,6 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.lt.md "Eiti link pradinio puslapio")
+
+*[Angliškai](readme.en.md)*
 
 # app-launcher
 
@@ -83,7 +85,7 @@ bal --version
 # Įdiekite hyperfine į ${APPS_STORE}/hyperfine ir įvykdykite komandas
 config-link "${APPS_BIN}/app-launcher" "${APPS_BIN}" hyperfine
 config-insert "${HOME}/.app_paths.conf" "hyperfine=${APPS_STORE}/hyperfine/bin"
-hypefine --version
+hyperfine --version
 
 app-docs hyperfine
 app-man hyperfine

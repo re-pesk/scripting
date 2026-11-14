@@ -1,11 +1,12 @@
-[\[&nbsp;&uarr;&nbsp;\]](./README.md "Eiti link pradinio puslapio")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.lt.md "Eiti link pradinio puslapio")
+
+*[Angliškai](readme.en.md)*
 
 *Diegimo vadovas: [lietuviškas](install.lt.md), [angliškas](install.en.md).*
+
 <!-- &#x2BA2; -->
 
 # real-path
-
-*Skaityti kitomis kalbomis: [angliškai](README.md).*
 
 Gryna POSIX `sh` biblioteka, skirta patikimam ir greitam fizinių failų bei katalogų kelių išrišimui. Biblioteka automatiškai seka simbolinių nuorodų grandines, ieško failų per `$PATH` bei `$APPS_LIB` ir dinamiškai prisitaiko prie sistemoje esančių įrankių (`realpath`, `readlink` arba `ls -ld`).
 

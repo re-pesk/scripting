@@ -1,10 +1,10 @@
-[\[&nbsp;&uarr;&nbsp;\]](./README.md "Go toward the start page")
+[\[&nbsp;&uarr;&nbsp;\]](./readme.md "Go toward the start page")
 
-*Read description: [English](./README.en.md),  [Lithuanian](./README.lt.md).*
+*[Lithuanian](install.lt.md)*
+
+*Read description: [English](./readme.en.md),  [Lithuanian](./readme.lt.md).*
 
 # Installation of `real-path`
-
-*Read this in other languages: [Lithuanian](install.lt.md).*
 
 This document describes how to install and configure the `real-path` library.
 

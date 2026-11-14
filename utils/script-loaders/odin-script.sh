@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env -S bash
 
-last="${@: -1}"
+last="${*: -1}"
 out="${last%.*}.bin"
 
-/usr/bin/env -S odin run ${last} -file -out:${out} -- ${@:1:$(($#-1))}
+# shellcheck disable=2068
+/usr/bin/env -S odin run "${last}" -file -out:"${out}" -- ${@:1:$(($#-1))}

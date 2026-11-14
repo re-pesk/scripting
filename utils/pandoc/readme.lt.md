@@ -1,4 +1,6 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.lt.md "Eiti link pradinio puslapio")
+
+*[Angliškai](readme.en.md)*
 
 # Pandoc konverterio naudojimas
 
@@ -16,7 +18,7 @@ Pavyzdys:
 ./pandoc-bun.mjs --opt=markdown/asciidoc readme
 ```
 
-Įvedimo išvedimo formatai
+Įvedimo ir išvedimo formatai
 
 | Pavadinimas | Failo plėtinys | Numatytieji plėtiniai |
 | -- | -- | :--: |

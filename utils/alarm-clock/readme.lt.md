@@ -1,4 +1,6 @@
-[Grįžti &#x2BA2;](../readme.md "Grįžti")
+[\[&nbsp;&uarr;&nbsp;\]](../readme.lt.md "Eiti link pradinio puslapio")
+
+*[Angliškai](readme.en.md)*
 
 # Priminimo scenarijai
 
@@ -10,4 +12,4 @@ Priminimo scenarijai: paleidus iš komandinės eilutės, programa veikia „pogr
 
 ## Diegimas
 
-Įkelti į pasirinktą paaplankį ${HOME} aplanke, ir po to sukurti nuorodas į juos ${HOME}/.local/bin/ aplanke, arba kopijuoti tiesiai į ${HOME}/.local/bin/ aplanką.
+Įkelti į pasirinktą poaplankį ${HOME} aplanke, ir po to sukurti nuorodas į juos ${HOME}/.local/bin/ aplanke, arba kopijuoti tiesiai į ${HOME}/.local/bin/ aplanką.
